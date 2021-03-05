@@ -24,7 +24,7 @@ eq3_size = "Equipment number 3 size"
 eq3_point = "Equipment number 3 location"
 
 
-#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
+custom_parameters = [point_A,point_B,pipe_dia,eq1_size,eq1_point,eq2_size,eq2_point,eq3_size,eq3_point] 
 
 resultQuery = False
 
@@ -40,7 +40,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def do_GET(s):
 
-		global point_A, point_B, pipe_dia, eq1_size, eq2_size, eq3_size
+		global point_A,point_B,pipe_dia,eq1_size,eq1_point,eq2_size,eq2_point,eq3_size,eq3_point
 
 		"""Respond to a GET request."""
 		s.send_response(200)
@@ -60,7 +60,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.end_headers()
 			s.wfile.write(bytes("<!DOCTYPE html><html><head>", 'utf-8'))
 			s.wfile.write(bytes("<title>Piping system optimization</title>", 'utf-8'))
-			s.wfile.write(bytes("</head><body style="'background-color:#DCFBCC;'">", 'utf-8'))
+			s.wfile.write(bytes("</head><body style="'background-color:#26b6d9;'">", 'utf-8'))
 			s.wfile.write(bytes("<h1>System parameters</h1>", 'utf-8'))
 			s.wfile.write(bytes("<p>Welcome to our optimization tool, please write in your system constrains</p>", 'utf-8'))
 
@@ -107,7 +107,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('</body></html>', 'utf-8'))
 
 		elif path.find("/yourParameters") != -1:
-			s.wfile.write(bytes('<html><body style="background-color:#DCFBCC;"><h3>Piping system</h3>', 'utf-8'))
+			s.wfile.write(bytes('<html><body style="background-color:#FFD07E;"><h3>Piping system</h3>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourParameters" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
@@ -153,10 +153,21 @@ class MyHandler(BaseHTTPRequestHandler):
 			param_line = post_body.decode()
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
+
+class makeSystem: 
+
+    def __init__(self):
+
+    #Cylinder(x, y, z, diameter, height, direction, color, material)
+    #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
+    def run_model(self):
+        return -1
+        
 	
 
  
 if __name__ == '__main__':
+
 	server_class = HTTPServer
 	httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
 	
