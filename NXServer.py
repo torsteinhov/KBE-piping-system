@@ -122,8 +122,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('"</body></html>', "utf-8"))
 			
 	def do_POST(s):
-		#allowing us to eddit the custom parameters
-		global custom_parameters, resultQuery
+		#allowing us to edit the custom parameters
+		global custom_parameters
 
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -131,7 +131,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		
 		# Check what is the path
 		path = s.path
-		if path.find("/yourOrder") != -1:
+		if path.find("/yourParameters") != -1:
 			content_len = int(s.headers.get('Content-Length'))
 			post_body = s.rfile.read(content_len)
 			param_line = post_body.decode()
@@ -159,6 +159,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
+#IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
 class makeSystem: 
 
     def __init__(self):
