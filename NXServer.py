@@ -4,11 +4,14 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import requests
 import json
+import math
+import random
+
+'''
 from shapes.Cylinder import Cylinder
 from shapes.Sphere import Sphere
 from shapes.Cone import Cone
-import math
-import random
+'''
 
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234
@@ -166,8 +169,10 @@ class makeSystem:
 
     #Cylinder(x, y, z, diameter, height, direction, color, material)
     #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
-    def run_model(self):
-        return -1
+        '''
+        def run_model(self):
+            return -1
+        '''
         
 	
 
