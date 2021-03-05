@@ -13,19 +13,16 @@ Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Desi
 yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
-leg_length1 = "leg length"
-leg_side1 = "leg width"
-seat_side1 = "seat width"
-back_height1 = "back height"
-back_shape1 = "back shape"
-chair_color = "chair color"
-back_shape_material1 = "back shape material"
-chair_material1 = "chair material"
-number_chair1 = "number of chairs"
-fname1 = "first name"
-lname1 = "last name"
-email1 = "e-mail"
-pnumber1 = "phone number"
+point_A = "starting point"
+point_B = "end point"
+pipe_dia = "pipe diameter"
+eq1_size = "Equipment number 1 size"
+eq1_point = "Equipment number 1 location"
+eq2_size = "Equipment number 2 size"
+eq2_point = "Equipment number 2 location"
+eq3_size = "Equipment number 3 size"
+eq3_point = "Equipment number 3 location"
+
 
 #custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
 
@@ -43,7 +40,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def do_GET(s):
 
-		#global #variables
+		global point_A, point_B, pipe_dia, eq1_size, eq2_size, eq3_size
 
 		"""Respond to a GET request."""
 		s.send_response(200)
@@ -69,80 +66,50 @@ class MyHandler(BaseHTTPRequestHandler):
 
 			s.wfile.write(bytes("<form action='/orderDesign' method='post'>", 'utf-8'))
 			
-			#starting with the inputs
-			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + str(leg_length1) +"><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='leg_side'>Width of the legs [cm]: <br>(note that the legs is quadratic)</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_side' name='leg_side' value=" + leg_side1 + "><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='seat_side'>Width of the seat [cm]:<br>(note that the seat is quadratic)</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='seat_side' name='seat_side' value=" + seat_side1 + "><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='back_height'>Height  of the back [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='back_height' name='back_height' value=" + back_height1+ "><br><br>", 'utf-8'))
+			#starting point
+			s.wfile.write(bytes("<label for='point_A'>Starting point [x,y,z]: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='point_A' name='point_A' value=" + str(point_A) +"><br><br>", 'utf-8'))
+            #end point
+			s.wfile.write(bytes("<label for='point_B'>End point [x,y,z]: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='point_B' name='point_B' value=" + str(point_B) + "><br><br><br>", 'utf-8'))
+            #eq1_size
+			s.wfile.write(bytes("<h3>Equipment 1</h3><label for='eq1_size'>Equipment number 1 [mm] (cubloid): </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq1_size' name='eq1_size' value=" + str(eq1_size) + "><br><br>", 'utf-8'))
+            #eq1_point
+			s.wfile.write(bytes("<label for='eq1_point'>Equipment number 1 [x,y,z] location: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq1_point' name='eq1_point' value=" + str(eq1_point) + "><br><br><br>", 'utf-8'))
+            #eq2_size
+			s.wfile.write(bytes("<h3>Equipment 2</h3><label for='eq2_size'>Equipment number 2 [mm] (cubloid): </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq2_size' name='eq2_size' value=" + str(eq2_size) + "><br><br>", 'utf-8'))
+            #eq2_point
+			s.wfile.write(bytes("<label for='eq2_point'>Equipment number 2 [x,y,z] location: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq2_point' name='eq2_point' value=" + str(eq2_point) + "><br><br><br>", 'utf-8'))
+            #eq3_size
+			s.wfile.write(bytes("<h3>Equipment 3</h3><label for='eq3_size'>Equipment number 3 [mm] (cubloid): </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq3_size' name='eq3_size' value=" + str(eq3_size) + "><br><br>", 'utf-8'))
+            #eq3_point
+			s.wfile.write(bytes("<label for='eq3_point'>Equipment number 3 [x,y,z] location: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='eq3_point' name='eq3_point' value=" + str(eq3_point) + "><br><br><br>", 'utf-8'))
 			
-			#starting with the option boxes
-			s.wfile.write(bytes("<label for='back_shape'> Choose the shape in the back: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='back_shape' name='back_shape'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='circle'>Circles</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='square'>Square</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='cross'>Cross</option>", 'utf-8'))  
+			#pipe diameter option boxes
+			s.wfile.write(bytes("<label for='pipe_dia'> Pipe diameter [inches]: </label>", 'utf-8'))
+			s.wfile.write(bytes("<select id='pipe_dia' name='pipe_dia'>", 'utf-8'))
+			s.wfile.write(bytes("<option value='2'>2''</option>", 'utf-8'))  
+			s.wfile.write(bytes("<option value='4'>4''</option>", 'utf-8'))  
+			s.wfile.write(bytes("<option value='6'>6''</option>", 'utf-8'))  
 			s.wfile.write(bytes("</select> <br><br>", 'utf-8'))  
 
-			s.wfile.write(bytes("<label for='chair_color'> The color for the chair: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='chair_color' name='chair_color'>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BLUE'>Blue</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='YELLOW'>Yellow</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='WHITE'>White</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BLACK'>Black</option>", 'utf-8'))  
-			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='back_shape_material'> The material for the shape: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='back_shape_material' name='back_shape_material'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Wood'>Wood</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Plastic'>Plastic</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Oak'>Oak</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Steel'>Steel</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Aluminum'>Aluminum</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Gold'>Gold</option>", 'utf-8'))
-			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='chair_material'> The material for the chair: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='chair_material' name='chair_material'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Wood'>Wood</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Plastic'>Plastic</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Oak'>Oak</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Steel'>Steel</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Aluminum'>Aluminum</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Gold'>Gold</option>", 'utf-8'))
-			s.wfile.write(bytes("</select><br><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='number_chair'>Number of chairs to order: </label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='number_chair' name='number_chair' value=" + number_chair1 + "><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<fieldset><legend>Personalia:</legend>", 'utf-8'))
-			s.wfile.write(bytes("<label for='fname'>First name:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='fname' name=fname' value="+fname1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='lname'>Last name:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='lname' name='lname' value="+lname1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='email'>E-mail:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='email' name='email' value="+email1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='pnumber'>Phone number:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='pnumber' name='pnumber' value="+pnumber1+"><br><br>", 'utf-8'))
-
 			s.wfile.write(bytes("</fieldset><br>", 'utf-8'))
-			s.wfile.write(bytes("<p>Click 'Submit' to put your chair in the shopping cart:", 'utf-8'))
+			s.wfile.write(bytes("<p>Click 'Submit' to design an optimized piping system", 'utf-8'))
 			s.wfile.write(bytes("<input type='submit' value='Submit'></p>", 'utf-8'))
-			s.wfile.write(bytes("<p>Click 'Save' to save your design for later:", 'utf-8'))
-			s.wfile.write(bytes("<input type='submit' value='Save'>", 'utf-8'))
 			s.wfile.write(bytes("</p>", 'utf-8'))
 			s.wfile.write(bytes('</form>', 'utf-8'))
 			s.wfile.write(bytes('</body></html>', 'utf-8'))
+
 		elif path.find("/yourParameters") != -1:
-			s.wfile.write(bytes('<html><body style="background-color:#DCFBCC;"><h2>Chair</h2>', 'utf-8'))
+			s.wfile.write(bytes('<html><body style="background-color:#DCFBCC;"><h3>Piping system</h3>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourParameters" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
-			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 		elif path.find("/info") != -1:
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title><meta http-equiv="refresh" content="3"></head>', 'utf-8'))
