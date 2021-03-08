@@ -45,6 +45,7 @@ class Block:
     def initForNX(self):
         theSession = NXOpen.Session.GetSession()
         workPart = theSession.Parts.Work
+        displayPart = theSession.Parts.Display
 
         #   The block
         blockfeaturebuilder1 = workPart.Features.CreateBlockFeatureBuilder(NXOpen.Features.Block.Null)
@@ -53,6 +54,8 @@ class Block:
         origBlock = NXOpen.Point3d(float(self.x), float(self.y), float(self.z))
         blockfeaturebuilder1.SetOriginAndLengths(origBlock, str(self.length), str(self.width), str(self.height))
         blockfeaturebuilder1.BooleanOption.Type = NXOpen.GeometricUtilities.BooleanOperation.BooleanType.Create
+
+        workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges
 
         self.body = blockfeaturebuilder1.Commit().GetBodies()[0]
         blockfeaturebuilder1.Destroy()
