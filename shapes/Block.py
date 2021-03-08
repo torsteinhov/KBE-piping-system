@@ -45,7 +45,7 @@ class Block:
     def initForNX(self):
         theSession = NXOpen.Session.GetSession()
         workPart = theSession.Parts.Work
-        displayPart = theSession.Parts.Display
+        displayPart = theSession.Parts.Display #for see through the block
 
         #   The block
         blockfeaturebuilder1 = workPart.Features.CreateBlockFeatureBuilder(NXOpen.Features.Block.Null)
@@ -55,7 +55,7 @@ class Block:
         blockfeaturebuilder1.SetOriginAndLengths(origBlock, str(self.length), str(self.width), str(self.height))
         blockfeaturebuilder1.BooleanOption.Type = NXOpen.GeometricUtilities.BooleanOperation.BooleanType.Create
 
-        workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges
+        workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges # applying the see through
 
         self.body = blockfeaturebuilder1.Commit().GetBodies()[0]
         blockfeaturebuilder1.Destroy()
