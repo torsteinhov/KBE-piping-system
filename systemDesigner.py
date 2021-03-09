@@ -4,7 +4,7 @@ from shapes.Cone import Cone
 from shapes.Block import Block
 import math
 import random
-import NXOpen.PartCollection
+#import NXOpen.PartCollection
 
 class pipeSystem: 
 
@@ -25,8 +25,8 @@ class pipeSystem:
         eq3 = Block(0,300,100,self.eq3_size,self.eq3_size,self.eq3_size,"YELLOW","Steel")
         eq3.initForNX()
         #https://docs.plm.automation.siemens.com/data_services/resources/nx/10/nx_api/en_US/custom/nxopen_python_ref/NXOpen.CurveCollection.html#NXOpen.CurveCollection.CreateLine
-        line1 = CreateLine((0,0,0),(100,0,0))
-        line1.initForNX()
+        #line1 = CreateLine((0,0,0),(100,0,0))
+        #line1.initForNX()
 
 processSystem = pipeSystem(200, 100, 300)
 processSystem.run_model()

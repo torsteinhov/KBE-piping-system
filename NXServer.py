@@ -70,15 +70,15 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<title>Piping system optimization</title>", 'utf-8'))
 			s.wfile.write(bytes("</head><body style="'background-color:#26b6d9;'">", 'utf-8'))
 			s.wfile.write(bytes("<h1>System parameters</h1>", 'utf-8'))
-			s.wfile.write(bytes("<p>Welcome to our optimization tool, please write in your system constrains</p>", 'utf-8'))
+			s.wfile.write(bytes("<p>Welcome to our optimization tool, please write in your system constrains, all values are in millimeters [mm]</p>", 'utf-8'))
 
 			s.wfile.write(bytes("<form action='/orderDesign' method='post'>", 'utf-8'))
 			
 			#starting point
-			s.wfile.write(bytes("<label for='point_A'>Starting point [x,y,z]: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<label for='point_A'>Starting point for the pipe [x,y,z] (drop the brackets, separate with comma): </label><br>", 'utf-8'))
 			s.wfile.write(bytes("<input type='text' id='point_A' name='point_A' value=" + str(point_A) +"><br><br>", 'utf-8'))
             #end point
-			s.wfile.write(bytes("<label for='point_B'>End point [x,y,z]: </label><br>", 'utf-8'))
+			s.wfile.write(bytes("<label for='point_B'>End point for the pipe [x,y,z] (drop the brackets, separate with comma): </label><br>", 'utf-8'))
 			s.wfile.write(bytes("<input type='text' id='point_B' name='point_B' value=" + str(point_B) + "><br><br><br>", 'utf-8'))
             #eq1_size
 			s.wfile.write(bytes("<h3>Equipment 1</h3><label for='eq1_size'>Equipment number 1 [mm] (cubloid): </label><br>", 'utf-8'))
