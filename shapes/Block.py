@@ -45,7 +45,8 @@ class Block:
     def initForNX(self):
         theSession = NXOpen.Session.GetSession()
         workPart = theSession.Parts.Work
-        displayPart = theSession.Parts.Display #for see through the block
+        
+        
 
         #   The block
         blockfeaturebuilder1 = workPart.Features.CreateBlockFeatureBuilder(NXOpen.Features.Block.Null)
@@ -55,7 +56,31 @@ class Block:
         blockfeaturebuilder1.SetOriginAndLengths(origBlock, str(self.length), str(self.width), str(self.height))
         blockfeaturebuilder1.BooleanOption.Type = NXOpen.GeometricUtilities.BooleanOperation.BooleanType.Create
 
-        workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges # applying the see through
+        """
+        # this eddits all of the blocks in the view!
+        if self.material.find("SeeThrough") != -1:
+            displayPart = theSession.Parts.Display #for see through the block
+            workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges # applying the see through
+        """
+        if self.material.find("SeeThrough") != -1:
+            displayPart = theSession.Parts.Display
+            #markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Object Display")
+            #nErrs1 = theSession.UpdateManager.DoUpdate(markId4)
+    
+            displayModification1 = theSession.DisplayManager.NewDisplayModification()
+            
+            displayModification1.ApplyToAllFaces = True
+            
+            displayModification1.ApplyToOwningParts = False
+            
+            displayModification1.NewTranslucency = 95
+            
+            objects1 = [NXOpen.DisplayableObject.Null] * 1 
+            self.workPart.Bodies.FindObject()
+            #objects1[0] = body1
+            self.displayModification1.Apply()
+            
+            displayModification1.Dispose()
 
         self.body = blockfeaturebuilder1.Commit().GetBodies()[0]
         blockfeaturebuilder1.Destroy()
