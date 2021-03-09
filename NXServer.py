@@ -17,7 +17,7 @@ HOST_NAME = '127.0.0.1'
 PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
+Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\\\KBE-piping-system\\" #location
 yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
