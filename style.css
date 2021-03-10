@@ -197,12 +197,53 @@ footer a:link, footer a:visited {
 	*/
 @import 'global.css';
 @charset "UTF-8";
-body {background-color: powderblue;}
+/*body {}*/
+body { 
+	font: 75% georgia, sans-serif;
+	line-height: 1.88889;
+	background-color: rgb(183, 217, 221);
+	margin: 10; 
+	padding: 10;
+	}
 
-h3   {color: blue;}
+h3   {color: black;}
 p    {color: red;}
 p {
 	border: 2px solid powderblue;
 	padding: 30px;
   }
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table {
+	table-layout: fixed;
+	width: 60%;
+	border-collapse: collapse;
+	border: 3px solid rgb(170, 165, 170);
+  }
   
+  thead th:nth-child(1) {
+	width: 20%;
+  }
+  
+thead th:nth-child(2) {
+	width: 7%;
+  }
+  
+thead th:nth-child(3) {
+	width: 15%;
+  }
+  
+  thead th:nth-child(4) {
+	width: 5%;
+  }
+  
+th, td {
+	padding: 20px;
+  }
