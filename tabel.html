@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hei på deg!</title>
+    
+    <link rel="stylesheet"  href="style.css"/>
+        
+</head>
+<body>
+
+
+
+<form action="/action_page.php">
+
+
+<table>
+<h3>Define environment and pipe </h3>
+<tr>
+  	<th><label for="envSize">Enviroment side [mm]:</label></th>
+    <th><label for="startPointA">Starting point, A:</label></th>
+    <th><label for="endPointB">End point, B:</label></th>
+    <th><label for="pipSize">Pipe size [inches]:</label></th>
+</tr>
+
+<tr>
+    <td><input type="text" id="envSize" name="envSize" value="400"></td>
+    <td><input type="text" id="startA" name="startA" value="x,y,z"></td>
+    <td><input type="text" id="endB" name="endB" value="x,y,z"></td>
+    <td>
+    	<select id='pipe_dia' name='pipe_dia'>
+		<option value='2'>2''</option>
+		<option value='4'>4''</option>
+		<option value='6'>6''</option>
+		</select> </td>
+</tr>
+</table>
+
+<h3>Define equipment</h3>
+<table style="width:70%">
+  <tr>
+    <th>Equipment number:</th>
+    <th>Cuboid side [mm]</th> 
+    <th>Location in enviroment</th>
+    <th>Input pose relative to eq:</th>
+    <th>Output pose relative to eq:</th>
+  </tr>
+  <tr>
+    <td><label for="eq1">eq1:</label><br></td>
+    <td><input type="text" id="eq1_side" name="eq1_side" value="300"></td>
+    <td><input type="text" id="eq1_pos" name="eq1_pos" value="x,y,z"></td>
+    <td><input type="text" id="eq1_in" name="eq1_in" value="x,y,z"></td>
+    <td><input type="text" id="eq1_out" name="eq1_out" value="x,y,z"></td>
+  </tr>
+  <tr>
+    <td><label for="eq2">eq2:</label><br></td>
+    <td><input type="text" id="eq2_side" name="eq2_side" value="500"></td>
+    <td><input type="text" id="eq2_pos" name="eq2_pos" value="x,y,z"></td>
+    <td><input type="text" id="eq2_in" name="eq2_in" value="x,y,z"></td>
+    <td><input type="text" id="eq2_out" name="eq2_out" value="x,y,z"></td>
+  </tr>
+  <tr>
+    <td><label for="eq3">eq3:</label><br></td>
+    <td><input type="text" id="eq3_side" name="eq3_side" value="400"></td>
+    <td><input type="text" id="eq3_pos" name="eq3_pos" value="x,y,z"></td>
+    <td><input type="text" id="eq3_in" name="eq3_in" value="x,y,z"></td>
+    <td><input type="text" id="eq3_out" name="eq3_out" value="x,y,z"></td>
+  </tr>
+</table>
+
+<br><br>
+<input type="submit" value="Submit"></form>
+</body></html>
