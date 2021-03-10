@@ -28,5 +28,5 @@ class pipeSystem:
         #line1 = CreateLine((0,0,0),(100,0,0))
         #line1.initForNX()
 
-processSystem = pipeSystem(200, 100, 300)
+processSystem = pipeSystem(130, 100, 160)
 processSystem.run_model()

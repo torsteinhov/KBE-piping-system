@@ -75,10 +75,10 @@ class Block:
             
             displayModification1.NewTranslucency = 95
             
-            objects1 = [NXOpen.DisplayableObject.Null] * 1 
-            self.workPart.Bodies.FindObject()
+            #objects1 = [NXOpen.DisplayableObject.Null] * 1 
+            #self.workPart.Bodies.FindObject()
             #objects1[0] = body1
-            self.displayModification1.Apply()
+            #self.displayModification1.Apply()
             
             displayModification1.Dispose()
 
