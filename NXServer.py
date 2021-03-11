@@ -6,7 +6,7 @@ import requests
 import json
 import math
 import random
-import css
+#import css
 #import style2
 
 '''
