@@ -161,7 +161,50 @@ class astar_pathfinder():
                 return path[::-1]
 
             children = []
-            for new_position in []
+            for new_position in [(1,-1,-1),(1,0,-1),(1,1,-1),(1,-1,0),(1,0,0),(1,1,0),(1,-1,1),(1,0,1),(1,1,1),(0,-1,-1),(0,0,-1),(0,1,-1),(0,-1,0),(0,1,0),(0,-1,1),(0,0,1),(0,1,1),(-1,-1,-1),(-1,0,-1),(-1,1,-1),(-1,-1,0),(-1,0,0),(-1,1,0),(-1,-1,-1),(-1,0,1),(-1,1,1)]:
+
+                #node position
+                node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
+
+                #checks if its within range
+                if node_position[0] > (len(maze)-1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0 or node_position[2] < 0 or node_position[2] > (len(maze[len(maze[len(maze)-1])-1])-1):
+                    continue
+
+                if maze[node_position[0]][node_position[1]][node_position[2]] != 0:
+                    continue
+                
+                #creates new node
+                new_node = Node(current_node, node_position)
+
+                #adds new node to children
+                children.append(new_node)
+
+            for child in children:
+
+                for closed_child in closed_list:
+                    if child == closed_child:
+                        continue
+                
+                #We now want to calculate the f-total_value, g-weight_of_travel and h-distance_to_end values
+                #the h parameter is what separates this algorithm from the Dijkstra-algorithm.
+                #In our case, we know the location of the end_node, we therefore want to exploit that, and the
+                #A* algorithm is heuristic in the sense that it uses this information when evaluating its path options.
+
+                child.g = current_node.g + 1
+                #calculates euclidean distance, if we only want straight pipes, we could simplify the algorithm by removing
+                #some of the alternative path nodes and using a manhattan distance calculation here.
+                child.h = sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child_position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
+                child.f = child.g + child.h
+
+                #Child is already in the open list
+
+                for open_node in open_list:
+                    if child == open_node and child.g > open_node.g
+                        continue
+
+                #Adds child to open list
+                open_list.append(child)
+
 
             
 
