@@ -1,4 +1,4 @@
-import math
+import math as Math
 import random
 
 l1 =    [[0,0,0,0,0,0,0,0,0,0],
@@ -123,7 +123,7 @@ class Node():
         self.h = 0
         self.f = 0
 
-class astar_pathfinder():
+class astar_pathfinder:
 
     def a_star(self,maze,start,end):
         #returns a list of 3D tuples, that makes the path from start to end
@@ -138,12 +138,13 @@ class astar_pathfinder():
 
         open_list.append(start_node)
 
-        while open_list:
+        while len(open_list) > 0:
+            print("Vi er inne i open_list")
 
             current_node = open_list[0]
             current_index = 0
-            for index, value in enumeate(open_list):
-                if item.f < current_node.f:
+            for index, value in enumerate(open_list):
+                if value.f < current_node.f:
                     current_node = value
                     current_index = index
 
@@ -162,7 +163,7 @@ class astar_pathfinder():
 
             children = []
             for new_position in [(1,-1,-1),(1,0,-1),(1,1,-1),(1,-1,0),(1,0,0),(1,1,0),(1,-1,1),(1,0,1),(1,1,1),(0,-1,-1),(0,0,-1),(0,1,-1),(0,-1,0),(0,1,0),(0,-1,1),(0,0,1),(0,1,1),(-1,-1,-1),(-1,0,-1),(-1,1,-1),(-1,-1,0),(-1,0,0),(-1,1,0),(-1,-1,-1),(-1,0,1),(-1,1,1)]:
-
+                print("Sjekker ny position:", new_position)
                 #node position
                 node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
 
@@ -193,13 +194,13 @@ class astar_pathfinder():
                 child.g = current_node.g + 1
                 #calculates euclidean distance, if we only want straight pipes, we could simplify the algorithm by removing
                 #some of the alternative path nodes and using a manhattan distance calculation here.
-                child.h = sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child_position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
+                child.h = Math.sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
                 child.f = child.g + child.h
 
                 #Child is already in the open list
 
                 for open_node in open_list:
-                    if child == open_node and child.g > open_node.g
+                    if child == open_node and child.g > open_node.g:
                         continue
 
                 #Adds child to open list
@@ -208,8 +209,11 @@ class astar_pathfinder():
 
             
 
-    def test_run(self):
-        start = (0,0,0)
+if __name__ == '__main__':
 
-run = astar_pathfinder()
-print(run.a_star(maze,(0,0,0),(10,10,10)))
+    start = (0,0,0)
+    end = (1,1,1)
+
+    x = astar_pathfinder()
+    print(x.a_star(maze,start,end))
+
