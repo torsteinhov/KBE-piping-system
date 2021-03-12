@@ -41,6 +41,7 @@ def a_star(amount,start,end):
     end_node = Node(None, end)
     end_node.g = end_node.h = end_node.f = 0
 
+    #initializes the open and closed list
     closed_list = []
     open_list = []
     open_list.append(start_node)
@@ -83,7 +84,8 @@ def a_star(amount,start,end):
                 /   |  \
              S.W    S   S.E
         '''
-        for new_position in [(1,-1,-1),(1,0,-1),(1,1,-1),(1,-1,0),(1,0,0),(1,1,0),(1,-1,1),(1,0,1),(1,1,1),(0,-1,-1),(0,0,-1),(0,1,-1),(0,-1,0),(0,1,0),(0,-1,1),(0,0,1),(0,1,1),(-1,-1,-1),(-1,0,-1),(-1,1,-1),(-1,-1,0),(-1,0,0),(-1,1,0),(-1,-1,-1),(-1,0,1),(-1,1,1)]:
+        possible_paths = [(1,-1,-1),(1,0,-1),(1,1,-1),(1,-1,0),(1,0,0),(1,1,0),(1,-1,1),(1,0,1),(1,1,1),(0,-1,-1),(0,0,-1),(0,1,-1),(0,-1,0),(0,1,0),(0,-1,1),(0,0,1),(0,1,1),(-1,-1,-1),(-1,0,-1),(-1,1,-1),(-1,-1,0),(-1,0,0),(-1,1,0),(-1,-1,-1),(-1,0,1),(-1,1,1)]
+        for new_position in possible_paths:
 
             #node position
             node_pos = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
@@ -97,6 +99,15 @@ def a_star(amount,start,end):
             
             #creates new node
             new_node = Node(current_node, node_pos)
+
+            #Weighs the g based on the eucledian distance to the new position, by using pythagoras theorem we get either 1, sqrt(2) or sqrt(3), and
+            #here it is weighted accordingly
+            if new_position in [(0,-1,0),(-1,0,0),(0,1,0),(1,0,0),(0,0,1),(0,0,-1)]:
+                new_node.g += 1
+            elif new_position in [(1,-1,0),(-1,-1,0),(-1,1,0),(1,1,0),(1,0,1),(0,-1,1),(-1,0,1),(0,1,1),(0,1,-1),(1,0,-1),(0,-1,-1),(-1,0,-1)]:
+                new_node.g += Math.sqrt(2)
+            elif new_position in [(1,-1,-1),(1,-1,1),(-1,-1,1),(-1,1,1),(-1,-1,-1),(-1,1,-1),(1,1,-1),(1,1,1)]:
+                new_node.g += Math.sqrt(3)
             #adds new node to children
             children.append(new_node)
 
@@ -117,7 +128,6 @@ def a_star(amount,start,end):
             #In our case, we know the location of the end_node, we therefore want to exploit that, and the
             #A* algorithm is heuristic in the sense that it uses this information when evaluating its path options.
 
-            child.g = current_node.g + 1
             #calculates euclidean distance, if we only want straight pipes, we could simplify the algorithm by removing
             #some of the alternative path nodes and using a manhattan distance calculation here.
             child.h = Math.sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
@@ -137,7 +147,7 @@ def a_star(amount,start,end):
 
 if __name__ == '__main__':
 
-    start = (5,5,5)
-    end = (14,12,6)
+    start = (0,0,0)
+    end = (60,40,82)
 
-    a_star(20, start, end)
+    a_star(100, start, end)
