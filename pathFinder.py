@@ -8,11 +8,11 @@ class Node():
         self.parent = parent
         self.position = position
 
-        #weight of actual move
+        #distance between current node and start node
         self.g = 0
-        #heuristic euclidean distance to end node
+        #euclidean estimated distance to end node, heuristic aspect of the algorithm
         self.h = 0
-        #f=g+h, total value
+        #f=g+h, total cost of the node
         self.f = 0
 
     #gets called when using the == operator
@@ -29,6 +29,7 @@ def a_star(amount,start,end):
     #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
 
     #creates environment cubloid with amount*amount*amount
+    #much more scalable, since it allows the customer to allow more computing for a more accurate design
     maze = []
     for i in range(amount):
         x = np.zeros((amount,amount))
@@ -75,17 +76,17 @@ def a_star(amount,start,end):
             #print("closed_list: ", closed_list)
 
             #node position
-            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
+            node_pos = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
 
             #checks if its within range
-            if node_position[0] > (len(maze)-1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0 or node_position[2] < 0 or node_position[2] > (len(maze[len(maze[len(maze)-1])-1])-1):
+            if node_pos[0] > (len(maze)-1) or node_pos[0] < 0 or node_pos[1] > (len(maze[len(maze)-1]) -1) or node_pos[1] < 0 or node_pos[2] < 0 or node_pos[2] > (len(maze[len(maze[len(maze)-1])-1])-1):
                 continue
 
-            if maze[node_position[0]][node_position[1]][node_position[2]] != 0:
+            if maze[node_pos[0]][node_pos[1]][node_pos[2]] != 0:
                 continue
             
             #creates new node
-            new_node = Node(current_node, node_position)
+            new_node = Node(current_node, node_pos)
             print("New Node: ", new_node)
             #adds new node to children
             children.append(new_node)
@@ -131,7 +132,7 @@ def a_star(amount,start,end):
 
 if __name__ == '__main__':
 
-    start = (0,0,0)
+    start = (5,5,5)
     end = (14,12,6)
 
     a_star(20, start, end)
