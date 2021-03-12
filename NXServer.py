@@ -205,6 +205,23 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
+				"""
+				Vi må få kundens parametere på formen (på en sofistikert måte):
+				num_eq = int
+				eq_size_list = [eq1_size, eq2_size, eq3_size]
+				eq_pos = [eq1_pos, eq2_pos, eq3_pos]
+				eq_in_out = [eq1_in, eq1_out, eq2_in, eq2_out, eq3_in, eq3_out] #siden rørene skal gå inn og ut på
+				env_size = int #lengden på kuben som definerer environmentet
+				startPoint = [x,y,z]
+				endpoint = [x,yz]
+				num_node_ax = int # denne kan vi definere selv øverst i skriptet eller noe
+				pipDia = float 
+				"""
+
+				# check if input is valid
+
+				#if not valid print beskjed, og la brukeren skrive inn nye verdier uten at de gamle forsvinner
+
 			s.do_GET() #this is not a optimal solution
 
 		if path.find("/"):
@@ -214,10 +231,20 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
-# Need to have a function to check if point A and B is ond the surface of env.
-# Need a function to check if the eq is inside the env. 
-# need to check if the pip is bigger than the equipments 
 
+def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: int, startPoint, endPoint, num_node_ax: int, pipeDia: float):
+	# Need to have a function to check if point A and B is ond the surface of env.
+	# Need a function to check if the eq is inside the env. 
+	messages = []
+	pipeDia_mm = 25.4 * pipe_dia
+	if all(pipeDia_mm < i for i in eq_size_list ):
+		#pipe diameter is smaller than all of the eq
+	else:
+		errorMsg = "The pipe diameter is greater than the equipment"
+		messages.append(errorMsg)
+	
+	
+	# need to check if the pip is bigger than the equipments 
 #IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
 class makeSystem: 
 
