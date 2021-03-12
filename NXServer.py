@@ -70,8 +70,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.end_headers()
 			s.wfile.write(bytes('<!DOCTYPE html><html><head>', 'utf-8'))
 			
-			#s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet"  href="{{ url_for( filename="style2.css")}}"/>', 'utf-8'))
-			s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet"  href="style.css"/>', 'utf-8'))
+			s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet" type = "text/css" href="{{ url_for( "static" filename="style2.css")}}"/>', 'utf-8'))
+			#s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet"  href="style.css"/>', 'utf-8'))
 			s.wfile.write(bytes('</head><body>', 'utf-8')) #style="'background-color:#26b6d9;'"
 			s.wfile.write(bytes("<h1>System parameters</h1>", 'utf-8'))
 			s.wfile.write(bytes("<p>Welcome to our optimization tool, please write in your system constrains, all values are in millimeters [mm]</p>", 'utf-8'))
