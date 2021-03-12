@@ -4,15 +4,23 @@ from shapes.Cone import Cone
 from shapes.Block import Block
 import math
 import random
-from pathFinder import 
+from pathFinder import a_star
 #import NXOpen.PartCollection
 
 class pipeSystem: 
 
-    def __init__(self, eq1_size, eq2_size, eq3_size):
+    def __init__(self, eq1_size, eq2_size, eq3_size, env_size, eq1_pos, eq2_pos, eq3_pos, startPoint, endPoint, num_nodes):
         self.eq1_size = eq1_size
         self.eq2_size = eq2_size
         self.eq3_size = eq3_size
+        self.env_size = env_size
+        self.eq1_pos = eq1_pos
+        self.eq2_pos = eq2_pos
+        self.eq3_pos = eq3_pos
+        self.startPoint = startPoint
+        self.endPoint = endPoint
+        self.num_nodes = num_nodes
+
 
     #Cylinder(x, y, z, diameter, height, direction, color, material)
     #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
@@ -28,6 +36,11 @@ class pipeSystem:
         #https://docs.plm.automation.siemens.com/data_services/resources/nx/10/nx_api/en_US/custom/nxopen_python_ref/NXOpen.CurveCollection.html#NXOpen.CurveCollection.CreateLine
         #line1 = CreateLine((0,0,0),(100,0,0))
         #line1.initForNX()
+
+    def make_pipe(self):
+        path_nodes = a_star(self.num_nodes, self.startPoint, self.endPoint)
+
+
 
 processSystem = pipeSystem(130, 100, 160)
 processSystem.run_model()
