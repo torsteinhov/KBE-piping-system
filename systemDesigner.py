@@ -4,6 +4,7 @@ from shapes.Cone import Cone
 from shapes.Block import Block
 import math
 import random
+from pathFinder import 
 #import NXOpen.PartCollection
 
 class pipeSystem: 
