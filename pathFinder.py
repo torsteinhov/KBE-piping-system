@@ -1,6 +1,8 @@
 import math as Math
 import random
+import numpy as np
 
+'''
 l1 =    [[0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -110,8 +112,7 @@ l10 =   [[0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]]
-
-maze = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10]
+'''
 
 class Node():
     #Node class for the A*
@@ -128,9 +129,18 @@ class Node():
 
 class astar_pathfinder:
 
-    def a_star(self,maze,start,end):
+    #global l1,l2,l3,l4,l5,l6,l7,l8,l9,l10
+    #maze = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10]
+
+    def a_star(self,amount,start,end):
         #returns a list of 3D tuples, that makes the path from start to end
         #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
+
+        #creates environment cubloid with amount*amount*amount
+        maze = []
+        for i in range(amount):
+            x = np.zeros((amount,amount))
+            maze.append(x)
 
         start_node = Node(None, start)
         start_node.g = start_node.h = start_node.f
@@ -200,7 +210,7 @@ class astar_pathfinder:
                 #some of the alternative path nodes and using a manhattan distance calculation here.
                 child.h = Math.sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
                 child.f = child.g + child.h
-                print(child.h)
+                #print(child.h)
 
                 #Child is already in the open list
 
@@ -221,5 +231,5 @@ if __name__ == '__main__':
     end = (1,1,1)
 
     x = astar_pathfinder()
-    print(x.a_star(maze,start,end))
+    print(x.a_star(10,start,end))
 
