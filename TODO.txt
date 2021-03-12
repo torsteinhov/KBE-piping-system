@@ -1,0 +1,23 @@
+Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva som må gjøre, hvor det er feil og forbedringer til neste gang
+
+**** Må gjøres ***
+- må sjekke om det brukeren skriver inn er fysisk mulig:
+    - Need to have a function to check if point A and B is ond the surface of env.
+    - Need a function to check if the eq is inside the env. 
+    - need to check if the pip is bigger than the equipments 
+    - len(eq_in_out: list) skal være dobbelst så lang som num_eq
+
+- sjekke at rørene ikke krysser et tidligere rør? 
+- string split og ordne i lister slik at systemdesigner kan ta imot input
+
+**** Kult hvis det gjøres ****
+- generere et bilde av det kunden har skrvet inn av informasjon. Tegne evn, med eq og markere hvor rørene skal gå inn og ut.
+
+**** Forbedringer ****
+- legge inn hindringer
+- velge shape på quipment og evn selv.
+
+**** Utfordinger under veis ****
+
+**** OBS ****
+- i system designer kan det hende det mangeler noen self....

@@ -214,6 +214,10 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
+# Need to have a function to check if point A and B is ond the surface of env.
+# Need a function to check if the eq is inside the env. 
+# need to check if the pip is bigger than the equipments 
+
 #IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
 class makeSystem: 
 
