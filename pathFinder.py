@@ -2,8 +2,9 @@ import math as Math
 import random
 import numpy as np
 
+#Node class for the A*
 class Node():
-    #Node class for the A*
+
     def __init__(self, parent=None, position=None):
         self.parent = parent
         self.position = position
@@ -20,7 +21,7 @@ class Node():
         return self.position == other.position
 
 #Had a logic error further down where I wanted to break out of the inner loop but continuing the outer loop,
-#This combined with try, except catch fixed the error.
+#This combined with try, except catch fixed this.
 class ContinueI(Exception):
     pass
 
@@ -29,7 +30,7 @@ def a_star(amount,start,end):
     #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
 
     #creates environment cubloid with amount*amount*amount
-    #much more scalable, since it allows the customer to allow more computing for a more accurate design
+    #much more scalable, since it allows the customer/process engineer to trade more computing in return for a more accurate design
     maze = []
     for i in range(amount):
         x = np.zeros((amount,amount))
@@ -46,7 +47,6 @@ def a_star(amount,start,end):
 
 
     while len(open_list) > 0:
-        print("Vi er inne i open_list")
 
         current_node = open_list[0]
         current_index = 0
@@ -65,15 +65,25 @@ def a_star(amount,start,end):
             while current is not None:
                 path.append(current.position)
                 current = current.parent
-            #return reversed path
+            #since it iterates back when reaching final node, we get the path from end -> start, we therefore want to flip it
             print("Path: ", path[::-1])
             return path[::-1]
 
         children = []
+        #Checks each possible path relative to current position(set as origo)
+        #Has to check all the positions above, but also the layer above and below, illustrated below
+        #is the positions for the current layer, with the other layers, the amount of positions that must be checked is
+        #8+9+9=26 possible path relative to the current position.
+        '''
+            N.W    N    N.E
+               \   |   /
+                \  |  /
+             W----Cell----E
+                  / | \
+                /   |  \
+             S.W    S   S.E
+        '''
         for new_position in [(1,-1,-1),(1,0,-1),(1,1,-1),(1,-1,0),(1,0,0),(1,1,0),(1,-1,1),(1,0,1),(1,1,1),(0,-1,-1),(0,0,-1),(0,1,-1),(0,-1,0),(0,1,0),(0,-1,1),(0,0,1),(0,1,1),(-1,-1,-1),(-1,0,-1),(-1,1,-1),(-1,-1,0),(-1,0,0),(-1,1,0),(-1,-1,-1),(-1,0,1),(-1,1,1)]:
-            #print("Sjekker ny position:", new_position)
-            #print("open_list: ", open_list)
-            #print("closed_list: ", closed_list)
 
             #node position
             node_pos = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1], current_node.position[2] + new_position[2])
@@ -87,10 +97,10 @@ def a_star(amount,start,end):
             
             #creates new node
             new_node = Node(current_node, node_pos)
-            print("New Node: ", new_node)
             #adds new node to children
             children.append(new_node)
 
+        #instance for the inner-loop break
         continue_i = ContinueI()
 
         for child in children:
@@ -112,10 +122,8 @@ def a_star(amount,start,end):
             #some of the alternative path nodes and using a manhattan distance calculation here.
             child.h = Math.sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
             child.f = child.g + child.h
-            #print(child.h)
 
             #Child is already in the open list
-
             try:
                 for open_node in open_list:
                     if child == open_node and child.g > open_node.g:
@@ -126,9 +134,6 @@ def a_star(amount,start,end):
             #Adds child to open list
             open_list.append(child)
 
-
-
-            
 
 if __name__ == '__main__':
 
