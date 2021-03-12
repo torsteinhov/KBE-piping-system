@@ -119,14 +119,18 @@ class Node():
         self.parent = parent
         self.position = position
 
+        #weight of actual move
         self.g = 0
+        #heuristic euclidean distance to end node
         self.h = 0
+        #f=g+h, total value
         self.f = 0
 
 class astar_pathfinder:
 
     def a_star(self,maze,start,end):
         #returns a list of 3D tuples, that makes the path from start to end
+        #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
 
         start_node = Node(None, start)
         start_node.g = start_node.h = start_node.f
@@ -184,7 +188,7 @@ class astar_pathfinder:
 
                 for closed_child in closed_list:
                     if child == closed_child:
-                        continue
+                        break
                 
                 #We now want to calculate the f-total_value, g-weight_of_travel and h-distance_to_end values
                 #the h parameter is what separates this algorithm from the Dijkstra-algorithm.
@@ -196,6 +200,7 @@ class astar_pathfinder:
                 #some of the alternative path nodes and using a manhattan distance calculation here.
                 child.h = Math.sqrt(((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2) + ((child.position[2] - end_node.position[2]) ** 2))
                 child.f = child.g + child.h
+                print(child.h)
 
                 #Child is already in the open list
 
@@ -205,6 +210,7 @@ class astar_pathfinder:
 
                 #Adds child to open list
                 open_list.append(child)
+
 
 
             
