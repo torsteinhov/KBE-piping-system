@@ -4,7 +4,7 @@ from shapes.Cone import Cone
 from shapes.Block import Block
 import math
 import random
-from pathFinder import a_star
+#from pathFinder import a_star
 import numpy as np
 #import NXOpen.PartCollection
 

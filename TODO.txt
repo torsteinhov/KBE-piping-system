@@ -14,13 +14,16 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - legge til epost, navn, nummer og bedriftsnavn i UI
 - finne ut av CSS og UI
 - endre UI slik at cuboids kan være rektangler
+- få til å "play" en fil i NX fra NXServer.py
 
 **** Kult hvis det gjøres ****
 - generere et bilde av det kunden har skrvet inn av informasjon. Tegne evn, med eq og markere hvor rørene skal gå inn og ut.
+- Lage en manufChecker som kan si hvilke type rørdimensjoner so er tilgjengelige og at dette blir oppdatert i HTML-til kunden. 
 
 **** Forbedringer ****
 - legge inn hindringer
 - velge shape på quipment og evn selv.
+- Kult hvis kunden kunne skrevet inn hva som skal gå igjennom røret, materialet på røret, omgivelser til røret, også lage en FEM analyse.
 
 **** Utfordinger under veis ****
 

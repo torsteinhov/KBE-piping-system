@@ -1,6 +1,6 @@
 #from shapes.Block import Block
 #from shapes.Cylinder import Cylinder
-
+from checkData import checkCustommerInput
 import numpy as np
 """
 def eqNameNumber(num_eq):
@@ -42,6 +42,7 @@ print(test)
 # this function need testing
 eqInOutWorldPoint(self, side, eq_size, eq_pos)
 """
+"""
 #test node2point
 def node2point(node): #usikker på om dette er riktig
     env_size = 1000
@@ -53,3 +54,20 @@ def node2point(node): #usikker på om dette er riktig
 node = (1,1,1)
 point = node2point(node)
 print("node ", str(node), " til pkt: ", point)
+"""
+for i in range(2):
+    print("Hei123")
+# cubes for testing
+num_eq = 3
+eq_size_list = [[70,70,70],[150,150,150],[1000,1000,1000]]
+eq_pos = [[50,150,0],[150,1000,1000], [2000,1000,2000]]
+env_size = [3000, 3000, 3000]
+eq_in_out = [[40,0,40], [70,40,40],[100,0,100],[150,100,100],[500,0,500],[1000,500,500]]
+startPoint = [0,1500,1500]
+endPoint = [3000, 1500,1500]
+pipeDia =  50.8
+
+#feilmelding =checkCustommerInput(3, eq_size_list,eq_pos, eq_in_out, env_size, startPoint, endPoint, 10, 2)
+#print(feilmelding)
+#custommer = drawGivenInfo(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, pipeDia)
+#custommer.run_model()

@@ -232,19 +232,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
 
-def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: int, startPoint, endPoint, num_node_ax: int, pipeDia: float):
-	# Need to have a function to check if point A and B is ond the surface of env.
-	# Need a function to check if the eq is inside the env. 
-	messages = []
-	pipeDia_mm = 25.4 * pipe_dia
-	if all(pipeDia_mm < i for i in eq_size_list ):
-		#pipe diameter is smaller than all of the eq
-	else:
-		errorMsg = "The pipe diameter is greater than the equipment"
-		messages.append(errorMsg)
-	
-	
-	# need to check if the pip is bigger than the equipments 
+
 #IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
 class makeSystem: 
 
