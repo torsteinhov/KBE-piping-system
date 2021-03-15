@@ -13,6 +13,7 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - endre UI slik at kunden skriver inn et punkt på den siden røret skal inn. 
 - legge til epost, navn, nummer og bedriftsnavn i UI
 - finne ut av CSS og UI
+- endre UI slik at cuboids kan være rektangler
 
 **** Kult hvis det gjøres ****
 - generere et bilde av det kunden har skrvet inn av informasjon. Tegne evn, med eq og markere hvor rørene skal gå inn og ut.
