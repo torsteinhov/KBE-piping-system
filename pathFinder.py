@@ -25,7 +25,7 @@ class Node():
 class ContinueI(Exception):
     pass
 
-def a_star(amount,start,end):
+def a_star(env_width,env_length,env_height,start,end):
     #returns a list of 3D tuples, that makes the path from start to end
     #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
 
@@ -56,6 +56,7 @@ def a_star(amount,start,end):
                 current_node = value
                 current_index = index
 
+        #picks out top element from open_list and removes it from the open_list
         open_list.pop(current_index)
         closed_list.append(current_node)
 
@@ -148,6 +149,6 @@ def a_star(amount,start,end):
 if __name__ == '__main__':
 
     start = (0,0,0)
-    end = (60,40,82)
+    end = (90,50,47)
 
     a_star(100, start, end)
