@@ -66,7 +66,25 @@ class Block:
             displayPart = theSession.Parts.Display
             #markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Object Display")
             #nErrs1 = theSession.UpdateManager.DoUpdate(markId4)
+            """
+            displayModification1 = theSession.DisplayManager.NewDisplayModification()
     
+            displayModification1.ApplyToAllFaces = True
+            
+            displayModification1.ApplyToOwningParts = False
+            
+            displayModification1.NewColor = 40
+            
+            displayModification1.NewTranslucency = 96
+            
+            objects1 = [NXOpen.DisplayableObject.Null] * 1 
+            body1 = workPart.Bodies.FindObject("EXTRUDE(4)")
+            objects1[0] = body1
+            displayModification1.Apply(objects1)
+            
+            displayModification1.Dispose()
+            """
+            """
             displayModification1 = theSession.DisplayManager.NewDisplayModification()
             
             displayModification1.ApplyToAllFaces = True
@@ -74,7 +92,7 @@ class Block:
             displayModification1.ApplyToOwningParts = False
             
             displayModification1.NewTranslucency = 95
-            
+            """
             #objects1 = [NXOpen.DisplayableObject.Null] * 1 
             #self.workPart.Bodies.FindObject()
             #objects1[0] = body1
@@ -97,3 +115,17 @@ class Block:
 
         subtractfeaturebuilder1.Commit()
         subtractfeaturebuilder1.Destroy()
+    
+    def makeSeeThrough(self, t):
+        theSession  = NXOpen.Session.GetSession()
+        
+        displayModification1 = theSession.DisplayManager.NewDisplayModification()
+        displayModification1.ApplyToAllFaces = True
+        displayModification1.ApplyToOwningParts = False
+        displayModification1.NewColor = 40
+        displayModification1.NewTranslucency = t
+        objects1 = [NXOpen.DisplayableObject.Null] * 1 
+        body1 = self.body
+        objects1[0] = body1
+        displayModification1.Apply(objects1)
+        displayModification1.Dispose()
