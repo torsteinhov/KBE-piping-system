@@ -5,7 +5,7 @@ from shapes.Block import Block
 import math
 import random
 #from pathFinder import a_star
-import numpy as np
+#import numpy as np
 #import NXOpen.PartCollection
 
 class drawGivenInfo: 
@@ -41,6 +41,7 @@ class drawGivenInfo:
         
         env = Block(0,0,0,self.env_size, self.env_size, self.env_size, "RED", "Steel")
         env.initForNX()
+        env.makeSeeThrough(95)
 
         # Illustrate placement of A as a cylinder
         #startPoint = Cylinder(self.startPoint[0], self.startPoint[1], self.startPoint[2], self.pipeDia, height, ##direction, self.color, self.material)

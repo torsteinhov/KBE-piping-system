@@ -1,7 +1,22 @@
 #from shapes.Block import Block
 #from shapes.Cylinder import Cylinder
-from checkData import checkCustommerInput
+#from checkData import checkCustommerInput
+import sys
+
+sys.path.append('C:\\Users\\Hilde\\anaconda3\\envs\\tdt4265\\lib\\site-packages')
 import numpy as np
+
+
+import NXOpen
+ 
+if __name__ == "__main__":
+    theSession = NXOpen.Session.GetSession()
+    theUI = NXOpen.UI.GetUI()
+    theLw = theSession.ListingWindow
+    theLw.Open()
+    #theLw.WriteLine(sys.version)
+    theLw.WriteLine("The numpy version is: {}".format(np.version.version))
+
 """
 def eqNameNumber(num_eq):
         eqName = []
@@ -55,6 +70,7 @@ node = (1,1,1)
 point = node2point(node)
 print("node ", str(node), " til pkt: ", point)
 """
+"""
 for i in range(2):
     print("Hei123")
 # cubes for testing
@@ -71,3 +87,5 @@ pipeDia =  50.8
 #print(feilmelding)
 #custommer = drawGivenInfo(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, pipeDia)
 #custommer.run_model()
+"""
+
