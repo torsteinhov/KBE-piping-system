@@ -80,14 +80,14 @@ def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out
 	else:
 		errorMsg = "The end point, B, is not on the surface of the environment."
 		messages.append(errorMsg)
-
-    for i in range(num_eq):
-        errorMsg = "for equpment number " + (i+1)
-        eqInsideEnv, text = insideEnv(env_size, eq_size_list[i], eq_pos[i]) 
-        errorMsg += text
-        messages.append(errorMsg)
-
-    return messages
+	
+	for i in range(num_eq):
+		errorMsg = "for equpment number " + (i+1)
+		eqInsideEnv, text = insideEnv(env_size, eq_size_list[i], eq_pos[i]) 
+		errorMsg += text
+		messages.append(errorMsg)
+	
+	return messages
 
 
 	
