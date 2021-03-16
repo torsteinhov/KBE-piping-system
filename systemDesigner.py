@@ -1,10 +1,6 @@
-from shapes.Cylinder import Cylinder
-from shapes.Sphere import Sphere
-from shapes.Cone import Cone
-from shapes.Block import Block
 import math
 import random
-from pathFinder import a_star
+from pathFinder import aStar
 import numpy as np
 #import NXOpen.PartCollection
 
@@ -13,16 +9,18 @@ class pipeSystem:
     def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
         
         self.num_eq = num_eq # number of equipments in the environment
-        self.eq_size_list = eq_size_list # a list of the cube side of the eq. a list of ist, each eq can have different widt,length and height. 
+        self.eq_size_list = eq_size_list # a list of the cube side of the eq. a list of ist, each eq can have different width, length and height. 
         self.eq_pos = eq_pos # a list of positon of the eq.
         self.eq_in_out = eq_in_out # list of in and out sides of eq. relative to eq.
-        self.env_size = env_size #size of the environment, list[x,y,z]
+        self.env_size = env_size #size of the environment, list[x,y,z][width,length,height]
         self.startPoint = startPoint # start point of the pipe
         self.endPoint = endPoint # end point of the pipe
         self.num_node_ax = num_node_ax # number of nodes to divide the environment into along one axis
         self.pipeDia = pipeDia
 
-        self.ratio = self.env_size/self.num_node_ax
+        self.ratioX = self.env_size[0]/self.num_node_ax
+        self.ratioY = self.env_size[1]/self.num_node_ax
+        self.ratioZ = self.env_size[2]/self.num_node_ax
 
 
     #Cylinder(x, y, z, diameter, height, direction, color, material)
@@ -47,7 +45,7 @@ class pipeSystem:
         #line1.initForNX()
 
     def coordinate2node(self, point): # takes in the a point and gives the node position
-        pointInNode = (point[0]*self.ratio, point[1]*self.ratio, point[2]*self.ratio)
+        pointInNode = (point[0]*self.ratioX, point[1]*self.ratioY, point[2]*self.ratioZ)
         return pointInNode
 
     def eqInOutWorldPoint(self, side, eq_size, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
@@ -62,20 +60,27 @@ class pipeSystem:
         y = side[1]
         z = side[2]
         midPoint = np.array([eq_pos[0],eq_pos[1],eq_pos[2]])
+        print("Midpoint: ", midPoint)
 
         # finding what side the mid point is on and calculating it in global points
-        if(x == 0 and y<eq_size and y>0 and z<eq_size and z>0 ):
-            midPoint += [0, eq_size/2, eq_size/2]
-        elif (x == eq_size and y<eq_size and y>0 and z<eq_size and z>0):
-            midPoint += [eq_size, eq_size/2, eq_size/2]
-        elif (x <eq_size and x>0 and y==0 and z<eq_size and z>0):
-            midPoint += [eq_size/2, 0, eq_size/2]
-        elif (x <eq_size and x>0 and y==eq_size and z<eq_size and z>0):
-            midPoint += [eq_size/2, eq_size, eq_size/2]
-        elif (x <eq_size and x>0 and y<eq_size and y>0 and z ==0):
-            midPoint += [eq_size/2, eq_size/2, 0]
-        elif (x <eq_size and x>0 and y<eq_size and y>0 and z == eq_size):
-            midPoint += [eq_size/2, eq_size/2, eq_size]
+        if(x == 0 and y < eq_size[1] and y > 0 and z < eq_size[2] and z > 0 ):
+            midPoint += [0, eq_size[1]/2, eq_size[2]/2]
+
+        elif (x == eq_size[0] and y < eq_size[1] and y > 0 and z < eq_size[2] and z > 0):
+            midPoint += [eq_size[0], eq_size[1]/2, eq_size[2]/2]
+
+        elif (x < eq_size[0] and x > 0 and y==0 and z < eq_size[2] and z > 0):
+            midPoint += [eq_size[0]/2, 0, eq_size[2]/2]
+
+        elif (x < eq_size[0] and x > 0 and y==eq_size[1] and z < eq_size[2] and z > 0):
+            midPoint += [eq_size[0]/2, eq_size[1], eq_size[2]/2]
+
+        elif (x < eq_size[0] and x > 0 and y < eq_size[1] and y > 0 and z ==0):
+            midPoint += [eq_size[0]/2, eq_size[1]/2, 0]
+
+        elif (x < eq_size[0] and x > 0 and y < eq_size[1] and y > 0 and z == eq_size[2]):
+            midPoint += [eq_size[0]/2, eq_size[1]/2, eq_size[2]]
+            
         else:
             print("Not valid mid point on quipment!!!")
             print("equipment size: ", eq_size)
@@ -85,7 +90,7 @@ class pipeSystem:
         return midPoint
 
     def node2point(self, node): #usikker på om dette er riktig
-        nodeInPoint = [node[0]/self.ratio, node[1]/self.ratio, node[2]/self.ratio]
+        nodeInPoint = [node[0]/self.ratioX, node[1]/self.ratioY, node[2]/self.ratioZ]
         return nodeInPoint
 
     def nodePath2pointPath(self, nodePath): # takes in a list of nodes which describes the path between eq1 and eq2, and returnes the list in points(world frame coordinates)
@@ -98,7 +103,7 @@ class pipeSystem:
     def makeSubEnv(self):
         ...
 
-    def make_pipe(self):
+    def makePath(self):
         """
         # this could be function/calculated from num_nodes
         # num_nodes should take the properties of the pipe to consideration
@@ -147,8 +152,8 @@ class pipeSystem:
         node_paths_all = [] # collecting all the paths between the nodes to reach in a list
         #k=0 # counting variable to get the correct nomber of nodes between to points
         for i in range(0,len(nodes2reach/2), 2): # itterates over every second step in nodes to reach
-            #path_nodes = a_star(num_nodes_between_2_points[k], nodes2reach[i], nodes2reach[i+1])
-            path_nodes = a_star(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
+            #path_nodes = aStar(num_nodes_between_2_points[k], nodes2reach[i], nodes2reach[i+1])
+            path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
             node_paths_all.append(path_nodes)
             #k+=1
 
@@ -158,7 +163,21 @@ class pipeSystem:
             path_points = self.nodePath2pointPath(node_paths_all[i])
             point_paths_all.append(path_points)
 
+        return point_paths_all
+
         #make a actual path of the points
 
-processSystem = pipeSystem(130, 100, 160)
-processSystem.run_model()
+#def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
+num_eq = 3
+eq_size_list = [70,150,200]
+eq_pos = [[50,150,0],[150,1000,1000], [2000,1000,2000]]
+env_size = [3000,2000,2000]
+eq_in_out = [[40,0,40], [70,40,40],[100,0,100],[150,100,100],[500,0,500],[1000,500,500]]
+startPoint = [0,1500,1500]
+endPoint = [3000, 1500,1500]
+pipeDia =  50.8
+
+processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100**3,pipeDia)
+print(processSystem.makePath())
+#processSystem.run_model()
+
