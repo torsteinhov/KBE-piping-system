@@ -4,11 +4,11 @@
 import sys
 
 sys.path.append('C:\\Users\\Hilde\\anaconda3\\envs\\tdt4265\\lib\\site-packages')
-import numpy as np
+#import numpy as np
 
-
+"""
 import NXOpen
- 
+import numpy as np
 if __name__ == "__main__":
     theSession = NXOpen.Session.GetSession()
     theUI = NXOpen.UI.GetUI()
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     theLw.Open()
     #theLw.WriteLine(sys.version)
     theLw.WriteLine("The numpy version is: {}".format(np.version.version))
-
+"""
 """
 def eqNameNumber(num_eq):
         eqName = []
@@ -89,3 +89,39 @@ pipeDia =  50.8
 #custommer.run_model()
 """
 
+vek = [1,2,3]
+midpoint = [vek[0], vek[1], vek[2]]
+print(midpoint)
+
+midpoint = [vek[0]+1,vek[1]+1,vek[2]+1]
+print(midpoint)
+
+#drawGivenInfo
+ mP =[eq_pos[0],eq_pos[1],eq_pos[2]]
+
+        # finding what side the mid point is on and calculating it in global points
+        if(x == 0 and y<eq_size and y>0 and z<eq_size and z>0 ):
+            midPoint = [mP[0]+0, mP[1]+eq_size/2, mP[2]+eq_size/2]
+            dirInEq = [1,0,0]
+        elif (x == eq_size and y<eq_size and y>0 and z<eq_size and z>0):
+            midPoint = [mP[0]+eq_size, mP[1]+eq_size/2, mP[2]+eq_size/2]
+            dirInEq = [-1,0,0]
+        elif (x <eq_size and x>0 and y==0 and z<eq_size and z>0):
+            midPoint = [mP[0]+eq_size/2, mP[1]+0, mP[2]+eq_size/2]
+            dirInEq = [0,1,0]
+        elif (x <eq_size and x>0 and y==eq_size and z<eq_size and z>0):
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size, mP[2]+eq_size/2]
+            dirInEq = [0,-1,0]
+        elif (x <eq_size and x>0 and y<eq_size and y>0 and z ==0):
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size/2, mP[2]+0]
+            dirInEq = [0,0,1]
+        elif (x <eq_size and x>0 and y<eq_size and y>0 and z == eq_size):
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size/2, mP[2]+eq_size]
+            dirInEq = [0,0,-1]
+        else:
+            print("Not valid mid point on quipment!!!")
+            print("equipment size: ", eq_size)
+            print("Invalid side: ", side)
+            print("Equipment position: ", eq_pos)
+            midPoint = [0,0,0]
+        return midPoint, dirInEq

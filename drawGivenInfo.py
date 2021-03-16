@@ -41,7 +41,7 @@ class drawGivenInfo:
         
         env = Block(0,0,0,self.env_size, self.env_size, self.env_size, "RED", "Steel")
         env.initForNX()
-        env.makeSeeThrough(95)
+        #env.makeSeeThrough(95)
 
         # Illustrate placement of A as a cylinder
         #startPoint = Cylinder(self.startPoint[0], self.startPoint[1], self.startPoint[2], self.pipeDia, height, ##direction, self.color, self.material)
@@ -77,7 +77,7 @@ class drawGivenInfo:
         #line1 = CreateLine((0,0,0),(100,0,0))
         #line1.initForNX()
 
-
+    """
     def eqInOutWorldPoint(self, side, eq_size, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
         # side = [x,y,z] rrelative to the equipment
         # =================
@@ -90,33 +90,33 @@ class drawGivenInfo:
         x = side[0]
         y = side[1]
         z = side[2]
-        midPoint = np.array([eq_pos[0],eq_pos[1],eq_pos[2]])
+        mP =[eq_pos[0],eq_pos[1],eq_pos[2]]
 
         # finding what side the mid point is on and calculating it in global points
         if(x == 0 and y<eq_size and y>0 and z<eq_size and z>0 ):
-            midPoint += [0, eq_size/2, eq_size/2]
+            midPoint = [mP[0]+0, mP[1]+eq_size/2, mP[2]+eq_size/2]
             dirInEq = [1,0,0]
         elif (x == eq_size and y<eq_size and y>0 and z<eq_size and z>0):
-            midPoint += [eq_size, eq_size/2, eq_size/2]
+            midPoint = [mP[0]+eq_size, mP[1]+eq_size/2, mP[2]+eq_size/2]
             dirInEq = [-1,0,0]
         elif (x <eq_size and x>0 and y==0 and z<eq_size and z>0):
-            midPoint += [eq_size/2, 0, eq_size/2]
+            midPoint = [mP[0]+eq_size/2, mP[1]+0, mP[2]+eq_size/2]
             dirInEq = [0,1,0]
         elif (x <eq_size and x>0 and y==eq_size and z<eq_size and z>0):
-            midPoint += [eq_size/2, eq_size, eq_size/2]
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size, mP[2]+eq_size/2]
             dirInEq = [0,-1,0]
         elif (x <eq_size and x>0 and y<eq_size and y>0 and z ==0):
-            midPoint += [eq_size/2, eq_size/2, 0]
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size/2, mP[2]+0]
             dirInEq = [0,0,1]
         elif (x <eq_size and x>0 and y<eq_size and y>0 and z == eq_size):
-            midPoint += [eq_size/2, eq_size/2, eq_size]
+            midPoint = [mP[0]+eq_size/2, mP[1]+eq_size/2, mP[2]+eq_size]
             dirInEq = [0,0,-1]
         else:
             print("Not valid mid point on quipment!!!")
             print("equipment size: ", eq_size)
             print("Invalid side: ", side)
             print("Equipment position: ", eq_pos)
-            midPoint = np.array([0,0,0])
+            midPoint = [0,0,0]
         return midPoint, dirInEq
     
     def midPointsGlobal(self): # making a list of all the points (in world frame) to make pipe between
@@ -140,9 +140,10 @@ class drawGivenInfo:
             print("Number of midpoints is not the same as number of directions atached to midpoints. Fix it!")
 
         return points2reach, dirInEq #resturns a list of the midpoints given in coordinates of the global frame
-
+    """
 
 # for testing
+#if __name__ == '__main__':
 num_eq = 3
 eq_size_list = [70,150,1000]
 eq_pos = [[50,150,0],[150,1000,1000], [2000,1000,2000]]

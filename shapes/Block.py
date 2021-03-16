@@ -62,11 +62,12 @@ class Block:
             displayPart = theSession.Parts.Display #for see through the block
             workPart.ModelingViews.WorkView.RenderingStyle = NXOpen.View.RenderingStyleType.WireframeWithDimEdges # applying the see through
         """
+        """
         if self.material.find("SeeThrough") != -1:
             displayPart = theSession.Parts.Display
             #markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Object Display")
             #nErrs1 = theSession.UpdateManager.DoUpdate(markId4)
-            """
+            
             displayModification1 = theSession.DisplayManager.NewDisplayModification()
     
             displayModification1.ApplyToAllFaces = True
@@ -83,8 +84,7 @@ class Block:
             displayModification1.Apply(objects1)
             
             displayModification1.Dispose()
-            """
-            """
+            
             displayModification1 = theSession.DisplayManager.NewDisplayModification()
             
             displayModification1.ApplyToAllFaces = True
@@ -92,14 +92,14 @@ class Block:
             displayModification1.ApplyToOwningParts = False
             
             displayModification1.NewTranslucency = 95
-            """
+            
             #objects1 = [NXOpen.DisplayableObject.Null] * 1 
             #self.workPart.Bodies.FindObject()
             #objects1[0] = body1
             #self.displayModification1.Apply()
             
             displayModification1.Dispose()
-
+        """
         self.body = blockfeaturebuilder1.Commit().GetBodies()[0]
         blockfeaturebuilder1.Destroy()
 
@@ -115,7 +115,7 @@ class Block:
 
         subtractfeaturebuilder1.Commit()
         subtractfeaturebuilder1.Destroy()
-    
+    """
     def makeSeeThrough(self, t):
         theSession  = NXOpen.Session.GetSession()
         
@@ -129,3 +129,4 @@ class Block:
         objects1[0] = body1
         displayModification1.Apply(objects1)
         displayModification1.Dispose()
+    """
