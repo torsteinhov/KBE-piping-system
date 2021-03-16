@@ -32,10 +32,10 @@ class pipeSystem:
         for i in range(self.num_eq):
             # here the code could have a if-else-statement to handle different shapes of the equipment
 
-            eq = Block(self.eq_pos[i][0], self.eq_pos[i][1], self.eq_pos[i][2], self.eq_size_list[i], self.eq_size_list[i], self.eq_size_list[i],"RED", "Steel") # color and material could be extended
+            eq = Block(self.eq_pos[i][0], self.eq_pos[i][1], self.eq_pos[i][2], self.eq_size_list[i][0], self.eq_size_list[i][1], self.eq_size_list[i][2],"RED", "Steel") # color and material could be extended
             eq.initForNX()
         
-        env = Block(0,0,0,self.env_size, self.env_size, self.env_size, "RED", "Steel")
+        env = Block(0,0,0,self.env_size[0], self.env_size[1], self.env_size[2], "RED", "Steel")
         env.initForNX()
 
         # make cirles for start and endpoint with diameter = pipe-dia
@@ -48,7 +48,7 @@ class pipeSystem:
         pointInNode = (point[0]*self.ratioX, point[1]*self.ratioY, point[2]*self.ratioZ)
         return pointInNode
 
-    def eqInOutWorldPoint(self, side, eq_size, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
+    def eqInOutWorldPoint(self, side, eq_sizeX, eq_sizeY, eq_sizeZ, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
         # side = [x,y,z] rrelative to the equipment
         # =================
         # possible sides of a cube
@@ -61,31 +61,31 @@ class pipeSystem:
         z = side[2]
         midPoint = np.array([eq_pos[0],eq_pos[1],eq_pos[2]])
         print("Midpoint: ", midPoint)
+        print("x: ", x)
+        print("y: ", x)
+        print("z: ", z)
 
         # finding what side the mid point is on and calculating it in global points
-        if(x == 0 and y < eq_size[1] and y > 0 and z < eq_size[2] and z > 0 ):
-            midPoint += [0, eq_size[1]/2, eq_size[2]/2]
+        if(x == 0 and y < eq_sizeY and y > 0 and z < eq_sizeZ and z > 0 ):
+            np.add(midPoint, [0, eq_sizeY/2, eq_sizeZ/2], out=midPoint, casting="unsafe")
 
-        elif (x == eq_size[0] and y < eq_size[1] and y > 0 and z < eq_size[2] and z > 0):
-            midPoint += [eq_size[0], eq_size[1]/2, eq_size[2]/2]
+        elif (x == eq_sizeX and y < eq_sizeY and y > 0 and z < eq_sizeZ and z > 0):
+            np.add(midPoint, [eq_sizeX, eq_sizeY/2, eq_sizeZ/2], out=midPoint, casting="unsafe")
 
-        elif (x < eq_size[0] and x > 0 and y==0 and z < eq_size[2] and z > 0):
-            midPoint += [eq_size[0]/2, 0, eq_size[2]/2]
+        elif (x < eq_sizeX and x > 0 and y==0 and z < eq_sizeZ and z > 0):
+            np.add(midPoint, [eq_sizeX/2, 0, eq_sizeZ/2], out=midPoint, casting="unsafe")
 
-        elif (x < eq_size[0] and x > 0 and y==eq_size[1] and z < eq_size[2] and z > 0):
-            midPoint += [eq_size[0]/2, eq_size[1], eq_size[2]/2]
+        elif (x < eq_sizeX and x > 0 and y==eq_sizeY and z < eq_sizeZ and z > 0):
+            np.add(midPoint, [eq_sizeX/2, eq_sizeY, eq_sizeZ/2], out=midPoint, casting="unsafe")
 
-        elif (x < eq_size[0] and x > 0 and y < eq_size[1] and y > 0 and z ==0):
-            midPoint += [eq_size[0]/2, eq_size[1]/2, 0]
+        elif (x < eq_sizeX and x > 0 and y < eq_sizeY and y > 0 and z ==0):
+            np.add(midPoint, [eq_sizeX/2, eq_sizeY/2, 0], out=midPoint, casting="unsafe")
 
-        elif (x < eq_size[0] and x > 0 and y < eq_size[1] and y > 0 and z == eq_size[2]):
-            midPoint += [eq_size[0]/2, eq_size[1]/2, eq_size[2]]
-            
+        elif (x < eq_sizeX and x > 0 and y < eq_sizeY and y > 0 and z == eq_sizeZ):
+            np.add(midPoint, [eq_sizeX/2, eq_sizeY/2, eq_sizeZ], out=midPoint, casting="unsafe")
+
         else:
             print("Not valid mid point on quipment!!!")
-            print("equipment size: ", eq_size)
-            print("Invalid side: ", side)
-            print("Equipment position: ", eq_pos)
             midPoint = np.array([0,0,0])
         return midPoint
 
@@ -131,29 +131,32 @@ class pipeSystem:
         for i in range(0, len(self.eq_size_list), 2):
             in_side = self.eq_in_out[n] #in to eq
             out_side = self.eq_in_out[n+1] #out from eq
-            midpoint = self.eqInOutWorldPoint(in_side, self.eq_size_list[i], self.eq_pos[i])
+            midpoint = self.eqInOutWorldPoint(in_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
             points2reach.append(midpoint)
-            midpoint =self.eqInOutWorldPoint(out_side, self.eq_size_list[i], self.eq_pos[i])
+            midpoint =self.eqInOutWorldPoint(out_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
             points2reach.append(midpoint)
         points2reach.append(self.endPoint)
 
-        if points2reach//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
+        print("points2reach: ", points2reach)
+        if int(len(points2reach))//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of points to reach is not even! Check this out!")
 
         nodes2reach = [] # a list of all nodes we want to reach
         #nodes2reach = [A_node,eq1_node_in, eq1_node_out, eq2_node_in, eq2_node_out, eq3_node_in, eq3_node_out, B_node]
-        for i in range(points2reach):
+        for i in range(len(points2reach)):
             nodeOfPoint = self.coordinate2node(points2reach[i])
             nodes2reach.append(nodeOfPoint)
         
-        if nodes2reach//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
+        if int(len(nodes2reach))//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of nodes is not even! Check this out!")
 
+        print("nodes2reach: ", nodes2reach)
+        print("len(nodes2reach): ", len(nodes2reach)/2)
         node_paths_all = [] # collecting all the paths between the nodes to reach in a list
         #k=0 # counting variable to get the correct nomber of nodes between to points
-        for i in range(0,len(nodes2reach/2), 2): # itterates over every second step in nodes to reach
+        for i in range(0,len(nodes2reach)//2, 2): # iterates over every second step in nodes to reach
             #path_nodes = aStar(num_nodes_between_2_points[k], nodes2reach[i], nodes2reach[i+1])
-            path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
+            path_nodes = aStar(max(env_size[0],env_size[1],env_size[2]), nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
             node_paths_all.append(path_nodes)
             #k+=1
 
@@ -169,15 +172,15 @@ class pipeSystem:
 
 #def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
 num_eq = 3
-eq_size_list = [70,150,200]
-eq_pos = [[50,150,0],[150,1000,1000], [2000,1000,2000]]
-env_size = [3000,2000,2000]
-eq_in_out = [[40,0,40], [70,40,40],[100,0,100],[150,100,100],[500,0,500],[1000,500,500]]
-startPoint = [0,1500,1500]
-endPoint = [3000, 1500,1500]
-pipeDia =  50.8
+eq_size_list = [[5,5,5],[15,15,15],[20,20,20]]
+eq_pos = [[5,15,0],[15,100,100],[200,100,200]]
+env_size = [300,200,200]
+eq_in_out = [[4,0,4], [7,4,4],[10,0,10],[15,10,10],[50,0,50],[100,50,50]]
+startPoint = [0,150,150]
+endPoint = [300, 150,150]
+pipeDia =  5
 
-processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100**3,pipeDia)
+processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100,pipeDia)
 print(processSystem.makePath())
 #processSystem.run_model()
 

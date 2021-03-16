@@ -25,7 +25,7 @@ class Node():
 class ContinueI(Exception):
     pass
 
-def aStar(env_width,env_length,env_height,start,end):
+def aStar(amount,start,end):
     #returns a list of 3D tuples, that makes the path from start to end
     #ex: [(1,1,0),(2,1,1),(3,2,2),(3,2,3),(4,3,3),(5,4,3),(5,5,4),(5,5,5)]
 
@@ -95,7 +95,7 @@ def aStar(env_width,env_length,env_height,start,end):
             if node_pos[0] > (len(maze)-1) or node_pos[0] < 0 or node_pos[1] > (len(maze[len(maze)-1]) -1) or node_pos[1] < 0 or node_pos[2] < 0 or node_pos[2] > (len(maze[len(maze[len(maze)-1])-1])-1):
                 continue
 
-            if maze[node_pos[0]][node_pos[1]][node_pos[2]] != 0:
+            if maze[int(node_pos[0])][int(node_pos[1])][int(node_pos[2])] != 0:
                 continue
             
             #creates new node
