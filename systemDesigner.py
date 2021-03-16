@@ -160,6 +160,8 @@ class pipeSystem:
             node_paths_all.append(path_nodes)
             #k+=1
 
+        #print("node_paths_all: ",node_paths_all)
+
         # changing the path to points from coordinates
         point_paths_all = [] # a list with the different paths, ex: [from A to eq1, form eq1 to eq2, form eq2 to eq3, form eq3 to B]
         for i in range(len(node_paths_all)):
@@ -180,7 +182,7 @@ startPoint = [0,150,150]
 endPoint = [300, 150,150]
 pipeDia =  5
 
-processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100,pipeDia)
+processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 print(processSystem.makePath())
 #processSystem.run_model()
 
