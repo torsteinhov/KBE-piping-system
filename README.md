@@ -3,7 +3,7 @@
 In this project, we were challenged with making an automated piping design system. Based on parameters given in to the UI provided, an A* algorithm computes the shortest-path in 3D from start node, between equipment and to an end node. KBE was in focus for capture and systematically reuse of engineering knowledge, with the final goal of reducing time and costs of repetitive product development tasks. During the development of the program and algorithm, scalability was an aspect we wanted to strive for, and the solution we ended up with, may be adjusted to be used on other shortest-path tasks.
 
 <h2>Architecture</h2>
-
+![](https://user-images.githubusercontent.com/77832956/111455105-ad826900-8715-11eb-8a3d-863ccd0f49de.jpg)
 
 The information flow starts when the customer submits data through the User Interface [HTML], which is styled by the CSS stylesheet. From here the NXServer.py parses the data from the HTTP Requests and sends the data to the systemDesigner.py. Based on this data, it calls on the pathFinder.py to find shortest path in 3D from start to end node. Then it translates this node path to the coordinates in the actual CAD environment. This calculation could have been done in the pathFinder but we wanted the actual algorithm to stay as general as possible for reusability and scalability. When the path is translated to coordinates in the environment, this path is used to overwrite an DFA file which will be based on the ug_swept feature to produce the piping system. From here it is ready for demonstration in the Siemens NX software, which from there will be available for further modelling and modifying.
 
