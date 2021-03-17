@@ -65,6 +65,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
 		elif path.find("/static/style2.css") != -1: # to handle the css
+			# thanks to: https://stackoverflow.com/questions/28369758/python-not-finding-css-file
 			stylefile = open("static/style2.css", "r")
 			tekst = stylefile.read()
 			s.wfile.write(bytes(tekst, 'utf-8'))
