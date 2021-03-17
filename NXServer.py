@@ -7,7 +7,7 @@ import json
 import math
 import random
 #import css
-#import style2
+
 
 '''
 from shapes.Cylinder import Cylinder
@@ -64,13 +64,17 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title><style><link rel="stylesheet" type="text/css" href="style.css" media="screen"/></style></head>', 'utf-8'))
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
+		elif path.find("/static/style2.css") != -1: # to handle the css
+			stylefile = open("static/style2.css", "r")
+			tekst = stylefile.read()
+			s.wfile.write(bytes(tekst, 'utf-8'))
 		elif path.find("/orderDesign") != -1:
 			s.send_response(200)
 			s.send_header("Content-type", "text/html")
 			s.end_headers()
 			s.wfile.write(bytes('<!DOCTYPE html><html><head>', 'utf-8'))
 			
-			s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet" type = "text/css" href="{{ url_for( "static" filename="style2.css")}}"/>', 'utf-8'))
+			s.wfile.write(bytes('<title>Piping system optimization</title>{% load staticfiles %}<link rel="stylesheet"  href="/static/style2.css" type = "text/css"/>', 'utf-8'))
 			#s.wfile.write(bytes('<title>Piping system optimization</title><link rel="stylesheet"  href="style.css"/>', 'utf-8'))
 			s.wfile.write(bytes('</head><body>', 'utf-8')) #style="'background-color:#26b6d9;'"
 			s.wfile.write(bytes("<h1>System parameters</h1>", 'utf-8'))
