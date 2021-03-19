@@ -191,7 +191,7 @@ class MyHandler(BaseHTTPRequestHandler):
             env_size = [custom_parameters[0], custom_parameters[1], custom_parameters[2]]
             startPoint = list(custom_parameters[3].split(","))
             endPoint = list(custom_parameters[4].split(","))
-            pipDia = custom_parameters[5]
+            pipDia = int(custom_parameters[5])
 
             for i in range(6,len(custom_parameters),6):
                 eq_size_eqN = [custom_parameters[i], custom_parameters[i+1], custom_parameters[i+2]] # size of equipment number N

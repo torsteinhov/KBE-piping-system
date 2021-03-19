@@ -3,12 +3,12 @@
 # eg. if the start and end point are on the surface of the environment
 
 def pointOnSurface(env_size:list, point:list): #env__size=[x,y,z] - point=[x,y,z]
-	x_e =env_size[0]
-	y_e = env_size[1]
-	z_e = env_size[2]
-	x_p = point[0]
-	y_p = point[1]
-	z_p = point[2]
+	x_e = int(env_size[0])
+	y_e = int(env_size[1])
+	z_e = int(env_size[2])
+	x_p = int(point[0])
+	y_p = int(point[1])
+	z_p = int(point[2])
 
 	onSureface = False
 
@@ -35,18 +35,18 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
     insideZdir = False
     eqInsideEnv = False
 
-    if eq_pos[0] > 0 and eq_pos[0] + eq_size <= env_size[0]: # check if the eq is inside the x-dir
+    if int(eq_pos[0]) > 0 and int(eq_pos[0]) + int(eq_size[0]) <= int(env_size[0]): # check if the eq is inside the x-dir
         insideXdir = True
     else: 
         errorMsg = "Equipment is outside the environment in the width (x-direction). "
         messages += errorMsg
 
-    if eq_pos[1] >0 and eq_pos[1]+ eq_size[1]<= env_size[1]:
+    if int(eq_pos[1]) >0 and int(eq_pos[1])+ int(eq_size[1])<= int(env_size[1]): # check if the eq is inside the y-dir
         insideYdir = True
     else:
         errorMsg = " Equipment is outside the environment in the length (y-direction)."
         messages += errorMsg
-    if eq_pos[2] >0 and eq_pos[2]+eq_size[2] <= env_size[2]:
+    if int(eq_pos[2]) >0 and int(eq_pos[2]) + int(eq_size[2]) <= int(env_size[2]): # check if the eq is inside the y-dir
         insideZdir = True
     else:
         errorMsg = " Equipment is outside the environment in the height (z-direction)."
@@ -58,21 +58,33 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
 
     return eqInsideEnv, messages
 
-def equpmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother
-	...
+def equpmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother	
+	message =""
+	# start checking if anything overlaps in all three directions
+	for i in range(3): #number of sides
+		if (int(eqN_pos[i]) > int(eqM_pos[i]) + int(eqM_size[i])) or (int(eqN_pos[i]) + int(eqN_size[i]) < int(eqM_pos[i])) :
+			errorMsg = "ok"
+		else:
+			errorMsg ="Equipments are colliding."
+			message += errorMsg
+	if len(message) == 0:
+		message = "ok"
+	return message
 
 
 
-def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
+def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
 	messages = []
 	pipeDia_mm = 25.4 * pipeDia
 
-	if all(pipeDia_mm < i for i in eq_size_list ):#pipe diameter is smaller than all of the eq
-		errorMsg = "ok"
-		messages.append(errorMsg)
-	else:
-		errorMsg = "The pipe diameter is greater than the equipment"
-		messages.append(errorMsg)
+	for eq in range(len(eq_size_list)): # shuld check the side that the pip is entring, not all.
+		for side in eq_size_list[eq]:
+			if (pipeDia_mm < int(side)):#pipe diameter is smaller than all of the eq
+				errorMsg = "ok"
+				messages.append(errorMsg)
+			else:
+				errorMsg = "The pipe diameter is greater than the equipment"
+				messages.append(errorMsg)
 	
 	if pointOnSurface(env_size,startPoint):# Need to have a function to check if point A and B is ond the surface of env.
 		errorMsg = "ok"
@@ -89,10 +101,19 @@ def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out
 		messages.append(errorMsg)
 	
 	for i in range(num_eq):
-		errorMsg = "for equpment number " + (i+1)
+		errorMsg = "for equpment number " + str(i+1)
 		eqInsideEnv, text = insideEnv(env_size, eq_size_list[i], eq_pos[i]) 
 		errorMsg += text
 		messages.append(errorMsg)
+
+	for i in range(num_eq): # check for colliding equipments
+		for j in range(num_eq): # using double for-loop to check every equpiment to all off the other equipment, this is not neassescary for only 3 eq
+			if i !=j: # do not check against it self
+				errorMsg = equpmentCrash(eq_size_list[i], eq_pos[i],eq_size_list[j], eq_pos[j]) # it should also be a feedback of which eq that is colliding.
+				collidingEq = "colliding equipments are " + str(i) + " and " + str(j) +": "
+				messages.append(collidingEq)
+				messages.append(errorMsg)
+
 	
 	return messages
 
