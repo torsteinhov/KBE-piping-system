@@ -11,9 +11,6 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - string split og ordne i lister slik at systemdesigner kan ta imot input
 
 - endre UI slik at kunden skriver inn et punkt på den siden røret skal inn. 
-- legge til epost, navn, nummer og bedriftsnavn i UI
-- finne ut av CSS og UI
-- endre UI slik at cuboids kan være rektangler
 - få til å "play" en fil i NX fra NXServer.py
 
 **** Kult hvis det gjøres ****
