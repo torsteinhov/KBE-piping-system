@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  
 <head>
     <title>Hei på deg!</title>
     
@@ -9,80 +10,215 @@
 <body>
 
 
+<header class="header">
 
-<form action="/action_page.php">
-
-<div class = "container">
-  Hei på deg, dette er en test
-</div>
-
-<div id="search-box" aria-expanded="false" role="search">
-  <div class="container">
+    
+    
+<div class="main-nav">
+  <div class="menu-container">
+    <div class="container">
       <div class="row">
-          <div class="col-md-12">
-<form action="/Search/Index" method="get">                    <label for="search-field">
-                      <input class="search-field-main" id="search-field" tabindex="0" placeholder="Search" type="text" name="q" autocomplete="off" />
-                  </label>
-                  <input tabindex="0" class="button-search" type="submit" value="" />
-</form>            </div>
+        <div class="col-md-12">
+          <div class="open-items">
+            <ul>
+              <li>                      
+                <img src="search_50px.png" width="30">
+              </li>
+              <li>
+                <a class="menu-open" href="#menu" tabindex="35"><span class="hidden-xs">Menu</span></a>                  
+              </li>
+            </ul>
+          </div>                    
+          <div class="logo">
+            <a href="/" tabindex="10">
+              <img src="Aker_Solutions.svg.png" alt="logo" class="logo-branding" >
+            </a>
+          </div>
+          
+        </div>
       </div>
+    </div>
   </div>
 </div>
+</header>
 
-<table>
-<h3>Define environment and pipe </h3>
-<tr>
-  	<th><label for="envSize">Enviroment side [mm]:</label></th>
-    <th><label for="startPointA">Starting point, A:</label></th>
-    <th><label for="endPointB">End point, B:</label></th>
-    <th><label for="pipSize">Pipe size [inches]:</label></th>
-</tr>
+<section class="pageHeader pageHeader-home startPage fullsize">
 
-<tr>
-    <td><input type="text" id="envSize" name="envSize" value="400"></td>
-    <td><input type="text" id="startA" name="startA" value="x,y,z"></td>
-    <td><input type="text" id="endB" name="endB" value="x,y,z"></td>
-    <td>
-    	<select id='pipe_dia' name='pipe_dia'>
-		<option value='2'>2''</option>
-		<option value='4'>4''</option>
-		<option value='6'>6''</option>
-		</select> </td>
-</tr>
-</table>
+  <a class="pageHeader-scroll" href="javascript:(function(d){$('html, body').animate({ scrollTop: window.innerHeight }, 300);}(document))"><span></span>Scroll</a>
+  <div class="container">
+    <div class="row"></div>
+    <div class="row pad-b">
 
-<h3>Define equipment</h3>
-<table>
-  <tr>
-    <th>Equipment number:</th>
-    <th>Cuboid side [mm]</th> 
-    <th>Location in enviroment</th>
-    <th>Input pose relative to eq:</th>
-    <th>Output pose relative to eq:</th>
-  </tr>
-  <tr>
-    <td><label for="eq1">eq1:</label><br></td>
-    <td><input type="text" id="eq1_side" name="eq1_side" value="300"></td>
-    <td><input type="text" id="eq1_pos" name="eq1_pos" value="x,y,z"></td>
-    <td><input type="text" id="eq1_in" name="eq1_in" value="x,y,z"></td>
-    <td><input type="text" id="eq1_out" name="eq1_out" value="x,y,z"></td>
-  </tr>
-  <tr>
-    <td><label for="eq2">eq2:</label><br></td>
-    <td><input type="text" id="eq2_side" name="eq2_side" value="500"></td>
-    <td><input type="text" id="eq2_pos" name="eq2_pos" value="x,y,z"></td>
-    <td><input type="text" id="eq2_in" name="eq2_in" value="x,y,z"></td>
-    <td><input type="text" id="eq2_out" name="eq2_out" value="x,y,z"></td>
-  </tr>
-  <tr>
-    <td><label for="eq3">eq3:</label><br></td>
-    <td><input type="text" id="eq3_side" name="eq3_side" value="400"></td>
-    <td><input type="text" id="eq3_pos" name="eq3_pos" value="x,y,z"></td>
-    <td><input type="text" id="eq3_in" name="eq3_in" value="x,y,z"></td>
-    <td><input type="text" id="eq3_out" name="eq3_out" value="x,y,z"></td>
-  </tr>
-</table>
+      <div class="col-xs-12 col-sm-6 col-md-9 neg-marg left">
+        <div class="box box-what blue">
+            <h3 class="h2">
+                Automatic pipe system generator.
+            </h3> 
+            <p>some cool information</p>
+            <p>Her kommer det masse bra greier. <br>bare vent å se.</p> 
+            <p>bare vi får nok infor til at disse to boksene matcher.</p>     
+        </div>
+      </div>
 
-<br><br>
-<input type="submit" value="Submit"></form>
-</body></html>
+      <div class="col-xs-12 col-sm-6 col-md-9 neg-marg right">
+        <div class="box box-project blue">
+          <div class="image-project-container">
+            <img src="Pipingsystem_UI.png?width=1200&amp;quality=60" />
+          </div>
+        </div>  
+      </div>
+    </div>
+</section>
+
+
+
+
+<section class="pageSection pageSection-light pageContent">
+  <form action="/action_page.php">      
+ 
+  <div class="container">
+    <div class="row pad-b">
+            
+      <div class="row  display-option__full col col-12 col-md-12 col-sm-12">    
+        <h2 class="h2 m-b-20">Your Story</h2>
+          <div>
+            Upload your parameters for your system and we will maufacture a CAD-design soultion for your piping system. Equipment and environment wil be displayed as cuboids with sides in different sizes.     
+            <div>
+              <br>
+              <table>
+                 <h3>Define environment and pipe </h3>
+                  <tr>
+                    <th><label for="envSizeX">Env. width(x) [mm]:</label></th>
+                    <th><label for="envSizeY">Env. length(y) [mm]:</label></th>
+                    <th><label for="envSizeZ">Env. height(z) [mm]:</label></th>
+                    <th><label for="startPointA">Starting point, A:</label></th>
+                    <th><label for="endPointB">End point, B:</label></th>
+                    <th><label for="pipSize">Pipe size [inches]:</label></th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" id="envSizeX" name="envSizeX" value="400"></td>
+                    <td><input type="text" id="envSizeY" name="envSizeY" value="500"></td>
+                    <td><input type="text" id="envSizeZ" name="envSizeZ" value="600"></td>
+                    <td><input type="text" id="startA" name="startA" value="x,y,z"></td>
+                    <td><input type="text" id="endB" name="endB" value="x,y,z"></td>
+                    <td>
+                      <select id='pipe_dia' name='pipe_dia'>
+                      <option value='2'>2''</option>
+                      <option value='4'>4''</option>
+                      <option value='6'>6''</option>
+                      </select> 
+                    </td>
+                  </tr>
+              </table>
+            </div>
+            <br>
+            <div>
+              <h3>Define equipment</h3>
+              <table>
+                <tr>
+                  <th>Equipment number:</th>
+                  <th>Cuboid width(x) [mm]</th>
+                  <th>Cuboid length(y) [mm]</th>
+                  <th>Cuboid height(z) [mm]</th>
+                  <th>Location in enviroment</th>
+                  <th>Input pose relative to eq:</th>
+                  <th>Output pose relative to eq:</th>
+                </tr>
+                <tr>
+                  <td><label for="eq1">eq1:</label><br></td>
+                  <td><input type="text" id="eq1_sideX" name="eq1_sideX" value="300"></td>
+                  <td><input type="text" id="eq1_sideY" name="eq1_sideY" value="200"></td>
+                  <td><input type="text" id="eq1_sideZ" name="eq1_sideZ" value="400"></td>
+                  <td><input type="text" id="eq1_pos" name="eq1_pos" value="x,y,z"></td>
+                  <td><input type="text" id="eq1_in" name="eq1_in" value="x,y,z"></td>
+                  <td><input type="text" id="eq1_out" name="eq1_out" value="x,y,z"></td>
+                </tr>
+                <tr>
+                  <td><label for="eq2">eq2:</label><br></td>
+                  <td><input type="text" id="eq2_sideX" name="eq2_sideX" value="500"></td>
+                  <td><input type="text" id="eq2_sideY" name="eq2_sideY" value="500"></td>
+                  <td><input type="text" id="eq2_sideZ" name="eq2_sideZ" value="500"></td>
+                  <td><input type="text" id="eq2_pos" name="eq2_pos" value="x,y,z"></td>
+                  <td><input type="text" id="eq2_in" name="eq2_in" value="x,y,z"></td>
+                  <td><input type="text" id="eq2_out" name="eq2_out" value="x,y,z"></td>
+                </tr>
+                <tr>
+                  <td><label for="eq3">eq3:</label><br></td>
+                  <td><input type="text" id="eq3_sideX" name="eq3_sideX" value="400"></td>
+                  <td><input type="text" id="eq3_sideY" name="eq3_sideY" value="400"></td>
+                  <td><input type="text" id="eq3_sideZ" name="eq3_sideZ" value="400"></td>
+                  <td><input type="text" id="eq3_pos" name="eq3_pos" value="x,y,z"></td>
+                  <td><input type="text" id="eq3_in" name="eq3_in" value="x,y,z"></td>
+                  <td><input type="text" id="eq3_out" name="eq3_out" value="x,y,z"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          
+          
+      </div>
+    </div>
+  </div>
+  <section class="pageSection pageSection-what">
+    <div class="container">
+      <div class="row"></div>
+      <div class="row pad-b">
+        <div class="col-xs-12 col-sm-6 col-md-9 neg-marg left"><div class="box box-what">
+          <p>Click preview to see your environment and equipments arrangement.</p>
+          <div class="col-md-12">
+            <input type="submit" value="Preview" class="button button-tertiary">
+          </div>
+        </div></div>
+        <div class="col-xs-12 col-sm-6 col-md-9 neg-marg right"><div class="box box-project orange"><div class="image-project-container">
+          <img src="Pipingsystem_UI.png?width=1200&amp;quality=60" />
+        </div></div></div>
+      </div>
+    </div>
+  </section>
+  </form> 
+</section>
+
+<section>
+  <div class="container">
+    <div class="row pad-b">
+      <h2>Order now</h2>
+      <p>If you click the "Order" button, we wil generate the pipe system for you and contact you when it is done.</p>
+    <form action="/sendOrder">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" value="Aashild"><br>
+      <label for="lname">Phone number:</label><br>
+      <input type="text" id="pNumber" name="pNumber" value="95976094"><br>
+      
+      <label for="lname">E-mail:</label><br>
+      <input type="text" id="eMail" name="eMail" value="kontakt@kolstaddesign.com"><br>
+      
+      <label for="lname">Company name:</label><br>
+      <input type="text" id="compName" name="compName" value="Kolstad Design"><br>
+      
+      
+      <div class="button-container">
+        <input type="submit" value="Order" class="button button-primary align-bottom top">
+      </div>
+    </form> 
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+</body>
+</html>
+

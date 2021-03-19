@@ -1,0 +1,37 @@
+file:///C:/action_page.php?envSizeX=400&envSizeY=500&envSizeZ=600&startA=x%2Cy%2Cz&endB=x%2Cy%2Cz&pipe_dia=2&eq1_sideX=300&eq1_sideY=200&eq1_sideZ=400&eq1_pos=x%2Cy%2Cz&eq1_in=x%2Cy%2Cz&eq1_out=x%2Cy%2Cz&eq2_sideZ=500&eq2_sideZ=500&eq2_sideZ=500&eq2_pos=x%2Cy%2Cz&eq2_in=x%2Cy%2Cz&eq2_out=x%2Cy%2Cz&eq3_sideX=400&eq3_sideY=400&eq3_sideZ=400&eq3_pos=x%2Cy%2Cz&eq3_in=x%2Cy%2Cz&eq3_out=x%2Cy%2Cz
+
+file:///C:/action_page.php?envSizeX=400&envSizeY=500&envSizeZ=600&startA=x%2Cy%2Cz&endB=x%2Cy%2Cz&pipe_dia=2&eq1_sideX=300&eq1_sideY=200&eq1_sideZ=400&eq1_pos=x%2Cy%2Cz&eq1_in=x%2Cy%2Cz&eq1_out=x%2Cy%2Cz&eq2_sideZ=500&eq2_sideZ=500&eq2_sideZ=500&eq2_pos=x%2Cy%2Cz&eq2_in=x%2Cy%2Cz&eq2_out=x%2Cy%2Cz&eq3_sideX=400&eq3_sideY=400&eq3_sideZ=400&eq3_pos=x%2Cy%2Cz&eq3_in=x%2Cy%2Cz&eq3_out=x%2Cy%2Cz
+
+Data values:
+envSizeX="x"
+envSizeY="y"
+envSizeZ="z"
+startA="x,y,z" #x%2Cy%2Cz
+endB="x,y,z" #x%2Cy%2Cz
+pipe_dia=2
+eq1_sideX= "x"
+eq1_sideY= "y"
+eq1_sideZ= "z"
+eq1_pos="x,y,z" #x%2Cy%2Cz
+eq1_in="x,y,z" #x%2Cy%2Cz
+eq1_out= "x,y,z" #x%2Cy%2Cz
+eq2_sideX= "x"
+eq2_sideY= "y"
+eq2_sideZ= "z"
+eq2_pos= "x,y,z" #x%2Cy%2Cz
+eq2_in= "x,y,z" #x%2Cy%2Cz
+eq2_out= "x,y,z" #x%2Cy%2Cz
+eq3_sideX= "x"
+eq3_sideY= "y"
+eq3_sideZ= "z"
+eq3_pos= "x,y,z" #x%2Cy%2Cz
+eq3_in= "x,y,z" #x%2Cy%2Cz
+eq3_out= "x,y,z" #x%2Cy%2Cz
+
+file:///C:/sendOrder?name=Aashild&pNumber=95976094&eMail=kontakt%40kolstaddesign.com&compName=Kolstad+Design
+
+Info about the customer:
+name= "Your+Name"
+pNumber= "Your+number"
+eMail= "Your+e-mail"
+compName= "Your+company"
