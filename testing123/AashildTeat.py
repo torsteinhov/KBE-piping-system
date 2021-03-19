@@ -88,7 +88,7 @@ pipeDia =  50.8
 #custommer = drawGivenInfo(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, pipeDia)
 #custommer.run_model()
 """
-
+"""
 vek = [1,2,3]
 midpoint = [vek[0], vek[1], vek[2]]
 print(midpoint)
@@ -125,3 +125,19 @@ print(midpoint)
             print("Equipment position: ", eq_pos)
             midPoint = [0,0,0]
         return midPoint, dirInEq
+"""
+
+param_line = "envSizeX=1000&envSizeY=3000&envSizeZ=4000&startA=0%2C1500%2C2000&endB=1000%2C1500%2C2000&pipe_dia=6&eq1_sideX=500&eq1_sideY=500&eq1_sideZ=500&eq1_pos=500%2C500%2C500&eq1_in=0%2C250%2C250&eq1_out=500%2C250%2C250&eq2_sideX=300&eq2_sideY=300&eq2_sideZ=300&eq2_pos=300%2C700%2C500&eq2_in=0%2C150%2C150&eq2_out=300%2C150%2C150&eq3_sideX=700&eq3_sideY=700&eq3_sideZ=700&eq3_pos=700%2C1500%2C2000&eq3_in=0%2C350%2C350&eq3_out=700%2C350%2C350"
+if param_line.find("%2C"):
+    param_line = param_line.replace("%2C", ',')
+
+key_val_pair = param_line.split('&')
+print("key_val_pair: ", key_val_pair)
+
+for i in range(len(key_val_pair)):
+    if key_val_pair[i].find("%2C"):
+        key_val_pair[i] = key_val_pair[i].replace("2%C", ",")
+        print(key_val_pair[i])
+
+print("key_val_pair: ", key_val_pair)
+

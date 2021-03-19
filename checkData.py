@@ -1,3 +1,7 @@
+# this script checks the geometry of the user inpu
+# eg. if the equipments are insde of the environment
+# eg. if the start and end point are on the surface of the environment
+
 def pointOnSurface(env_size:list, point:list): #env__size=[x,y,z] - point=[x,y,z]
 	x_e =env_size[0]
 	y_e = env_size[1]
@@ -53,6 +57,9 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
         messages = "ok"
 
     return eqInsideEnv, messages
+
+def equpmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother
+	...
 
 
 
