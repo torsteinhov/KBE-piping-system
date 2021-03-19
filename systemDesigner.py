@@ -23,27 +23,6 @@ class pipeSystem:
         self.ratioZ = self.env_size[2]/self.num_node_ax
 
 
-    #Cylinder(x, y, z, diameter, height, direction, color, material)
-    #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
-    #Block(x, y, z, length, width, height, color, material)
-
-    def run_model(self):
-        
-        for i in range(self.num_eq):
-            # here the code could have a if-else-statement to handle different shapes of the equipment
-
-            eq = Block(self.eq_pos[i][0], self.eq_pos[i][1], self.eq_pos[i][2], self.eq_size_list[i][0], self.eq_size_list[i][1], self.eq_size_list[i][2],"RED", "Steel") # color and material could be extended
-            eq.initForNX()
-        
-        env = Block(0,0,0,self.env_size[0], self.env_size[1], self.env_size[2], "RED", "Steel")
-        env.initForNX()
-
-        # make cirles for start and endpoint with diameter = pipe-dia
-
-        #https://docs.plm.automation.siemens.com/data_services/resources/nx/10/nx_api/en_US/custom/nxopen_python_ref/NXOpen.CurveCollection.html#NXOpen.CurveCollection.CreateLine
-        #line1 = CreateLine((0,0,0),(100,0,0))
-        #line1.initForNX()
-
     def coordinate2node(self, point): # takes in the a point and gives the node position
         pointInNode = (point[0]*self.ratioX, point[1]*self.ratioY, point[2]*self.ratioZ)
         return pointInNode
