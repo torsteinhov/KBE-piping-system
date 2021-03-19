@@ -23,24 +23,33 @@ Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\\\KBE-piping-system\\" 
 yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
-point_A = "starting point"
-point_B = "end point"
-pipe_dia = "pipe diameter"
-eq1_sideX = "x" #"Equipment number 1 size"
-eq1_sidey = "x"
-eq1_sideZ = "z"
-eq1_point = "x,y,z" #"Equipment number 1 location"
-eq2_sideX = "x" #"Equipment number 2 size"
-eq2_sideY = "y"
-eq2_sideZ = "z"
-eq2_point = "x,y,z"#"Equipment number 2 location"
-eq3_sideX = "x" #"Equipment number 3 size"
-eq3_sideY = "y"
-eq3_sideZ = "z"
-eq3_point = "x,y,z"#"Equipment number 3 location"
+envSizeX="x"
+envSizeY="y"
+envSizeZ="z"
+startA="x,y,z" #x%2Cy%2Cz
+endB="x,y,z" #x%2Cy%2Cz
+pipe_dia=2
+eq1_sideX= "x"
+eq1_sideY= "y"
+eq1_sideZ= "z"
+eq1_pos="x,y,z" #x%2Cy%2Cz
+eq1_in="x,y,z" #x%2Cy%2Cz
+eq1_out= "x,y,z" #x%2Cy%2Cz
+eq2_sideX= "x"
+eq2_sideY= "y"
+eq2_sideZ= "z"
+eq2_pos= "x,y,z" #x%2Cy%2Cz
+eq2_in= "x,y,z" #x%2Cy%2Cz
+eq2_out= "x,y,z" #x%2Cy%2Cz
+eq3_sideX= "x"
+eq3_sideY= "y"
+eq3_sideZ= "z"
+eq3_pos= "x,y,z" #x%2Cy%2Cz
+eq3_in= "x,y,z" #x%2Cy%2Cz
+eq3_out= "x,y,z" #x%2Cy%2Cz
 
 
-custom_parameters = [point_A,point_B,pipe_dia,eq1_size,eq1_point,eq2_size,eq2_point,eq3_size,eq3_point] 
+custom_parameters = [envSizeX, envSizeY, envSizeZ, startA, endB, pipe_dia, eq1_sideX, eq1_sideY, eq1_sideZ, eq1_pos, eq1_in, eq1_out, eq2_sideX, eq2_sideY, eq2_sideZ, eq2_pos, eq2_in, eq2_out, eq3_sideX, eq3_sideY, eq3_sideZ, eq3_pos, eq3_in, eq3_out] 
 
 resultQuery = False
 
@@ -56,7 +65,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def do_GET(s):
 
-		global point_A,point_B,pipe_dia,eq1_size,eq1_point,eq2_size,eq2_point,eq3_size,eq3_point
+		global envSizeX, envSizeY, envSizeZ, startA, endB, pipe_dia, eq1_sideX, eq1_sideY, eq1_sideZ, eq1_pos, eq1_in, eq1_out, eq2_sideX, eq2_sideY, eq2_sideZ, eq2_pos, eq2_in, eq2_out, eq3_sideX, eq3_sideY, eq3_sideZ, eq3_pos, eq3_in, eq3_out
 
 		"""Respond to a GET request."""
 		s.send_response(200)
