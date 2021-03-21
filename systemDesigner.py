@@ -128,7 +128,7 @@ class pipeSystem:
         # iterates over every second step in nodes to reach, because we want the path between A and eq1In, eq1Out and eq2In. We do NOT want the path between eq1In and eq1Out
         for i in range(0,len(nodes2reach), 2): 
             print("hei på deg ", i)
-            path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
+            path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1])
             node_paths_all.append(path_nodes)
 
         #print("node_paths_all: ",node_paths_all)
