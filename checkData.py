@@ -35,18 +35,18 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
     insideZdir = False
     eqInsideEnv = False
 
-    if int(eq_pos[0]) > 0 and int(eq_pos[0]) + int(eq_size[0]) <= int(env_size[0]): # check if the eq is inside the x-dir
+    if int(eq_pos[0]) >= 0 and int(eq_pos[0]) + int(eq_size[0]) <= int(env_size[0]): # check if the eq is inside the x-dir
         insideXdir = True
     else: 
         errorMsg = "Equipment is outside the environment in the width (x-direction). "
         messages += errorMsg
 
-    if int(eq_pos[1]) >0 and int(eq_pos[1])+ int(eq_size[1])<= int(env_size[1]): # check if the eq is inside the y-dir
+    if int(eq_pos[1]) >= 0 and int(eq_pos[1])+ int(eq_size[1])<= int(env_size[1]): # check if the eq is inside the y-dir
         insideYdir = True
     else:
         errorMsg = "Equipment is outside the environment in the length (y-direction)."
         messages += errorMsg
-    if int(eq_pos[2]) >0 and int(eq_pos[2]) + int(eq_size[2]) <= int(env_size[2]): # check if the eq is inside the y-dir
+    if int(eq_pos[2]) >= 0 and int(eq_pos[2]) + int(eq_size[2]) <= int(env_size[2]): # check if the eq is inside the y-dir
         insideZdir = True
     else:
         errorMsg = " Equipment is outside the environment in the height (z-direction)."
@@ -74,26 +74,17 @@ def equipmentCrash(self_pos, self_size, other_pos, other_size):
 	l2xy = [other_pos[0],other_pos[1]]
 	r2xy = [other_pos[0]+other_size[0],other_pos[1]+other_size[1]]
 
-	print("l1xy[0]: ", l1xy[0])
-	print("r2xy[0]: ", r2xy[0])
-	print("l2xy[0]: ", l2xy[0])
-	print("r2xy[0]: ", r1xy[0])
+
 	if (l1xy[0] > r2xy[0] or l2xy[0] > r1xy[0]):
 		overlapXYleft = False
 	else:
 		overlapXYleft = True
 	
-	print("l1xy[1]: ", l1xy[1])
-	print("r2xy[1]: ", r2xy[1])
-	print("l2xy[1]: ", l2xy[1])
-	print("r2xy[1]: ", r2xy[1])
 	if (l1xy[1] < r2xy[1] or l2xy[1] < r1xy[1]):
 		overlapXYover = False
 	else:
 		overlapXYover = True
 
-	print("overlapXYover: ", overlapXYover)
-	print("overlapXYleft: ", overlapXYleft)
 
 	l1xz = [self_pos[0],self_pos[2]]
 	r1xz = [self_pos[0]+self_size[0],self_pos[2]+self_size[2]]
@@ -110,8 +101,6 @@ def equipmentCrash(self_pos, self_size, other_pos, other_size):
 	else:
 		overlapXZover = True
 
-	print("overlapXZover: ", overlapXZover)
-	print("overlapXZleft: ", overlapXZleft)
 
 	l1yz = [self_pos[1],self_pos[2]]
 	r1yz = [self_pos[1]+self_size[1],self_pos[2]+self_size[2]]
@@ -127,25 +116,28 @@ def equipmentCrash(self_pos, self_size, other_pos, other_size):
 		overlapYZover = False
 	else:
 		overlapYZover = True
-	print("overlapYZover: ", overlapYZover)
-	print("overlapYZleft: ", overlapYZleft)
 
 	overlapXY = (overlapXYleft or overlapXYover)
 	overlapXZ = (overlapXZleft or overlapXZover)
 	overlapYZ = (overlapYZleft or overlapYZover)
+
 	print("overlapXY: ", overlapXY)
 	print("overlapXZ: ", overlapXZ)
 	print("overlapYZ: ", overlapYZ)
 
 	if (overlapXY and overlapXZ and overlapYZ):
-		return True
+		messages = "colliding equipments"
+		return True, messages
 
-	return False
+	messages = "ok"
+	return False, messages 
 
 
 
 def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
+
 	messages = []
+
 	pipeDia_mm = 25.4 * pipeDia
 
 	for eq in range(len(eq_size_list)): # shuld check the side that the pip is entring, not all.
@@ -172,7 +164,7 @@ def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out:
 		messages.append(errorMsg)
 	
 	for i in range(num_eq):
-		errorMsg = "for equpment number " + str(i+1)
+		errorMsg = "for equipment number " + str(i+1)
 		eqInsideEnv, text = insideEnv(env_size, eq_size_list[i], eq_pos[i]) 
 		errorMsg += text
 		messages.append(errorMsg)
@@ -180,11 +172,12 @@ def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out:
 	for i in range(num_eq): # check for colliding equipments
 		for j in range(num_eq): # using double for-loop to check every equpiment to all off the other equipment, this is not neassescary for only 3 eq
 			if i !=j: # do not check against it self
-				errorMsg = equipmentCrash(eq_size_list[i], eq_pos[i],eq_size_list[j], eq_pos[j]) # it should also be a feedback of which eq that is colliding.
-				collidingEq = "colliding equipments are " + str(i) + " and " + str(j) +": "
-				messages.append(collidingEq)
-				messages.append(errorMsg)
-
+				colliding, errorMsg = equipmentCrash(eq_pos[i], eq_size_list[i],eq_pos[j], eq_size_list[j])  # it should also be a feedback of which eq that is colliding.
+				collidingEq = "colliding equipments are " + str(i + 1) + " and " + str(j + 1) +": "
+				messages.append(collidingEq + errorMsg)
 	
 	return messages
-	
+
+#checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
+print(checkCustomerInput(3, [[100,100,100],[200,100,200],[300,100,100]], [[0,0,0],[4000,4000,4000],[8000,1000,2000]], [[0,50,50],[100,80,80],[0,50,50],[200,80,80],[0,50,50],[300,80,80]],[10000,10000,10000], (0,5000,5000),(10000,5000,5000), 100, 1))
+#print(equipmentCrash([4000,4000,4000],[200,100,200],[8000,1000,2000],[300,100,100]))
