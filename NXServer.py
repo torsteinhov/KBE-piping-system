@@ -253,22 +253,6 @@ class MyHandler(BaseHTTPRequestHandler):
             print("Body: ", param_line)
             s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
-
-
-#IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
-class makeSystem: 
-
-    def __init__(self):
-
-    #Cylinder(x, y, z, diameter, height, direction, color, material)
-    #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
-        '''
-        def run_model(self):
-            return -1
-        '''
-        
-	
-
  
 if __name__ == '__main__':
 
