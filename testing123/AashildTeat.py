@@ -141,3 +141,25 @@ for i in range(len(key_val_pair)):
 
 print("key_val_pair: ", key_val_pair)
 
+
+    def makePath(self):
+        """
+        # this could be function/calculated from num_nodes
+        # num_nodes should take the properties of the pipe to consideration
+        # we want number of nodes between two points to be equal in ration according to the distance
+        num_nodes_A_eq1 = ... #number of nodes between A and eq1
+        num_nodes_eq1_eq2 = ... # number of nodes between eq1 and eq2
+        num_nodes_eq2_eq3 = ... # number of nodes between eq2 and eq3
+        num_nodes_eq3_B = ... # nuber of nodes between eq3 and end point 
+        num_nodes_between_2_points = [num_nodes_A_eq1, num_nodes_eq1_eq2, num_nodes_eq2_eq3, num_nodes_eq3_B]
+        """
+        """
+        A_node = 
+        eq1_node_in =
+        eq1_node_out = 
+        eq2_node_in = 
+        eq2_node_out = 
+        eq3_node_in = 
+        eq3_node_out = 
+        B_node =
+        """

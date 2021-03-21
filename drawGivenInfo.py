@@ -146,9 +146,9 @@ class drawGivenInfo:
 			points2reach.append(midpoint)
 			dirInEq.append(dirInEq_)
 			n+=2
-			print("Hei paa deg2")
+			
 		
-		if len(points2reach)//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
+		if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
 			print("Number of points to reach is not even! Check this out!")
 
 		if len(points2reach) != len(dirInEq):

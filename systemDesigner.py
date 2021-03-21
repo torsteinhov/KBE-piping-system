@@ -71,11 +71,12 @@ class pipeSystem:
         print("Midpoint: ", midPoint)
 		
         return midPoint
-
+    # takes in a node and returns the Global point
     def node2point(self, node): #usikker på om dette er riktig
-        nodeInPoint = [node[0]/self.ratioX, node[1]/self.ratioY, node[2]/self.ratioZ]
+        nodeInPoint = [node[0]*self.distanceBetweenNodes, node[1]*self.distanceBetweenNodes, node[2]*self.distanceBetweenNodes]
         return nodeInPoint
 
+    # takes in a path of nodes and returs a path in Global points
     def nodePath2pointPath(self, nodePath): # takes in a list of nodes which describes the path between eq1 and eq2, and returnes the list in points(world frame coordinates)
         pointPath = []
         for i in range(nodePath):
@@ -86,66 +87,54 @@ class pipeSystem:
     def makeSubEnv(self):
         ...
 
+    # this function uses all the other function 
+    # using all the functions and the given information and returns a list of lists
+    # returning: [pointpath between A and eq1In, pointPath between eq1Out and eq2In, pointPath between eq2out and eq3In, pointpath between eq3Out and B]
     def makePath(self):
-        """
-        # this could be function/calculated from num_nodes
-        # num_nodes should take the properties of the pipe to consideration
-        # we want number of nodes between two points to be equal in ration according to the distance
-        num_nodes_A_eq1 = ... #number of nodes between A and eq1
-        num_nodes_eq1_eq2 = ... # number of nodes between eq1 and eq2
-        num_nodes_eq2_eq3 = ... # number of nodes between eq2 and eq3
-        num_nodes_eq3_B = ... # nuber of nodes between eq3 and end point 
-        num_nodes_between_2_points = [num_nodes_A_eq1, num_nodes_eq1_eq2, num_nodes_eq2_eq3, num_nodes_eq3_B]
-        """
-        """
-        A_node = 
-        eq1_node_in =
-        eq1_node_out = 
-        eq2_node_in = 
-        eq2_node_out = 
-        eq3_node_in = 
-        eq3_node_out = 
-        B_node =
-        """
 
-        # making a list of all the points (in world frame) to make pipe between
-        points2reach = [self.startPoint]
+        # making a list of all the points (in global frame) to make pipe between
+        points2reach = [self.startPoint] #first adding the startpoint to the list
         n = 0
-        for i in range(0, len(self.eq_size_list), 2):
+        for i in range(0, len(self.eq_size_list), 1): #then adding the in and out points on all the equipments
             in_side = self.eq_in_out[n] #in to eq
             out_side = self.eq_in_out[n+1] #out from eq
-            midpoint = self.eqInOutGlobalPoint(in_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
+            midpoint = self.eqInOutGlobalPoint(in_side, self.eq_size_list[i],self.eq_pos[i])
             points2reach.append(midpoint)
-            midpoint =self.eqInOutGlobalPoint(out_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
+            midpoint =self.eqInOutGlobalPoint(out_side, self.eq_size_list[i],self.eq_pos[i])
             points2reach.append(midpoint)
-        points2reach.append(self.endPoint)
+            n+=2
+
+        points2reach.append(self.endPoint) #finally adding the endpoint to the list of all points 2 reach globally
 
         print("points2reach: ", points2reach)
-        if int(len(points2reach))//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
+        if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of points to reach is not even! Check this out!")
 
+        # then we need to convert the points (global) to nodes
         nodes2reach = [] # a list of all nodes we want to reach
-        #nodes2reach = [A_node,eq1_node_in, eq1_node_out, eq2_node_in, eq2_node_out, eq3_node_in, eq3_node_out, B_node]
+        # this is how it will look: nodes2reach = [A_node,eq1_node_in, eq1_node_out, eq2_node_in, eq2_node_out, eq3_node_in, eq3_node_out, B_node]
         for i in range(len(points2reach)):
             nodeOfPoint = self.coordinate2node(points2reach[i])
             nodes2reach.append(nodeOfPoint)
         
-        if int(len(nodes2reach))//2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
+        if int(len(nodes2reach))%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of nodes is not even! Check this out!")
 
         print("nodes2reach: ", nodes2reach)
         print("len(nodes2reach): ", len(nodes2reach)/2)
-        node_paths_all = [] # collecting all the paths between the nodes to reach in a list
-        #k=0 # counting variable to get the correct nomber of nodes between to points
-        for i in range(0,len(nodes2reach)//2, 2): # iterates over every second step in nodes to reach
-            #path_nodes = aStar(num_nodes_between_2_points[k], nodes2reach[i], nodes2reach[i+1])
+
+        # collecting all the paths between the nodes to reach in a list
+        node_paths_all = []
+        # iterates over every second step in nodes to reach, because we want the path between A and eq1In, eq1Out and eq2In. We do NOT want the path between eq1In and eq1Out
+        for i in range(0,len(nodes2reach), 2): 
+            print("hei på deg ", i)
             path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
             node_paths_all.append(path_nodes)
-            #k+=1
 
         #print("node_paths_all: ",node_paths_all)
 
-        # changing the path to points from coordinates
+        # now we have the wanted paths in nodes and we need them in point paths
+        # changing the path from nodes to points (global)
         point_paths_all = [] # a list with the different paths, ex: [from A to eq1, form eq1 to eq2, form eq2 to eq3, form eq3 to B]
         for i in range(len(node_paths_all)):
             path_points = self.nodePath2pointPath(node_paths_all[i])
@@ -153,17 +142,17 @@ class pipeSystem:
 
         return point_paths_all
 
-        #make a actual path of the points
+        
 
 #def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
 num_eq = 3
-eq_size_list = [[5,5,5],[15,15,15],[20,20,20]]
-eq_pos = [[5,15,0],[15,100,100],[200,100,200]]
-env_size = [300,200,200]
-eq_in_out = [[4,0,4], [7,4,4],[10,0,10],[15,10,10],[50,0,50],[100,50,50]]
-startPoint = [0,150,150]
-endPoint = [300, 150,150]
-pipeDia =  5
+eq_size_list = [[70,70,70],[150,150,150],[1000,1000,1000]]
+eq_pos = [[50,50,50],[150,150,150], [1000,1000,1000]]
+env_size = [3000,3000,3000]
+eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,500]]
+startPoint = [0,1500,1500]
+endPoint = [3000, 1500,1500]
+pipeDia =  50.8
 
 processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 print(processSystem.makePath())
