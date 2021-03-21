@@ -29,8 +29,6 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 
 **** OBS ****
 - i system designer kan det hende det mangeler noen self....
-- drawGivenInfo kjører ikke...
-- det kan være bugs i checkData.py
 
 **** Filbeskrivelse ****
 - drawGivenInfo.py er ment for å tengne opp det kunden har skrevet inn, slik at vi kan generere et bilde som kunden kan få se når hen trykker "preview"
