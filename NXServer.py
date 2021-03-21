@@ -237,7 +237,7 @@ class MyHandler(BaseHTTPRequestHandler):
                     # send brukeren til yourParameters"
                     ...
 
-
+            # take oicture of the drawCustomerInfo
 				#if not valid print beskjed, og la brukeren skrive inn nye verdier uten at de gamle forsvinner
             s.do_GET() #this is not a optimal solution
 

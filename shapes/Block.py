@@ -1,25 +1,23 @@
-# Basic class in Python
-# NXPython/shapes/Block.py
+#NXPython/shapes/Block.py
 import math
 import NXOpen
 import NXOpen.Annotations
 import NXOpen.Features
 import NXOpen.GeometricUtilities
 import NXOpen.Preferences
-
 class Block:
 
-#    length = 0         # class variable shared by all instances
+#	length = 0		 # class variable shared by all instances
 #	width = ...
 	
 	def getVolume(self):
 		return self.length * self.width * self.height
-    
+	
 	def __init__(self, x, y, z, length, width, height, color, material):
-		self.length = length    # instance variable unique to each instance
+		self.length = length	# instance variable unique to each instance
 		self.width = width
 		self.height = height
-		self.x = x    
+		self.x = x	
 		self.y = y
 		self.z = z
 		self.color = color
@@ -55,3 +53,36 @@ class Block:
 		
 		self.body = blockfeaturebuilder1.Commit().GetBodies()[0]
 		blockfeaturebuilder1.Destroy()
+		
+	def subtract(self, tool):
+		theSession = NXOpen.Session.GetSession()
+		workPart = theSession.Parts.Work
+
+		subtractfeaturebuilder1 = workPart.Features.CreateBooleanBuilder(NXOpen.Features.BooleanFeature.Null)
+
+		subtractfeaturebuilder1.Target = self.body  # bodyTarget_.GetBodies()[0] # From where to subtract
+		subtractfeaturebuilder1.Tool = tool.body  # What to subtract
+		subtractfeaturebuilder1.Operation = NXOpen.Features.FeatureBooleanType.Subtract
+
+		subtractfeaturebuilder1.Commit()
+		subtractfeaturebuilder1.Destroy()
+		
+	def makeSeeThrough(self, t):
+		theSession  = NXOpen.Session.GetSession()
+		
+		displayModification1 = theSession.DisplayManager.NewDisplayModification()
+		
+		displayModification1.ApplyToAllFaces = True
+		
+		displayModification1.ApplyToOwningParts = False
+		
+		displayModification1.NewColor = 40
+		
+		displayModification1.NewTranslucency = t
+		
+		objects1 = [NXOpen.DisplayableObject.Null] * 1 
+		body1 = self.body
+		objects1[0] = body1
+		displayModification1.Apply(objects1)
+		
+		displayModification1.Dispose()
