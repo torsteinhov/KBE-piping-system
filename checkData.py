@@ -121,9 +121,9 @@ def equipmentCrash(self_pos, self_size, other_pos, other_size):
 	overlapXZ = (overlapXZleft or overlapXZover)
 	overlapYZ = (overlapYZleft or overlapYZover)
 
-	print("overlapXY: ", overlapXY)
-	print("overlapXZ: ", overlapXZ)
-	print("overlapYZ: ", overlapYZ)
+	#print("overlapXY: ", overlapXY)
+	#print("overlapXZ: ", overlapXZ)
+	#print("overlapYZ: ", overlapYZ)
 
 	if (overlapXY and overlapXZ and overlapYZ):
 		messages = "colliding equipments"
@@ -173,11 +173,14 @@ def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out:
 		for j in range(num_eq): # using double for-loop to check every equpiment to all off the other equipment, this is not neassescary for only 3 eq
 			if i !=j: # do not check against it self
 				colliding, errorMsg = equipmentCrash(eq_pos[i], eq_size_list[i],eq_pos[j], eq_size_list[j])  # it should also be a feedback of which eq that is colliding.
-				collidingEq = "colliding equipments are " + str(i + 1) + " and " + str(j + 1) +": "
+				collidingEq = "Equipments " + str(i + 1) + " and " + str(j + 1) +": "
 				messages.append(collidingEq + errorMsg)
 	
 	return messages
 
+# for debuging 
 #checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
-print(checkCustomerInput(3, [[100,100,100],[200,100,200],[300,100,100]], [[0,0,0],[4000,4000,4000],[8000,1000,2000]], [[0,50,50],[100,80,80],[0,50,50],[200,80,80],[0,50,50],[300,80,80]],[10000,10000,10000], (0,5000,5000),(10000,5000,5000), 100, 1))
+#print(checkCustomerInput(3, [[100,100,100],[200,100,200],[300,100,100]], [[0,0,0],[4000,4000,4000],[8000,1000,2000]], [[0,50,50],[100,80,80],[0,50,50],[200,80,80],[0,50,50],[300,80,80]],[10000,10000,10000], (0,5000,5000),(10000,5000,5000), 100, 1))
 #print(equipmentCrash([4000,4000,4000],[200,100,200],[8000,1000,2000],[300,100,100]))
+
+#print(checkCustomerInput(3, [[300,300,300],[500,500,500],[700,700,700]], [[300,300,300],[300,300,300],[2000,2000,2000]], [[0,150,150],[300,150,150],[0,250,250],[500,250,250],[0,350,350],[700,350,350]],[3000,3000,3000], (0,1500,1500),(3000,1500,1500), 100, 1))

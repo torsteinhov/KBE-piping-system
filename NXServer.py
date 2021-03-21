@@ -43,6 +43,8 @@ eq3_pos= "x,y,z" #x%2Cy%2Cz
 eq3_in= "x,y,z" #x%2Cy%2Cz
 eq3_out= "x,y,z" #x%2Cy%2Cz
 
+messageToCustomer =""
+
 #Info about the customer:
 name= "Your Name"
 pNumber= "Your number"
@@ -54,6 +56,7 @@ custommerInfo = [name, pNumber, eMail, compName]
 
 custommerInfoToChange = ['#name#', '#pNumber#', '#eMail#', '#compName#']
 variablesToReplace = ['#envSizeX#', '#envSizeY#', '#envSizeZ#', '#startA#', '#endB#', '#pipe_dia#', '#eq1_sideX#', '#eq1_sideY#', '#eq1_sideZ#', '#eq1_pos#', '#eq1_in#','#eq1_out#', '#eq2_sideX#', '#eq2_sideY#', '#eq2_sideZ#', '#eq2_pos#', '#eq2_in#', '#eq2_out#', '#eq3_sideX#', '#eq3_sideY#', '#eq3_sideZ#', '#eq3_pos#', '#eq3_in#', '#eq3_out#']
+
 
 
 resultQuery = False
@@ -101,7 +104,9 @@ class MyHandler(BaseHTTPRequestHandler):
                 UItext = UItext.replace(variablesToReplace[i], str(custom_parameters[i])) # the data about the pipe-env
 
             for i in range(len(custommerInfoToChange)):
-                UItext = UItext.replace(custommerInfoToChange[i], str(custommerInfo[i])) # the data about the custommer
+                UItext = UItext.replace(custommerInfoToChange[i], str(custommerInfo[i])) # the data about the customer
+
+            UItext = UItext.replace('#messageToCustomer#', messageToCustomer) # handeling error messages to the customer
 
             s.wfile.write(bytes(UItext, 'utf-8')) # writing to the local host
 
@@ -120,7 +125,9 @@ class MyHandler(BaseHTTPRequestHandler):
                 UItext = UItext.replace(variablesToReplace[i], str(custom_parameters[i])) # the data about the pipe-env
             
             for i in range(len(custommerInfoToChange)):
-                UItext = UItext.replace(custommerInfoToChange[i], str(custommerInfo[i])) # the data about the customme
+                UItext = UItext.replace(custommerInfoToChange[i], str(custommerInfo[i])) # the data about the customer
+
+            UItext = UItext.replace('#messageToCustomer#', messageToCustomer) # handeling error messages to the customer
 
             s.wfile.write(bytes(UItext, 'utf-8')) # writing to the local host
 
@@ -136,7 +143,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
     def do_POST(s):
         #allowing us to edit the custom parameters
-        global custom_parameters
+        global custom_parameters, messageToCustomer
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
@@ -147,7 +154,7 @@ class MyHandler(BaseHTTPRequestHandler):
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
             param_line = post_body.decode()
-            print("param line", param_line)
+            #print("param line", param_line)
             #param line envSizeX=1000&envSizeY=3000&envSizeZ=4000&startA=0%2C1500%2C2000&endB=1000%2C1500%2C2000&pipe_dia=6&
             # eq1_sideX=500&eq1_sideY=500&eq1_sideZ=500&eq1_pos=500%2C500%2C500&eq1_in=0%2C250%2C250&eq1_out=500%2C250%2C250&eq2_sideX=300&eq2_sideY=300&eq2_sideZ=300&eq2_pos=300%2C700%2C500&eq2_in=0%2C150%2C150&eq2_out=300%2C150%2C150&eq3_sideX=700&eq3_sideY=700&eq3_sideZ=700&eq3_pos=700%2C1500%2C2000&eq3_in=0%2C350%2C350&eq3_out=700%2C350%2C350
 
@@ -155,21 +162,12 @@ class MyHandler(BaseHTTPRequestHandler):
             global print_order, yourLocation
             print_order = ""
 
-            if param_line.find("%2C"): # replacing "%2C" with ','
-                param_line = param_line.replace("%2C", ',')
-			#getting the parameter values
-            key_val_pair = param_line.split('&')							#splitting the string at "&"
-            print("key_val_pair: ", key_val_pair)
-            for i in range(len(custom_parameters)): 						#itterating through the custom_parameter list
-                print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
-                print_order +=": "										#for a nice print
-                custom_parameters[i] = key_val_pair[i].split('=')[1]		#spliting at "=" to only get the value
-                if ' ' in custom_parameters[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
-                    custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
-                    print_order += str(custom_parameters[i])
-                print_order += ", "
+            custom_parameters = stringSplit(custom_parameters, param_line)
+        
+        
+
             print("custom_parameters: ", custom_parameters)
-            print("string split: ", print_order)
+            #print("string split: ", print_order)
 
             # getting the data arranged i a sensable way
             env_size =[]
@@ -231,11 +229,19 @@ class MyHandler(BaseHTTPRequestHandler):
             errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
             print("Check if the input is valid: ", errorMsg)
 
+            messageToCustomer = ""
+            inputError = False
             for i in errorMsg: # going through the error messages
-                if not i.find("ok"):
+                if i.find("ok") == False:
+                    inputError = True
+                    print("in error messages checking: ", i)
+                    messageToCustomer += i + " "
                     #be brukeren skrive inn på nytt og gi tilbakemelding på hva som er feil. 
                     # send brukeren til yourParameters"
                     ...
+            if not inputError:
+                messageToCustomer = "Your system is accepted."
+
 
             # take picture of the drawCustomerInfo 
                 # calling drawGivenInfo.py
@@ -243,14 +249,8 @@ class MyHandler(BaseHTTPRequestHandler):
                 # picture function må lages
                 # send image to web
             
-            # string parsing av customer info ( name, number..)
-
-            # call make path (systemDesigner)
-            # give new path to dfa template:
-                # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
-            # save a file with new 
-				
             
+
             s.do_GET() #this is not a optimal solution
 
         if path.find("/sendOrder") != -1:
@@ -258,6 +258,14 @@ class MyHandler(BaseHTTPRequestHandler):
             post_body = s.rfile.read(content_len)
             param_line = post_body.decode()
             
+            # string parsing av customer info ( name, number..)
+
+            # call make path (systemDesigner)
+            # give new path to dfa template:
+                # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
+            # save a file with new 
+
+
         if path.find("/"):
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
@@ -265,7 +273,21 @@ class MyHandler(BaseHTTPRequestHandler):
             print("Body: ", param_line)
             s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
-
+def stringSplit(paramContainer, param_line):
+    if param_line.find("%2C"): # replacing "%2C" with ','
+        param_line = param_line.replace("%2C", ',')
+    #getting the parameter values
+    key_val_pair = param_line.split('&')							#splitting the string at "&"
+    print("key_val_pair: ", key_val_pair)
+    for i in range(len(paramContainer)): 						#itterating through the custom_parameter list
+        #print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
+        #print_order +=": "										#for a nice print
+        paramContainer[i] = key_val_pair[i].split('=')[1]		#spliting at "=" to only get the value
+        if ' ' in paramContainer[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
+            paramContainer[i] = paramContainer[i].split(" ")[0] #spliting to get rid of it ^
+            #print_order += str(custom_parameters[i])
+        #print_order += ", "
+    return paramContainer
 
 #IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
 class makeSystem: 
