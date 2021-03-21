@@ -22,6 +22,8 @@ class pipeSystem:
         self.ratioY = self.env_size[1]/self.num_node_ax
         self.ratioZ = self.env_size[2]/self.num_node_ax
 
+        self.distanceBetweenNodes = max(env_size[0],env_size[1],env_size[2])/num_node_ax
+
 
     def coordinate2node(self, point): # takes in the a point and gives the node position
         pointInNode = (point[0]*self.ratioX, point[1]*self.ratioY, point[2]*self.ratioZ)
@@ -35,6 +37,7 @@ class pipeSystem:
         # (x=eq_size, y, z), (x, y=eq_size, z), (x,y, z=eq_size)
         # The letter how dont have any nuymber should be between <0,eq_size>
         # ================
+
         x = side[0]
         y = side[1]
         z = side[2]
@@ -135,7 +138,7 @@ class pipeSystem:
         #k=0 # counting variable to get the correct nomber of nodes between to points
         for i in range(0,len(nodes2reach)//2, 2): # iterates over every second step in nodes to reach
             #path_nodes = aStar(num_nodes_between_2_points[k], nodes2reach[i], nodes2reach[i+1])
-            path_nodes = aStar(max(env_size[0],env_size[1],env_size[2]), nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
+            path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1]) #ble dette riktig??
             node_paths_all.append(path_nodes)
             #k+=1
 
