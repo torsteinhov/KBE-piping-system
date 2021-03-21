@@ -58,7 +58,7 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
 
     return eqInsideEnv, messages
 
-def equpmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother	
+def equipmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother	
 	message =""
 	# start checking if anything overlaps in all three directions
 	for i in range(3): #number of sides
@@ -73,7 +73,7 @@ def equpmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipment
 
 
 
-def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
+def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: int):
 	messages = []
 	pipeDia_mm = 25.4 * pipeDia
 
@@ -109,7 +109,7 @@ def checkCustommerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out
 	for i in range(num_eq): # check for colliding equipments
 		for j in range(num_eq): # using double for-loop to check every equpiment to all off the other equipment, this is not neassescary for only 3 eq
 			if i !=j: # do not check against it self
-				errorMsg = equpmentCrash(eq_size_list[i], eq_pos[i],eq_size_list[j], eq_pos[j]) # it should also be a feedback of which eq that is colliding.
+				errorMsg = equipmentCrash(eq_size_list[i], eq_pos[i],eq_size_list[j], eq_pos[j]) # it should also be a feedback of which eq that is colliding.
 				collidingEq = "colliding equipments are " + str(i) + " and " + str(j) +": "
 				messages.append(collidingEq)
 				messages.append(errorMsg)
