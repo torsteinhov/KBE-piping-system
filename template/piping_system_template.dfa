@@ -32,9 +32,6 @@ DefClass:piping_system_template (ug_base_part);
 (number parameter) eq3_posY: 2000;
 (number parameter) eq3_posZ: 4000;
 
-#PATH
-(list parameter) pipe_path: [(0, 0, 0), (1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 4, 4), (5, 5, 5), (6, 6, 6), (7, 7, 7), (8, 8, 8), (9, 9, 9), (10, 10, 10), (11, 11, 11), (12, 12, 12), (13, 13, 13), (14, 14, 14), (15, 15, 15), (16, 16, 16), (17, 17, 17), (18, 18, 18), (19, 18, 18), (20, 19, 19), (21, 19, 19), (22, 19, 19), (23, 20, 20), (24, 20, 20), (25, 21, 21), (26, 21, 21), (27, 22, 22), (28, 22, 22), (29, 22, 22), (30, 23, 23), (31, 23, 23), (32, 24, 24), (33, 24, 24), (34, 25, 25), (35, 25, 25), (36, 25, 25), (37, 26, 26), (38, 26, 26), (39, 27, 27), (40, 27, 27), (41, 28, 28), (42, 28, 28), (43, 28, 28), (44, 29, 29), (45, 29, 29), (46, 30, 30), (47, 30, 30), (48, 31, 31), (49, 31, 31), (50, 31, 31), (51, 32, 32), (52, 32, 32), (53, 33, 33), (54, 33, 33), (55, 33, 33), (56, 34, 34), (57, 34, 34), (58, 35, 35), (59, 35, 35), (60, 36, 36), (61, 36, 36), (62, 36, 36), (63, 37, 37), (64, 37, 37), (65, 38, 38), (66, 38, 38), (67, 39, 38), (68, 40, 39), (69, 40, 39), (70, 40, 39), (71, 41, 40), (72, 41, 40), (73, 42, 41), (74, 42, 41), (75, 43, 41), (76, 43, 41), (77, 44, 42), (78, 44, 42), (79, 45, 43), (80, 45, 43), (81, 46, 44), (82, 46, 44), (83, 47, 44), (84, 47, 44), (85, 48, 45), (86, 48, 45), (87, 49, 46), (88, 49, 46), (89, 49, 46), (90, 50, 47)];
-
 	
 (number parameter) x: 100-rail_height:/2;
 (number parameter) y: 100;
@@ -157,29 +154,27 @@ direction, vector(0,1,0);
 ---------------PIPE_PATH------------------
 #-
 
-#+
-#Loop to generate the list of buttons holes to cut off from the base.
-(list) list1: loop
+#PATH
+(List canonical) pipe_path: {Point(0, 0, 0), Point(1, 1, 1), Point(2, 2, 2), Point(3, 3, 3), Point(4, 4, 4), Point(5, 5, 5)};
+
+#Loop to generate line path for the pipe
+(list) pipe_line: loop
 {
-  for $x in {-base1_dia:/4, base1_dia:/4};
-  collect loop {
-  	for $y in {-base1_dia:/4, base1_dia:/4};
-  	for $pt is Point($x,$y,0);
-  	do printValue($pt);
-  	append {ug_createInstance(
-  	{
-   	 	class, ug_cylinder;
-    		diameter, hole_dia:;
-    		height, base1_height:;
-    		Origin, $pt; 
-    		Direction, Vector(0,0,1);
-   		Operation, Subtract;
-   		Target, {base_block1:}; 
-  	})};
-  };
+    for $x in pipe_path:;
+    collect loop {
+
+        do printValue($x);
+        append {ug_createInstance(
+        {
+            class, ug_line; 
+            Start_Point, $x; 
+            End_Point, Point(0,0,0); 
+            };);
+        };
+        };
 };
-(list) DemandValue: {List1:};
-#-
+(list) DemandValue: {pipe_line:};
+
 #+
 #Forming a profile for a pipe
 (child) the_profile: { 
