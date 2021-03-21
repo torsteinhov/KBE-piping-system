@@ -231,14 +231,26 @@ class MyHandler(BaseHTTPRequestHandler):
             errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
             print("Check if the input is valid: ", errorMsg)
 
-            for i in errorMsg:
+            for i in errorMsg: # going through the error messages
                 if not i.find("ok"):
                     #be brukeren skrive inn på nytt og gi tilbakemelding på hva som er feil. 
                     # send brukeren til yourParameters"
                     ...
 
-            # take oicture of the drawCustomerInfo
-				#if not valid print beskjed, og la brukeren skrive inn nye verdier uten at de gamle forsvinner
+            # take picture of the drawCustomerInfo 
+                # calling drawGivenInfo.py
+                # tegne noe i nx av seg selv
+                # picture function må lages
+                # send image to web
+            
+            # string parsing av customer info ( name, number..)
+
+            # call make path (systemDesigner)
+            # give new path to dfa template:
+                # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
+            # save a file with new 
+				
+            
             s.do_GET() #this is not a optimal solution
 
         if path.find("/sendOrder") != -1:
@@ -252,6 +264,22 @@ class MyHandler(BaseHTTPRequestHandler):
             param_line = post_body.decode()
             print("Body: ", param_line)
             s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
+
+
+
+#IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
+class makeSystem: 
+
+    def __init__(self):
+
+    #Cylinder(x, y, z, diameter, height, direction, color, material)
+    #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
+        '''
+        def run_model(self):
+            return -1
+        '''
+        
+	
 
  
 if __name__ == '__main__':
