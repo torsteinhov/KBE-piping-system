@@ -44,7 +44,7 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
     if int(eq_pos[1]) >0 and int(eq_pos[1])+ int(eq_size[1])<= int(env_size[1]): # check if the eq is inside the y-dir
         insideYdir = True
     else:
-        errorMsg = " Equipment is outside the environment in the length (y-direction)."
+        errorMsg = "Equipment is outside the environment in the length (y-direction)."
         messages += errorMsg
     if int(eq_pos[2]) >0 and int(eq_pos[2]) + int(eq_size[2]) <= int(env_size[2]): # check if the eq is inside the y-dir
         insideZdir = True
@@ -58,18 +58,97 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
 
     return eqInsideEnv, messages
 
-def equipmentCrash(eqN_pos, eqN_size, eqM_pos, eqM_size): #check if the equipments crashes into eachother	
-	message =""
+def equipmentCrash(self_pos, self_size, other_pos, other_size): #check if the equipments crashes into eachother	
 	# start checking if anything overlaps in all three directions
+	'''
 	for i in range(3): #number of sides
-		if (int(eqN_pos[i]) > int(eqM_pos[i]) + int(eqM_size[i])) or (int(eqN_pos[i]) + int(eqN_size[i]) < int(eqM_pos[i])) :
+		if (int(self_pos[i]) > int(other_pos[i]) + int(other_size[i])) or (int(self_pos[i]) + int(self_size[i]) < int(other_pos[i])) :
 			errorMsg = "ok"
 		else:
 			errorMsg ="Equipments are colliding."
 			message += errorMsg
 	if len(message) == 0:
 		message = "ok"
-	return message
+	'''
+	overlapXYleft = False
+	overlapXYover = False
+	overlapXZleft = False
+	overlapXZover = False
+	overlapYZleft = False
+	overlapYZover = False
+
+	l1xy = [self_pos[0],self_pos[1]]
+	r1xy = [self_pos[0]+self_size[0],self_pos[1]+self_size[1]]
+	l2xy = [other_pos[0],other_pos[1]]
+	r2xy = [other_pos[0]+other_size[0],other_pos[1]+other_size[1]]
+
+	print("l1xy[0]: ", l1xy[0])
+	print("r2xy[0]: ", r2xy[0])
+	print("l2xy[0]: ", l2xy[0])
+	print("r2xy[0]: ", r1xy[0])
+	if (l1xy[0] > r2xy[0] or l2xy[0] > r1xy[0]):
+		overlapXYleft = False
+	else:
+		overlapXYleft = True
+	
+	print("l1xy[1]: ", l1xy[1])
+	print("r2xy[1]: ", r2xy[1])
+	print("l2xy[1]: ", l2xy[1])
+	print("r2xy[1]: ", r2xy[1])
+	if (l1xy[1] < r2xy[1] or l2xy[1] < r1xy[1]):
+		overlapXYover = False
+	else:
+		overlapXYover = True
+
+	print("overlapXYover: ", overlapXYover)
+	print("overlapXYleft: ", overlapXYleft)
+
+	l1xz = [self_pos[0],self_pos[2]]
+	r1xz = [self_pos[0]+self_size[0],self_pos[2]+self_size[2]]
+	l2xz = [other_pos[0],other_pos[2]]
+	r2xz = [other_pos[0]+other_size[0],other_pos[2]+other_size[2]]
+
+	if (l1xz[0] > r2xz[0] or l2xz[0] > r1xz[0]):
+		overlapXZleft = False
+	else:
+		overlapXZleft = True
+
+	if (l1xz[1] < r2xz[1] or l2xz[1] < r1xz[1]):
+		overlapXZover = False
+	else:
+		overlapXZover = True
+
+	print("overlapXZover: ", overlapXZover)
+	print("overlapXZleft: ", overlapXZleft)
+
+	l1yz = [self_pos[1],self_pos[2]]
+	r1yz = [self_pos[1]+self_size[1],self_pos[2]+self_size[2]]
+	l2yz = [other_pos[1],other_pos[2]]
+	r2yz = [other_pos[1]+other_size[1],other_pos[2]+other_size[2]]
+
+	if (l1yz[0] > r2yz[0] or l2yz[0] > r1yz[0]):
+		overlapYZleft = False
+	else:
+		overlapYZleft = True
+
+	if (l1yz[1] < r2yz[1] or l2yz[1] < r1yz[1]):
+		overlapYZover = False
+	else:
+		overlapYZover = True
+	print("overlapYZover: ", overlapYZover)
+	print("overlapYZleft: ", overlapYZleft)
+
+	overlapXY = (overlapXYleft or overlapXYover)
+	overlapXZ = (overlapXZleft or overlapXZover)
+	overlapYZ = (overlapYZleft or overlapYZover)
+	print("overlapXY: ", overlapXY)
+	print("overlapXZ: ", overlapXZ)
+	print("overlapYZ: ", overlapYZ)
+
+	if (overlapXY and overlapXZ and overlapYZ):
+		return True
+
+	return False
 
 
 
@@ -116,6 +195,4 @@ def checkCustomerInput(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out:
 
 	
 	return messages
-
-
 	
