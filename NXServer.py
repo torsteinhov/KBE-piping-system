@@ -6,7 +6,7 @@ import requests
 import json
 import math
 import random
-from checkData import checkCustommerInput
+from checkData import checkCustomerInput
 
 
 
@@ -228,8 +228,14 @@ class MyHandler(BaseHTTPRequestHandler):
 				"""
             
 			# check if input is valid
-            errorMsg = checkCustommerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
+            errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
             print("Check if the input is valid: ", errorMsg)
+
+            for i in errorMsg:
+                if not i.find("ok"):
+                    #be brukeren skrive inn på nytt og gi tilbakemelding på hva som er feil. 
+                    # send brukeren til yourParameters"
+                    ...
 
 
 				#if not valid print beskjed, og la brukeren skrive inn nye verdier uten at de gamle forsvinner
