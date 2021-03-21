@@ -58,18 +58,10 @@ def insideEnv(env_size:list, eq_size: list, eq_pos: list): #env_size=[x(width), 
 
     return eqInsideEnv, messages
 
-def equipmentCrash(self_pos, self_size, other_pos, other_size): #check if the equipments crashes into eachother	
-	# start checking if anything overlaps in all three directions
-	'''
-	for i in range(3): #number of sides
-		if (int(self_pos[i]) > int(other_pos[i]) + int(other_size[i])) or (int(self_pos[i]) + int(self_size[i]) < int(other_pos[i])) :
-			errorMsg = "ok"
-		else:
-			errorMsg ="Equipments are colliding."
-			message += errorMsg
-	if len(message) == 0:
-		message = "ok"
-	'''
+#Checks wether the equipment crash with eachother
+#ref https://www.geeksforgeeks.org/find-two-rectangles-overlap/ , extended for use in 3D.
+def equipmentCrash(self_pos, self_size, other_pos, other_size):
+
 	overlapXYleft = False
 	overlapXYover = False
 	overlapXZleft = False
