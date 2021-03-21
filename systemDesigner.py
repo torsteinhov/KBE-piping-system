@@ -43,34 +43,34 @@ class pipeSystem:
         mP =[eq_pos[0],eq_pos[1],eq_pos[2]]
 
 		# finding what side the mid point is on and calculating it in global points
-		if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
-			midPoint = [mP[0]+0, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+        if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
+            midPoint = [mP[0]+0, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+            
+        elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
+            midPoint = [mP[0]+eq_size[0], mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
 			
-		elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
-			midPoint = [mP[0]+eq_size[0], mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+        elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
+            midPoint = [mP[0]+eq_size[0]/2, mP[1]+0, mP[2]+eq_size[2]/2]
 			
-		elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
-			midPoint = [mP[0]+eq_size[0]/2, mP[1]+0, mP[2]+eq_size[2]/2]
+        elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
+            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1], mP[2]+eq_size[2]/2]
 			
-		elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
-			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1], mP[2]+eq_size[2]/2]
+        elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
+            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+0]
 			
-		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
-			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+0]
+        elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
+            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]]
 			
-		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
-			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]]
+        else:
+            print("Not valid mid point on quipment!!!")
+            print("equipment size: ", eq_size)
+            print("Invalid side: ", point)
+            print("Equipment position: ", eq_pos)
+            midPoint = [0,0,0]
 			
-		else:
-			print("Not valid mid point on quipment!!!")
-			print("equipment size: ", eq_size)
-			print("Invalid side: ", point)
-			print("Equipment position: ", eq_pos)
-			midPoint = [0,0,0]
-			
-		print("Midpoint: ", midPoint)
+        print("Midpoint: ", midPoint)
 		
-		return midPoint
+        return midPoint
 
     def node2point(self, node): #usikker på om dette er riktig
         nodeInPoint = [node[0]/self.ratioX, node[1]/self.ratioY, node[2]/self.ratioZ]
