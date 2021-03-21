@@ -18,58 +18,59 @@ class pipeSystem:
         self.num_node_ax = num_node_ax # number of nodes to divide the environment into along one axis
         self.pipeDia = pipeDia
 
-        self.ratioX = self.env_size[0]/self.num_node_ax
-        self.ratioY = self.env_size[1]/self.num_node_ax
-        self.ratioZ = self.env_size[2]/self.num_node_ax
-
         self.distanceBetweenNodes = max(env_size[0],env_size[1],env_size[2])/num_node_ax
 
 
-    def coordinate2node(self, point): # takes in the a point and gives the node position
-        pointInNode = (point[0]*self.ratioX, point[1]*self.ratioY, point[2]*self.ratioZ)
+    # take in a point and give out the corresponding node
+    def coordinate2node(self, point):
+        pointInNode = (point[0]/self.distanceBetweenNodes, point[1]/self.distanceBetweenNodes, point[2]/self.distanceBetweenNodes)
         return pointInNode
 
-    def eqInOutWorldPoint(self, side, eq_sizeX, eq_sizeY, eq_sizeZ, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
-        # side = [x,y,z] rrelative to the equipment
-        # =================
-        # possible sides of a cube
-        # (x=0, y, z), (x, y= 0, z), (x,y,z=0)
-        # (x=eq_size, y, z), (x, y=eq_size, z), (x,y, z=eq_size)
-        # The letter how dont have any nuymber should be between <0,eq_size>
-        # ================
+    # takes inn a local point on the surface of a equipment, the size of the equipment and the position(global) of the equipment
+    # and return the point on the surface in Global coordinates
+    def eqInOutGlobalPoint(self, point, eq_size, eq_pos): #takes in a side of a eq and the size of the eq and returns the midpoint on the side in world frame
+		# side = [x,y,z] rrelative to the equipment -- this is the point
+		# =================
+		# possible sides of a cube
+		# (x=0, y, z), (x, y= 0, z), (x,y,z=0)
+		# (x=eq_size, y, z), (x, y=eq_size, z), (x,y, z=eq_size)
+		# The letter how dont have any nuymber should be between <0,eq_size>
+		# ================
+        # # dirInEq is the direction from the side and into the box
+        x = point[0]
+        y = point[1]
+        z = point[2]
+        mP =[eq_pos[0],eq_pos[1],eq_pos[2]]
 
-        x = side[0]
-        y = side[1]
-        z = side[2]
-        midPoint = np.array([eq_pos[0],eq_pos[1],eq_pos[2]])
-        print("Midpoint: ", midPoint)
-        print("x: ", x)
-        print("y: ", x)
-        print("z: ", z)
-
-        # finding what side the mid point is on and calculating it in global points
-        if(x == 0 and y < eq_sizeY and y > 0 and z < eq_sizeZ and z > 0 ):
-            np.add(midPoint, [0, eq_sizeY/2, eq_sizeZ/2], out=midPoint, casting="unsafe")
-
-        elif (x == eq_sizeX and y < eq_sizeY and y > 0 and z < eq_sizeZ and z > 0):
-            np.add(midPoint, [eq_sizeX, eq_sizeY/2, eq_sizeZ/2], out=midPoint, casting="unsafe")
-
-        elif (x < eq_sizeX and x > 0 and y==0 and z < eq_sizeZ and z > 0):
-            np.add(midPoint, [eq_sizeX/2, 0, eq_sizeZ/2], out=midPoint, casting="unsafe")
-
-        elif (x < eq_sizeX and x > 0 and y==eq_sizeY and z < eq_sizeZ and z > 0):
-            np.add(midPoint, [eq_sizeX/2, eq_sizeY, eq_sizeZ/2], out=midPoint, casting="unsafe")
-
-        elif (x < eq_sizeX and x > 0 and y < eq_sizeY and y > 0 and z ==0):
-            np.add(midPoint, [eq_sizeX/2, eq_sizeY/2, 0], out=midPoint, casting="unsafe")
-
-        elif (x < eq_sizeX and x > 0 and y < eq_sizeY and y > 0 and z == eq_sizeZ):
-            np.add(midPoint, [eq_sizeX/2, eq_sizeY/2, eq_sizeZ], out=midPoint, casting="unsafe")
-
-        else:
-            print("Not valid mid point on quipment!!!")
-            midPoint = np.array([0,0,0])
-        return midPoint
+		# finding what side the mid point is on and calculating it in global points
+		if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
+			midPoint = [mP[0]+0, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+			
+		elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
+			midPoint = [mP[0]+eq_size[0], mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+			
+		elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
+			midPoint = [mP[0]+eq_size[0]/2, mP[1]+0, mP[2]+eq_size[2]/2]
+			
+		elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
+			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1], mP[2]+eq_size[2]/2]
+			
+		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
+			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+0]
+			
+		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
+			midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]]
+			
+		else:
+			print("Not valid mid point on quipment!!!")
+			print("equipment size: ", eq_size)
+			print("Invalid side: ", point)
+			print("Equipment position: ", eq_pos)
+			midPoint = [0,0,0]
+			
+		print("Midpoint: ", midPoint)
+		
+		return midPoint
 
     def node2point(self, node): #usikker på om dette er riktig
         nodeInPoint = [node[0]/self.ratioX, node[1]/self.ratioY, node[2]/self.ratioZ]
@@ -113,9 +114,9 @@ class pipeSystem:
         for i in range(0, len(self.eq_size_list), 2):
             in_side = self.eq_in_out[n] #in to eq
             out_side = self.eq_in_out[n+1] #out from eq
-            midpoint = self.eqInOutWorldPoint(in_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
+            midpoint = self.eqInOutGlobalPoint(in_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
             points2reach.append(midpoint)
-            midpoint =self.eqInOutWorldPoint(out_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
+            midpoint =self.eqInOutGlobalPoint(out_side, self.eq_size_list[i][0],self.eq_size_list[i][1],self.eq_size_list[i][2],self.eq_pos[i])
             points2reach.append(midpoint)
         points2reach.append(self.endPoint)
 
