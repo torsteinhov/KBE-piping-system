@@ -15,7 +15,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -92,7 +92,7 @@ class MyHandler(BaseHTTPRequestHandler):
             tekst = stylefile.read()
             s.wfile.write(bytes(tekst, 'utf-8'))
 
-        elif path.find("Aker_Solutions.png") != -1:
+        elif path.find("/Aker_Solutions.png") != -1:
 			#Make right headers
             s.send_response(200)
             s.send_header("Content-type", "image/png")
