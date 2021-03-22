@@ -121,9 +121,11 @@ pipeTemplate ="""Write it here"""
 
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
 yourLocation = Aashild #must be changed after whom is using it
+
+endfolder = "GeneratedSystems\\" #folder to store the final dfa files
 				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
-    global templateForPipeSys, equipmentTemplate, yourLoaction
+    global templateForPipeSys, equipmentTemplate, yourLoaction, endfolder
     # kopierer block for antall equipment
     
     templatePath = yourLoaction + "template\\piping_system_template_test123.dfa"
@@ -163,6 +165,13 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     
     for i in range(len(
     txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
+
+    filename = customerCompany +"_" +customerName
+
+    f = open(yourLocation+ endfolder + filename, "w")
+    f.write(txt)
+    f.close()
+
     
         
     
@@ -175,3 +184,6 @@ eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,5
 startPoint = [0,1500,1500]
 endPoint = [3000, 1500,1500]
 pipeDia =  2
+path = #sett inn path og poinst list type
+
+makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, customerName, customerCompany, path)
