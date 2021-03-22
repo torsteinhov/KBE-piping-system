@@ -136,7 +136,7 @@ pipeTemplate ="""Write it here"""
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
 yourLocation = Aashild #must be changed after whom is using it
 				
-def makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, customerName, customerCompany):
+def makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, customerName, customerCompany, pipList):
     global templateForPipeSys, equipmentTemplate, yourLoaction
     # kopierer block for antall equipment
     
