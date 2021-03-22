@@ -15,7 +15,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"

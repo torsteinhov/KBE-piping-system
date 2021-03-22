@@ -23,7 +23,7 @@ class pipeSystem:
 
     # take in a point and give out the corresponding node
     def coordinate2node(self, point):
-        pointInNode = (point[0]/self.distanceBetweenNodes, point[1]/self.distanceBetweenNodes, point[2]/self.distanceBetweenNodes)
+        pointInNode = (point[0]//self.distanceBetweenNodes, point[1]//self.distanceBetweenNodes, point[2]//self.distanceBetweenNodes)
         return pointInNode
 
     # takes inn a local point on the surface of a equipment, the size of the equipment and the position(global) of the equipment
@@ -40,26 +40,25 @@ class pipeSystem:
         x = point[0]
         y = point[1]
         z = point[2]
-        mP =[eq_pos[0],eq_pos[1],eq_pos[2]]
 
 		# finding what side the mid point is on and calculating it in global points
         if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
-            midPoint = [mP[0]+0, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+            midPoint = [eq_pos[0]+0, eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]/2]
             
         elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
-            midPoint = [mP[0]+eq_size[0], mP[1]+eq_size[1]/2, mP[2]+eq_size[2]/2]
+            midPoint = [eq_pos[0]+eq_size[0], eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]/2]
 			
         elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
-            midPoint = [mP[0]+eq_size[0]/2, mP[1]+0, mP[2]+eq_size[2]/2]
+            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+0, eq_pos[2]+eq_size[2]/2]
 			
         elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
-            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1], mP[2]+eq_size[2]/2]
+            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1], eq_pos[2]+eq_size[2]/2]
 			
         elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
-            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+0]
+            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1]/2, eq_pos[2]+0]
 			
         elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
-            midPoint = [mP[0]+eq_size[0]/2, mP[1]+eq_size[1]/2, mP[2]+eq_size[2]]
+            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]]
 			
         else:
             print("Not valid mid point on quipment!!!")
@@ -73,13 +72,13 @@ class pipeSystem:
         return midPoint
     # takes in a node and returns the Global point
     def node2point(self, node): #usikker på om dette er riktig
-        nodeInPoint = [node[0]*self.distanceBetweenNodes, node[1]*self.distanceBetweenNodes, node[2]*self.distanceBetweenNodes]
+        nodeInPoint = [round(node[0]*self.distanceBetweenNodes,1), round(node[1]*self.distanceBetweenNodes,1), round(node[2]*self.distanceBetweenNodes,1)]
         return nodeInPoint
 
     # takes in a path of nodes and returs a path in Global points
     def nodePath2pointPath(self, nodePath): # takes in a list of nodes which describes the path between eq1 and eq2, and returnes the list in points(world frame coordinates)
         pointPath = []
-        for i in range(nodePath):
+        for i in range(len(nodePath)):
             point = self.node2point(nodePath[i])
             pointPath.append(point)
         return pointPath
@@ -106,7 +105,7 @@ class pipeSystem:
 
         points2reach.append(self.endPoint) #finally adding the endpoint to the list of all points 2 reach globally
 
-        print("points2reach: ", points2reach)
+        #print("points2reach: ", points2reach)
         if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of points to reach is not even! Check this out!")
 
@@ -120,14 +119,15 @@ class pipeSystem:
         if int(len(nodes2reach))%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of nodes is not even! Check this out!")
 
-        print("nodes2reach: ", nodes2reach)
-        print("len(nodes2reach): ", len(nodes2reach)/2)
+        #print("nodes2reach: ", nodes2reach)
+        #print("len(nodes2reach): ", len(nodes2reach)/2)
 
         # collecting all the paths between the nodes to reach in a list
         node_paths_all = []
         # iterates over every second step in nodes to reach, because we want the path between A and eq1In, eq1Out and eq2In. We do NOT want the path between eq1In and eq1Out
         for i in range(0,len(nodes2reach), 2): 
-            print("hei på deg ", i)
+            print("nodes2reach: ", nodes2reach)
+            print("points2reach: ", points2reach)
             path_nodes = aStar(self.num_node_ax, nodes2reach[i], nodes2reach[i+1])
             node_paths_all.append(path_nodes)
 
@@ -155,6 +155,11 @@ endPoint = [3000, 1500,1500]
 pipeDia =  50.8
 
 processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
+#print(processSystem.coordinate2node([100,100,100]))
+#print(processSystem.node2point([50,50,50]))
+#print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
+#print(processSystem.eqInOutGlobalPoint([250,250,250],[500,500,500],[1000,1000,1000]))
+
 print(processSystem.makePath())
 #processSystem.run_model()
 
