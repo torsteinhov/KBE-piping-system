@@ -232,7 +232,7 @@ class MyHandler(BaseHTTPRequestHandler):
             messageToCustomer = ""
             inputError = False
             for i in errorMsg: # going through the error messages
-                if "ok" in i:
+                if "ok" not in i:
                     inputError = True
                     print("in error messages checking: ", i)
                     messageToCustomer += i + " "
