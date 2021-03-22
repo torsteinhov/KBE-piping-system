@@ -128,10 +128,11 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     global templateForPipeSys, equipmentTemplate, yourLoaction, endfolder
     # kopierer block for antall equipment
     
-    templatePath = yourLoaction + "template\\piping_system_template_test123.dfa"
+    filename = customerCompany +"_" +customerName
     
     txt = templateForPipeSys
     print("before:", txt)
+    txt = txt.replace("<customerName_company>", filename)
     envParams = ["<envX>", "<envY>", "<envZ>"]
     
     for i in range(len(envParams)):
@@ -161,14 +162,16 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     txt = txt.replace("<EQUIPMENT_COMES_HERE>", joinedEquipmentsCode)
     
     #sette inn pipes
-    pipeResult = []
+    pipeResult = [] #må endres!!
     
     for i in range(len(
     txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
 
-    filename = customerCompany +"_" +customerName
+    print("done dfa file:", txt)
 
-    f = open(yourLocation+ endfolder + filename, "w")
+    
+
+    f = open(yourLocation + endfolder + "PipeSys_"+filename, "w")
     f.write(txt)
     f.close()
 
