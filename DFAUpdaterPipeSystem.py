@@ -136,7 +136,7 @@ pipeTemplate ="""Write it here"""
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
 yourLocation = Aashild #must be changed after whom is using it
 				
-def makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, customerName, customerCompany):
+def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
     global templateForPipeSys, equipmentTemplate, yourLoaction
     # kopierer block for antall equipment
     
@@ -156,7 +156,14 @@ def makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia
         eqResult.append(eq)
         
     # må sette inn eqParams
-    
+    for x in range(len(eqResult)):
+        eqResult[x] = equipmentTemplate.replace("<Eq_L>", str(eq_size_list[x][0]))
+        eqResult[x] = eqResult[x].replace("<Eq_W>", str(eq_size_list[x][1]))
+        eqResult[x] = eqResult[x].replace("<Eq_H>", str(eq_size_list[x][2]))
+        eqResult[x] = eqResult[x].replace("<Eq_X>", str(eq_pos[x][0]))
+        eqResult[x] = eqResult[x].replace("<Eq_Y>", str(eq_pos[x][1]))
+        eqResult[x] = eqResult[x].replace("<Eq_Z>", str(eq_pos[x][2]))
+        eqResult[x] = eqResult[x].replace("<Eq_index>", str(x+1))
     
     joinedEquipmentsCode =""
     for i in range(len(eqResult)):
