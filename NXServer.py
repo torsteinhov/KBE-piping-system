@@ -229,7 +229,7 @@ class MyHandler(BaseHTTPRequestHandler):
             errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
             print("Check if the input is valid: ", errorMsg)
 
-            messageToCustomer = ""
+            messageToCustomer = "Something wrong has happened.\n"
             inputError = False
             for i in errorMsg: # going through the error messages
                 if "ok" not in i:
