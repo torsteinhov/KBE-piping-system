@@ -79,7 +79,7 @@ class pipeSystem:
     # takes in a path of nodes and returs a path in Global points
     def nodePath2pointPath(self, nodePath): # takes in a list of nodes which describes the path between eq1 and eq2, and returnes the list in points(world frame coordinates)
         pointPath = []
-        for i in range(nodePath):
+        for i in range(len(nodePath)):
             point = self.node2point(nodePath[i])
             pointPath.append(point)
         return pointPath
@@ -156,6 +156,11 @@ endPoint = [3000, 1500,1500]
 pipeDia =  50.8
 
 processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
-print(processSystem.makePath())
+print(processSystem.coordinate2node([100,100,100]))
+print(processSystem.node2point([50,50,50]))
+print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
+print(processSystem.eqInOutGlobalPoint([250,250,250],[500,500,500],[1000,1000,1000]))
+
+#print(processSystem.makePath())
 #processSystem.run_model()
 
