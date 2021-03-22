@@ -14,8 +14,8 @@ HOST_NAME = '127.0.0.1'
 PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\\\KBE-piping-system\\" #location
-yourLocation = Torstein #must be changed after whom is using it
+Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
+yourLocation = Aashild #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -88,9 +88,33 @@ class MyHandler(BaseHTTPRequestHandler):
             
         elif path.find("/static/style2.css") != -1: # to handle the css
             # thanks to: https://stackoverflow.com/questions/28369758/python-not-finding-css-file
-            stylefile = open("static/style2.css", "r")
+            stylefile = open("HTML/static/style2.css", "r")
             tekst = stylefile.read()
             s.wfile.write(bytes(tekst, 'utf-8'))
+        elif path.find("/UI/sprite.svg") != -1:
+			#Make right headers
+            s.send_response(200)
+            s.send_header("Content-type", "image/png")
+            s.end_headers()
+			#Read the file
+			#Write file.
+            bReader = open(yourLocation + "HTML\\webImg\\"+"Aker_Solutions.png", "rb")
+            theImg = bReader.read()
+            print(theImg)
+            s.wfile.write(theImg)
+        
+        elif path.find("exampleSystem.png") != -1:
+			#Make right headers
+            s.send_response(200)
+            s.send_header("Content-type", "image/png")
+            s.end_headers()
+			#Read the file
+			#Write file.
+            bReader = open(yourLocation + "HTML\\webImg\\"+"exampleSystem.png", "rb")
+            theImg = bReader.read()
+            print(theImg)
+            s.wfile.write(theImg)
+
         elif path.find("/orderDesign") != -1:
             s.send_response(200)
             s.send_header("Content-type", "text/html")

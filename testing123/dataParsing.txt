@@ -28,6 +28,11 @@ eq3_pos= "x,y,z" #x%2Cy%2Cz
 eq3_in= "x,y,z" #x%2Cy%2Cz
 eq3_out= "x,y,z" #x%2Cy%2Cz
 
+Variables to change:
+VariablesToChange = ['#envSizeX#', '#envSizeY#', '#envSizeZ#', '#startA#', '#endB#', '#pipe_dia#', '#eq1_sideX#', '#eq1_sideY#', '#eq1_sideZ#', '#eq1_pos#', '#eq1_in#','#eq1_out#', '#eq2_sideX#', '#eq2_sideY#', '#eq2_sideZ#', '#eq2_pos#', '#eq2_in#', '#eq2_out#', '#eq3_sideX#', '#eq3_sideY#', '#eq3_sideZ#', '#eq3_pos#', '#eq3_in#', '#eq3_out#']
+
+
+
 file:///C:/sendOrder?name=Aashild&pNumber=95976094&eMail=kontakt%40kolstaddesign.com&compName=Kolstad+Design
 
 Info about the customer:
@@ -35,3 +40,5 @@ name= "Your+Name"
 pNumber= "Your+number"
 eMail= "Your+e-mail"
 compName= "Your+company"
+
+custommerInfoToChange = ['#name#', '#pNumber#', '#eMail#', '#compName#']
