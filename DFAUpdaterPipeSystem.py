@@ -1,19 +1,5 @@
 #dfaUpdater to pipeSystemDesigner
 
-"""
-				Vi må få kundens parametere på formen (på en sofistikert måte):
-				num_eq = int
-				eq_size_list = [eq1_size, eq2_size, eq3_size]
-				eq_pos = [eq1_pos, eq2_pos, eq3_pos]
-				eq_in_out = [eq1_in, eq1_out, eq2_in, eq2_out, eq3_in, eq3_out] #siden rørene skal gå inn og ut på
-				env_size = [x,y,z] #lengden på kuben som definerer environmentet
-				startPoint = [x,y,z]
-				endpoint = [x,yz]
-				num_node_ax = int # denne kan vi definere selv øverst i skriptet eller noe
-				pipDia = float 
-				"""
-# def makeDFA(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia):
-
 templateForPipeSys = """#! NX/KF 4.0
 DefClass: PipeSys_<customerName_company> (ug_base_part);
     #(number parameter) environmentX: <envX>;
@@ -180,3 +166,12 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     
         
     
+# testing environment
+num_eq = 3
+eq_size_list = [[70,70,70],[150,150,150],[1000,1000,1000]]
+eq_pos = [[50,50,50],[150,150,150], [1000,1000,1000]]
+env_size = [3000,3000,3000]
+eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,500]]
+startPoint = [0,1500,1500]
+endPoint = [3000, 1500,1500]
+pipeDia =  2

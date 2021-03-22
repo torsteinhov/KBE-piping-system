@@ -6,7 +6,7 @@ import requests
 import json
 import math
 import random
-from checkData import checkCustomerInput
+from pathInterpreter import checkCustomerInput
 
 
 
@@ -92,7 +92,7 @@ class MyHandler(BaseHTTPRequestHandler):
             tekst = stylefile.read()
             s.wfile.write(bytes(tekst, 'utf-8'))
 
-        elif path.find("Aker_Solutions.png") != -1:
+        elif path.find("/Aker_Solutions.png") != -1:
 			#Make right headers
             s.send_response(200)
             s.send_header("Content-type", "image/png")

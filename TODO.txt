@@ -2,16 +2,10 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 
 **** Må gjøres ***
 - startet på i NXServer --- må sjekke om det brukeren skriver inn er fysisk mulig:
-    - Need to have a function to check if point A and B is ond the surface of env.
-    - Need a function to check if the eq is inside the env. 
-    - need to check if the pip is bigger than the equipments 
-    - len(eq_in_out: list) skal være dobbelst så lang som num_eq
+- string split på customer info (Åshild)
+- lage linjer i dfa med loop (Torstein) 
 
-- sjekke at rørene ikke krysser et tidligere rør? 
-- string split og ordne i lister slik at systemdesigner kan ta imot input
-
-- endre UI slik at kunden skriver inn et punkt på den siden røret skal inn. 
-- få til å "play" en fil i NX fra NXServer.py
+- få til å "play" en fil i NX fra NXServer.py (Åshild)
 
 
 **** Kult hvis det gjøres ****
@@ -24,6 +18,7 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - velge shape på quipment og evn selv.
 - Kult hvis kunden kunne skrevet inn hva som skal gå igjennom røret, materialet på røret, omgivelser til røret, også lage en FEM analyse.
 - regarding checkData (geometry), the feedback for the custommer should be more specific, eg. which equipments are colliding. 
+- sjekke at rørene ikke krysser et tidligere rør? 
 
 **** Utfordinger under veis ****
 
