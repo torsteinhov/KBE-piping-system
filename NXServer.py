@@ -18,7 +18,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -95,7 +95,7 @@ class MyHandler(BaseHTTPRequestHandler):
             tekst = stylefile.read()
             s.wfile.write(bytes(tekst, 'utf-8'))
 
-        elif path.find("/Aker_Solutions.png") != -1:
+        elif path.find("Aker_Solutions.png") != -1:
 			#Make right headers
             s.send_response(200)
             s.send_header("Content-type", "image/png")
@@ -104,7 +104,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"Aker_Solutions.png", "rb")
             theImg = bReader.read()
-            print(theImg)
+            #print(theImg)
             s.wfile.write(theImg)
             """
         elif path.find("search_50px.png") != -1:
@@ -195,13 +195,14 @@ class MyHandler(BaseHTTPRequestHandler):
 
     def do_POST(s):
         #allowing us to edit the custom parameters
-        global custom_parameters, messageToCustomer
+        global custom_parameters, messageToCustomer, custommerInfo
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
 
 		# Check what is the path
         path = s.path
+        print("Path: ", path)
         if path.find("/yourParameters") != -1:
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
@@ -215,13 +216,22 @@ class MyHandler(BaseHTTPRequestHandler):
             print_order = ""
 
             custom_parameters = stringSplit(custom_parameters, param_line)
-        
-        
 
             print("custom_parameters: ", custom_parameters)
-            #print("string split: ", print_order)
 
             # getting the data arranged i a sensable way
+            """
+				Vi må få kundens parametere på formen (på en sofistikert måte):
+				num_eq = int
+				eq_size_list = [eq1_size, eq2_size, eq3_size]
+				eq_pos = [eq1_pos, eq2_pos, eq3_pos]
+				eq_in_out = [eq1_in, eq1_out, eq2_in, eq2_out, eq3_in, eq3_out] #siden rørene skal gå inn og ut på
+				env_size = [x,y,z] #lengden på kuben som definerer environmentet
+				startPoint = [x,y,z]
+				endpoint = [x,yz]
+				num_node_ax = int # denne kan vi definere selv øverst i skriptet eller noe
+				pipDia = float 
+				"""
             env_size =[]
             startPoint = []
             endPoint = []
@@ -264,18 +274,6 @@ class MyHandler(BaseHTTPRequestHandler):
             print("eq_pos: ", eq_pos)
             print("eq_in_out: ", eq_in_out)
 
-            """
-				Vi må få kundens parametere på formen (på en sofistikert måte):
-				num_eq = int
-				eq_size_list = [eq1_size, eq2_size, eq3_size]
-				eq_pos = [eq1_pos, eq2_pos, eq3_pos]
-				eq_in_out = [eq1_in, eq1_out, eq2_in, eq2_out, eq3_in, eq3_out] #siden rørene skal gå inn og ut på
-				env_size = [x,y,z] #lengden på kuben som definerer environmentet
-				startPoint = [x,y,z]
-				endpoint = [x,yz]
-				num_node_ax = int # denne kan vi definere selv øverst i skriptet eller noe
-				pipDia = float 
-				"""
             
 			# check if input is valid
             errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
@@ -305,20 +303,23 @@ class MyHandler(BaseHTTPRequestHandler):
 
             s.do_GET() #this is not a optimal solution
 
-        if path.find("/sendOrder") != -1:
+        elif path.find("/sendOrder") != -1:
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
             param_line = post_body.decode()
             
             # string parsing av customer info ( name, number..)
+            custommerInfo = stringSplit(custommerInfo, param_line)
+            print("Customer info (name, email, company): ", custommerInfo)
 
             # call make path (systemDesigner)
             # give new path to dfa template:
                 # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
             # save a file with new 
+            s.do_GET()
 
 
-        if path.find("/"):
+        elif path.find("/"):
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
             param_line = post_body.decode()
@@ -328,17 +329,18 @@ class MyHandler(BaseHTTPRequestHandler):
 def stringSplit(paramContainer, param_line):
     if param_line.find("%2C"): # replacing "%2C" with ','
         param_line = param_line.replace("%2C", ',')
+    if param_line.find("%40"):
+        param_line = param_line.replace("%40", "@")
+    #if param_line.find("+"):
+    #    param_line = param_line.replace("+", " ")
     #getting the parameter values
     key_val_pair = param_line.split('&')							#splitting the string at "&"
     print("key_val_pair: ", key_val_pair)
     for i in range(len(paramContainer)): 						#itterating through the custom_parameter list
-        #print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
-        #print_order +=": "										#for a nice print
         paramContainer[i] = key_val_pair[i].split('=')[1]		#spliting at "=" to only get the value
-        if ' ' in paramContainer[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
-            paramContainer[i] = paramContainer[i].split(" ")[0] #spliting to get rid of it ^
-            #print_order += str(custom_parameters[i])
-        #print_order += ", "
+        if "+" in paramContainer[i]:
+            paramContainer[i]= paramContainer[i].replace("+", " ")
+
     return paramContainer
 
 #IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py

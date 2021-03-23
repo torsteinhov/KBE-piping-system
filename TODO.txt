@@ -19,6 +19,7 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - Kult hvis kunden kunne skrevet inn hva som skal gå igjennom røret, materialet på røret, omgivelser til røret, også lage en FEM analyse.
 - regarding checkData (geometry), the feedback for the custommer should be more specific, eg. which equipments are colliding. 
 - sjekke at rørene ikke krysser et tidligere rør? 
+- at en kunde må skrive inn et system for å kunne skrive inn navn,nummer osv.
 
 **** Utfordinger under veis ****
 
