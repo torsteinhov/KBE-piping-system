@@ -148,16 +148,16 @@ class pipeSystem:
 num_eq = 3
 eq_size_list = [[70,70,70],[150,150,150],[1000,1000,1000]]
 eq_pos = [[50,50,50],[150,150,150], [1000,1000,1000]]
-env_size = [3000,3000,3000]
+env_size = [4000,4000,4000]
 eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,500]]
 startPoint = [0,1500,1500]
 endPoint = [3000, 1500,1500]
 pipeDia =  50.8
 
-#processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
-#print(processSystem.coordinate2node([100,100,100]))
-#print(processSystem.node2point([50,50,50]))
-#print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
+processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
+print(processSystem.coordinate2node([100,100,100]))
+print(processSystem.node2point([50,50,50]))
+print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
 #print(processSystem.eqInOutGlobalPoint([250,250,250],[500,500,500],[1000,1000,1000]))
 
 #print(processSystem.makePath())
@@ -171,5 +171,7 @@ eq_pos = [[100,20,0]]
 
 testInOutGlobalPoint = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 
-
+# point, eq_size, eq_pos
 print("Test av eqInOutGlobalPoint", testInOutGlobalPoint.eqInOutGlobalPoint([50,40,30] ,[50,70,60], [100,20,0]))
+
+print("Test av eqInOutGlobalPoint", testInOutGlobalPoint.eqInOutGlobalPoint([10,10,10] ,[10,70,60], [1000,2000,1000]))
