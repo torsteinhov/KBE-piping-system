@@ -6,7 +6,10 @@ import requests
 import json
 import math
 import random
-from pathInterpreter import checkCustomerInput
+from checkData import checkCustomerInput
+
+
+#from pathInterpreter import checkCustomerInput
 
 
 
