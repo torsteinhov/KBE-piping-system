@@ -85,7 +85,8 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 
 <EQUIPMENT_COMES_HERE>
 """
-equipmentTemplate = """(Child) block_<Eq_index>: {
+equipmentTemplate = """
+(Child) block_<Eq_index>: {
     class, ug_block;
     length, <Eq_L>;
     width, <Eq_W>;
@@ -102,8 +103,14 @@ equipmentTemplate = """(Child) block_<Eq_index>: {
 };
 
 """
-    
-pipeTemplate ="""Write it here"""
+
+pipeTemplate ="""
+(Child) environment_line1: {
+    Class, ug_line; 
+    Start_Point, Point(<Point_A>); 
+    End_Point, Point(<Point_B>); 
+}; 
+"""
 
 
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
@@ -123,10 +130,13 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     txt = txt.replace("<customerName_company>", filename)
     envParams = ["<envX>", "<envY>", "<envZ>"]
     
+    '''CODE FOR ENVIRONMENT BELOW'''
     for i in range(len(envParams)):
         txt = txt.replace(str(envParams[i]), str(env_size[i]))
     print("Inserted evironment params \n:", txt)
     
+
+    '''CODE FOR EQUIPMENT BELOW'''
     eqResult =[] # a list with the equipments with inserted values
     for i in range(num_eq):
         eq = equipmentTemplate
@@ -149,10 +159,22 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     # inserting the code for the equipments in the dfaCode
     txt = txt.replace("<EQUIPMENT_COMES_HERE>", joinedEquipmentsCode)
     
-    #sette inn pipes
-    pipeResult = [] #må endres!!
+    '''CODE FOR PIPE BELOW'''
+    """
+    (Child) environment_line1: {
+        Class, ug_line; 
+        Start_Point, Point(<Point_X>); 
+        End_Point, Point(<Point_B>); 
+    }; 
+    """
+    # path = [[path1],[path2],[path3],[path4]]
+    pipeResult = []
+    for localPath in path:
+        for point in localPath:
+            pointString = str(point)
+            
 
-    #txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
+    # txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
 
     print("done dfa file:", txt)
 
