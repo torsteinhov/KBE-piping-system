@@ -1,0 +1,153 @@
+#! NX/KF 4.0
+DefClass: PipeSys_Tor AS_torstein (ug_base_part);
+    #(number parameter) environmentX: 3000;
+    #(number parameter) environmentY: 3000;
+    #(number parameter) environmentZ: 3000; 
+
+    
+#+
+---------------ENVIRONMENT-----------------
+#-
+
+(Child) environment_line1: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(environmentX:,0,0); 
+}; 
+
+(Child) environment_line2: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(0,environmentY:,0); 
+}; 
+
+(Child) environment_line3: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(0,0,environmentZ:); 
+}; 
+
+(Child) environment_line4: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,0); 
+ End_Point, Point(environmentX:,environmentY:,0); 
+}; 
+
+(Child) environment_line5: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,0); 
+ End_Point, Point(environmentX:,0,environmentZ:); 
+}; 
+
+(Child) environment_line6: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,environmentY:,0); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line7: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,0); 
+ End_Point, Point(0,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line8: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,0); 
+ End_Point, Point(environmentX:,environmentY:,0); 
+}; 
+
+(Child) environment_line9: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,environmentZ:); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line10: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,environmentZ:); 
+ End_Point, Point(0,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line11: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,environmentZ:); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line12: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,environmentZ:); 
+ End_Point, Point(environmentX:,0,environmentZ:); 
+}; 
+
+(child) block_1: 
+    {
+        class, ug_block;
+        length, 70;
+        width, 70;
+        height, 70;
+		Origin, Point(50,50,50);
+    };
+
+    # Body colored depending on the volume of the block
+    (Child) body_colored_1: 
+    { 
+      Class, ug_body; 
+      Feature, {block_1:};  
+      Layer, 1; 
+      color, ug_askClosestColor(BLUE); 
+    };
+
+    #Inlet, #Outlet
+
+    (child) block_2: 
+    {
+        class, ug_block;
+        length, 150;
+        width, 150;
+        height, 150;
+		Origin, Point(150,150,150);
+    };
+
+    # Body colored depending on the volume of the block
+    (Child) body_colored_2: 
+    { 
+      Class, ug_body; 
+      Feature, {block_2:};  
+      Layer, 1; 
+      color, ug_askClosestColor(BLUE); 
+    };
+
+    #Inlet, #Outlet
+
+    (child) block_3: 
+    {
+        class, ug_block;
+        length, 1000;
+        width, 1000;
+        height, 1000;
+		Origin, Point(1000,1000,1000);
+    };
+
+    # Body colored depending on the volume of the block
+    (Child) body_colored_3: 
+    { 
+      Class, ug_body; 
+      Feature, {block_3:};  
+      Layer, 1; 
+      color, ug_askClosestColor(BLUE); 
+    };
+
+    #Inlet, #Outlet
+
+    
+
+<PIPES_COMES_HERE>
+
+# Methods of the class
+(Method Number) getVolume:(Number $length, Number $width, Number $height) 
+  @{
+     $length * $width * $height;
+   };
+

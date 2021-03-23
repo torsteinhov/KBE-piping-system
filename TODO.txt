@@ -21,6 +21,7 @@ Dette er et notat for oss selv, slik at vi kan skrive ned ting underveis om hva 
 - sjekke at rørene ikke krysser et tidligere rør? 
 - at en kunde må skrive inn et system for å kunne skrive inn navn,nummer osv.
 - heltallsdivisjon i coordinate2node
+- Grensebetingelse i A* liker ikke å bevege seg langs kantene, dette må forbedres
 
 **** Utfordinger under veis ****
 

@@ -120,9 +120,10 @@ pipeTemplate ="""Write it here"""
 
 
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
+yourLocation = Torstein #must be changed after whom is using it
 
-endfolder = "GeneratedSystems\\" #folder to store the final dfa files
+endfolder = "GeneratedSystem\\" #folder to store the final dfa files
 				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
     global templateForPipeSys, equipmentTemplate, yourLoaction, endfolder
@@ -136,11 +137,11 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     envParams = ["<envX>", "<envY>", "<envZ>"]
     
     for i in range(len(envParams)):
-        txt = txt.replace(envParams[i], env_size[i])
+        txt = txt.replace(str(envParams[i]), str(env_size[i]))
     print("Inserted evironment params \n:", txt)
     
     eqResult =[] # a list with the equipments with inserted values
-    for i in range num_eq:
+    for i in range(num_eq):
         eq = equipmentTemplate
         eqResult.append(eq)
         
@@ -163,13 +164,10 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     
     #sette inn pipes
     pipeResult = [] #må endres!!
-    
-    for i in range(len(
-    txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
+
+    #txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
 
     print("done dfa file:", txt)
-
-    
 
     f = open(yourLocation + endfolder + "PipeSys_"+filename, "w")
     f.write(txt)
@@ -187,6 +185,9 @@ eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,5
 startPoint = [0,1500,1500]
 endPoint = [3000, 1500,1500]
 pipeDia =  2
-path = #sett inn path og poinst list type
+#path = #sett inn path og poinst list type
+customerName = "torstein"
+customerCompany = "Tor AS"
+path = [0,0,0]
 
-makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, customerName, customerCompany, path)
+makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)
