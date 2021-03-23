@@ -85,36 +85,28 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 
 <EQUIPMENT_COMES_HERE>
 
-<PIPES_COMES_HERE>
-
-# Methods of the class
-(Method Number) getVolume:(Number $length, Number $width, Number $height) 
-  @{
-     $length * $width * $height;
-   };
+#<PIPES_COMES_HERE>
 
 """
 equipmentTemplate = """(child) block_<Eq_index>: 
-    {
-        class, ug_block;
-        length, <Eq_L>;
-        width, <Eq_W>;
-        height, <Eq_H>;
-		Origin, Point(<Eq_X>,<Eq_Y>,<Eq_Z>);
-    };
+{
+    class, ug_block;
+    length, <Eq_L>;
+    width, <Eq_W>;
+    height, <Eq_H>;
+    origin, Point(<Eq_X>,<Eq_Y>,<Eq_Z>);
+};
 
-    # Body colored depending on the volume of the block
-    (Child) body_colored_<Eq_index>: 
-    { 
-      Class, ug_body; 
-      Feature, {block_<Eq_index>:};  
-      Layer, 1; 
-      color, ug_askClosestColor(BLUE); 
-    };
+# Body colored depending on the volume of the block
+(Child) body_colored_<Eq_index>: 
+{ 
+    Class, ug_body; 
+    Feature, {block_<Eq_index>:};  
+    Layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
 
-    #Inlet, #Outlet
-
-    """
+"""
     
 pipeTemplate ="""Write it here"""
 
@@ -123,10 +115,10 @@ Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #l
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 yourLocation = Torstein #must be changed after whom is using it
 
-endfolder = "GeneratedSystem\\" #folder to store the final dfa files
+endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
-    global templateForPipeSys, equipmentTemplate, yourLoaction, endfolder
+    global templateForPipeSys, equipmentTemplate, yourLoaction, endFolder
     # kopierer block for antall equipment
     
     filename = customerCompany +"_" +customerName
@@ -169,7 +161,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
     print("done dfa file:", txt)
 
-    f = open(yourLocation + endfolder + "PipeSys_"+filename, "w")
+    f = open(yourLocation + endFolder + "PipeSys_"+filename, "w")
     f.write(txt)
     f.close()
 
@@ -187,7 +179,7 @@ endPoint = [3000, 1500,1500]
 pipeDia =  2
 #path = #sett inn path og poinst list type
 customerName = "torstein"
-customerCompany = "Tor AS"
+customerCompany = "TorAS"
 path = [0,0,0]
 
 makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)

@@ -1,5 +1,5 @@
 #! NX/KF 4.0
-DefClass: PipeSys_Tor AS_torstein (ug_base_part);
+DefClass: PipeSys_TorAS_torstein (ug_base_part);
     #(number parameter) environmentX: 3000;
     #(number parameter) environmentY: 3000;
     #(number parameter) environmentZ: 3000; 
@@ -82,72 +82,60 @@ DefClass: PipeSys_Tor AS_torstein (ug_base_part);
 }; 
 
 (child) block_1: 
-    {
-        class, ug_block;
-        length, 70;
-        width, 70;
-        height, 70;
-		Origin, Point(50,50,50);
-    };
+{
+    class, ug_block;
+    length, 70;
+    width, 70;
+    height, 70;
+    origin, Point(50,50,50);
+};
 
-    # Body colored depending on the volume of the block
-    (Child) body_colored_1: 
-    { 
-      Class, ug_body; 
-      Feature, {block_1:};  
-      Layer, 1; 
-      color, ug_askClosestColor(BLUE); 
-    };
+# Body colored depending on the volume of the block
+(Child) body_colored_1: 
+{ 
+    Class, ug_body; 
+    Feature, {block_1:};  
+    Layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
 
-    #Inlet, #Outlet
+(child) block_2: 
+{
+    class, ug_block;
+    length, 150;
+    width, 150;
+    height, 150;
+    origin, Point(150,150,150);
+};
 
-    (child) block_2: 
-    {
-        class, ug_block;
-        length, 150;
-        width, 150;
-        height, 150;
-		Origin, Point(150,150,150);
-    };
+# Body colored depending on the volume of the block
+(Child) body_colored_2: 
+{ 
+    Class, ug_body; 
+    Feature, {block_2:};  
+    Layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
 
-    # Body colored depending on the volume of the block
-    (Child) body_colored_2: 
-    { 
-      Class, ug_body; 
-      Feature, {block_2:};  
-      Layer, 1; 
-      color, ug_askClosestColor(BLUE); 
-    };
+(child) block_3: 
+{
+    class, ug_block;
+    length, 1000;
+    width, 1000;
+    height, 1000;
+    origin, Point(1000,1000,1000);
+};
 
-    #Inlet, #Outlet
+# Body colored depending on the volume of the block
+(Child) body_colored_3: 
+{ 
+    Class, ug_body; 
+    Feature, {block_3:};  
+    Layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
 
-    (child) block_3: 
-    {
-        class, ug_block;
-        length, 1000;
-        width, 1000;
-        height, 1000;
-		Origin, Point(1000,1000,1000);
-    };
 
-    # Body colored depending on the volume of the block
-    (Child) body_colored_3: 
-    { 
-      Class, ug_body; 
-      Feature, {block_3:};  
-      Layer, 1; 
-      color, ug_askClosestColor(BLUE); 
-    };
 
-    #Inlet, #Outlet
-
-    
-
-<PIPES_COMES_HERE>
-
-# Methods of the class
-(Method Number) getVolume:(Number $length, Number $width, Number $height) 
-  @{
-     $length * $width * $height;
-   };
+#<PIPES_COMES_HERE>
 

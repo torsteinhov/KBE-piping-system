@@ -66,8 +66,6 @@ class pipeSystem:
             print("Invalid side: ", point)
             print("Equipment position: ", eq_pos)
             midPoint = [0,0,0]
-			
-        print("Midpoint: ", midPoint)
 		
         return midPoint
     # takes in a node and returns the Global point
@@ -125,8 +123,6 @@ class pipeSystem:
             
             nodeOfPoint = self.coordinate2node(i)
             nodes2reach.append(nodeOfPoint)
-
-        print("nodes2reach: ", nodes2reach)
         
         if int(len(nodes2reach))%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of nodes is not even! Check this out!")
@@ -136,10 +132,8 @@ class pipeSystem:
 
         # collecting all the paths between the nodes to reach in a list
         node_paths_all = []
-        print("nodes2reach: ", nodes2reach)
         # iterates over every second step in nodes to reach, because we want the path between A and eq1In, eq1Out and eq2In. We do NOT want the path between eq1In and eq1Out
         for i in range(0,len(nodes2reach), 2):
-            print("i: ", i)
             path_nodes = aStar(int(self.num_node_ax), nodes2reach[i], nodes2reach[i+1])
             node_paths_all.append(path_nodes)
 
