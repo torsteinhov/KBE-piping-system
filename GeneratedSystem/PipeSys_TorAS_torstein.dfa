@@ -81,7 +81,8 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
  End_Point, Point(environmentX:,0,environmentZ:); 
 }; 
 
-(child) block_1: {
+
+(Child) block_1: {
     class, ug_block;
     length, 70;
     width, 70;
@@ -97,7 +98,8 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     color, ug_askClosestColor(BLUE); 
 };
 
-(child) block_2: {
+
+(Child) block_2: {
     class, ug_block;
     length, 150;
     width, 150;
@@ -113,7 +115,8 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     color, ug_askClosestColor(BLUE); 
 };
 
-(child) block_3: {
+
+(Child) block_3: {
     class, ug_block;
     length, 1000;
     width, 1000;
@@ -129,4 +132,54 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     color, ug_askClosestColor(BLUE); 
 };
 
+
+
+
+(Child) pipe_number_0: {
+    Class, ug_line; 
+    Start_Point, Point(0, 0, 0); 
+    End_Point, Point(100, 100, 100); 
+}; 
+
+(Child) pipe_number_1: {
+    Class, ug_line; 
+    Start_Point, Point(100, 100, 100); 
+    End_Point, Point(100, 200, 200); 
+}; 
+
+(Child) pipe_number_2: {
+    Class, ug_line; 
+    Start_Point, Point(200, 200, 200); 
+    End_Point, Point(300, 300, 300); 
+}; 
+
+(Child) pipe_number_3: {
+    Class, ug_line; 
+    Start_Point, Point(300, 300, 300); 
+    End_Point, Point(300, 400, 400); 
+}; 
+
+(Child) pipe_number_4: {
+    Class, ug_line; 
+    Start_Point, Point(400, 400, 400); 
+    End_Point, Point(500, 500, 500); 
+}; 
+
+(Child) pipe_number_5: {
+    Class, ug_line; 
+    Start_Point, Point(500, 500, 500); 
+    End_Point, Point(600, 500, 500); 
+}; 
+
+(Child) pipe_number_6: {
+    Class, ug_line; 
+    Start_Point, Point(600, 600, 600); 
+    End_Point, Point(700, 600, 600); 
+}; 
+
+(Child) pipe_number_7: {
+    Class, ug_line; 
+    Start_Point, Point(700, 600, 600); 
+    End_Point, Point(700, 700, 700); 
+}; 
 

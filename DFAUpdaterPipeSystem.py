@@ -84,6 +84,8 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 }; 
 
 <EQUIPMENT_COMES_HERE>
+
+<PIPES_COMES_HERE>
 """
 equipmentTemplate = """
 (Child) block_<Eq_index>: {
@@ -105,7 +107,7 @@ equipmentTemplate = """
 """
 
 pipeTemplate ="""
-(Child) environment_line1: {
+(Child) <pipe_line>: {
     Class, ug_line; 
     Start_Point, Point(<Point_A>); 
     End_Point, Point(<Point_B>); 
@@ -144,7 +146,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
         
     # må sette inn eqParams
     for x in range(len(eqResult)):
-        eqResult[x] = equipmentTemplate.replace("<Eq_L>", str(eq_size_list[x][0]))
+        eqResult[x] = eqResult[x].replace("<Eq_L>", str(eq_size_list[x][0]))
         eqResult[x] = eqResult[x].replace("<Eq_W>", str(eq_size_list[x][1]))
         eqResult[x] = eqResult[x].replace("<Eq_H>", str(eq_size_list[x][2]))
         eqResult[x] = eqResult[x].replace("<Eq_X>", str(eq_pos[x][0]))
@@ -163,18 +165,42 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     """
     (Child) environment_line1: {
         Class, ug_line; 
-        Start_Point, Point(<Point_X>); 
+        Start_Point, Point(<Point_A>); 
         End_Point, Point(<Point_B>); 
     }; 
     """
     # path = [[path1],[path2],[path3],[path4]]
     pipeResult = []
-    for localPath in path:
-        for point in localPath:
-            pointString = str(point)
-            
 
-    # txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
+    # adds a template for each pipe element to the pipeResult
+    for i in range(len(path)):
+        for j in range(len(path[i])-1):
+            pipeResult.append(pipeTemplate)
+
+    # strips the point to x,y,z and overwrites pipeTemplate
+    counter = 0
+    for localPath in path:
+        for point in range(len(localPath)-1):
+            pointStringA = str(localPath[point])
+            pointStringA = pointStringA.strip("[")
+            pointStringA = pointStringA.strip("]")
+            print("pointStringA: ", pointStringA)
+            pipeResult[counter] = pipeResult[counter].replace("<Point_A>",pointStringA)
+
+            pointStringB = str(localPath[point+1])
+            pointStringB = pointStringB.strip("[")
+            pointStringB = pointStringB.strip("]")
+            pipeResult[counter] = pipeResult[counter].replace("<Point_B>",pointStringB)
+
+            pipeResult[counter] = pipeResult[counter].replace("<pipe_line>", "pipe_number_"+str(counter))
+
+            counter += 1
+        
+    joinedPipesCode=""
+    for i in range(len(pipeResult)):
+        joinedPipesCode += pipeResult[i]
+
+    txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
 
     print("done dfa file:", txt)
 
@@ -192,11 +218,11 @@ eq_pos = [[50,50,50],[150,150,150], [1000,1000,1000]]
 env_size = [3000,3000,3000]
 eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,500]]
 startPoint = [0,1500,1500]
-endPoint = [3000, 1500,1500]
+endPoint = [4000, 2000,2000]
 pipeDia =  2
 #path = #sett inn path og poinst list type
 customerName = "torstein"
 customerCompany = "TorAS"
-path = [0,0,0]
+path = [[[0,0,0],[100,100,100],[100,200,200]],[[200,200,200],[300,300,300],[300,400,400]],[[400,400,400],[500,500,500],[600,500,500]],[[600,600,600],[700,600,600],[700,700,700]]]
 
 makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)
