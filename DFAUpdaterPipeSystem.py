@@ -224,7 +224,9 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
     # strips the point to x,y,z and overwrites pipeTemplate
     counter = 0
+    pipe_list = []
     for localPath in path:
+        pipe_string = ""
         for point in range(len(localPath)-1):
             pointStringA = str(localPath[point])
             pointStringA = pointStringA.strip("[")
@@ -238,8 +240,12 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
             pipeResult[counter] = pipeResult[counter].replace("<Point_B>",pointStringB)
 
             pipeResult[counter] = pipeResult[counter].replace("<pipe_line>", "pipe_number_"+str(counter))
+            
+            pipe_string += "pipe_number_"+str(counter)+":,"
 
             counter += 1
+        pipe_string = pipe_string[:-1]
+        pipe_list.append(pipe_string)
         
     joinedPipesCode=""
     for i in range(len(pipeResult)):
@@ -262,7 +268,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     pipe_radius = pipeDia * 25.4/2
     txt = txt.replace("<pipe_radius>",str(pipe_radius))
 
-    pointA = str(startPoint).strip("[")
+    pointA = str(path[0][0]).strip("[")
     pointA = pointA.strip("]")
     txt = txt.replace("<start_point>",pointA)
     X_axis = str(dirIntoEnvironment(startPoint,env_size))
