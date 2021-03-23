@@ -1,8 +1,8 @@
 #! NX/KF 4.0
 DefClass: PipeSys_TorAS_torstein (ug_base_part);
-    #(number parameter) environmentX: 3000;
-    #(number parameter) environmentY: 3000;
-    #(number parameter) environmentZ: 3000; 
+    (number parameter) environmentX: 3000;
+    (number parameter) environmentY: 3000;
+    (number parameter) environmentZ: 3000; 
 
     
 #+
@@ -81,8 +81,7 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
  End_Point, Point(environmentX:,0,environmentZ:); 
 }; 
 
-(child) block_1: 
-{
+(child) block_1: {
     class, ug_block;
     length, 70;
     width, 70;
@@ -91,16 +90,14 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
 };
 
 # Body colored depending on the volume of the block
-(Child) body_colored_1: 
-{ 
-    Class, ug_body; 
-    Feature, {block_1:};  
-    Layer, 1; 
+(Child) body_colored_1: { 
+    class, ug_body; 
+    feature, {block_1:};  
+    layer, 1; 
     color, ug_askClosestColor(BLUE); 
 };
 
-(child) block_2: 
-{
+(child) block_2: {
     class, ug_block;
     length, 150;
     width, 150;
@@ -109,16 +106,14 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
 };
 
 # Body colored depending on the volume of the block
-(Child) body_colored_2: 
-{ 
-    Class, ug_body; 
-    Feature, {block_2:};  
-    Layer, 1; 
+(Child) body_colored_2: { 
+    class, ug_body; 
+    feature, {block_2:};  
+    layer, 1; 
     color, ug_askClosestColor(BLUE); 
 };
 
-(child) block_3: 
-{
+(child) block_3: {
     class, ug_block;
     length, 1000;
     width, 1000;
@@ -127,15 +122,11 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
 };
 
 # Body colored depending on the volume of the block
-(Child) body_colored_3: 
-{ 
-    Class, ug_body; 
-    Feature, {block_3:};  
-    Layer, 1; 
+(Child) body_colored_3: { 
+    class, ug_body; 
+    feature, {block_3:};  
+    layer, 1; 
     color, ug_askClosestColor(BLUE); 
 };
 
-
-
-#<PIPES_COMES_HERE>
 

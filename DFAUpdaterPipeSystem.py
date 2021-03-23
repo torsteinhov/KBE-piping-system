@@ -2,9 +2,9 @@
 
 templateForPipeSys = """#! NX/KF 4.0
 DefClass: PipeSys_<customerName_company> (ug_base_part);
-    #(number parameter) environmentX: <envX>;
-    #(number parameter) environmentY: <envY>;
-    #(number parameter) environmentZ: <envZ>; 
+    (number parameter) environmentX: <envX>;
+    (number parameter) environmentY: <envY>;
+    (number parameter) environmentZ: <envZ>; 
 
     
 #+
@@ -84,12 +84,8 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 }; 
 
 <EQUIPMENT_COMES_HERE>
-
-#<PIPES_COMES_HERE>
-
 """
-equipmentTemplate = """(child) block_<Eq_index>: 
-{
+equipmentTemplate = """(Child) block_<Eq_index>: {
     class, ug_block;
     length, <Eq_L>;
     width, <Eq_W>;
@@ -98,11 +94,10 @@ equipmentTemplate = """(child) block_<Eq_index>:
 };
 
 # Body colored depending on the volume of the block
-(Child) body_colored_<Eq_index>: 
-{ 
-    Class, ug_body; 
-    Feature, {block_<Eq_index>:};  
-    Layer, 1; 
+(Child) body_colored_<Eq_index>: { 
+    class, ug_body; 
+    feature, {block_<Eq_index>:};  
+    layer, 1; 
     color, ug_askClosestColor(BLUE); 
 };
 
@@ -161,7 +156,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
     print("done dfa file:", txt)
 
-    f = open(yourLocation + endFolder + "PipeSys_"+filename, "w")
+    f = open(yourLocation + endFolder + "PipeSys_"+filename+".dfa", "w")
     f.write(txt)
     f.close()
 
