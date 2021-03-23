@@ -6,6 +6,19 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
     (number parameter) environmentY: <envY>;
     (number parameter) environmentZ: <envZ>; 
 
+#+
+--------------PIPE-PROFILE---------------
+#-
+
+(child) the_profile: {
+    class, ug_arc;
+    radius, <pipe_radius>;
+    start_angle, 0;
+    end_angle, 360;
+    center, point(<start_point>);
+    X-Axis, Vector(<X_axis>);
+    Y_Axis, Vector(<Y_axis>);
+};
     
 #+
 ---------------ENVIRONMENT-----------------
@@ -120,6 +133,38 @@ Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 yourLocation = Torstein #must be changed after whom is using it
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
+
+#gives the direction into the cubloid
+def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size of the eq and returns the midpoint on the point in world frame
+		# point = [x,y,z] rrelative to the equipment -- this is the point
+		# =================
+		# possible points of a cube
+		# (x=0, y, z), (x, y= 0, z), (x,y,z=0)
+		# (x=eq_size, y, z), (x, y=eq_size, z), (x,y, z=eq_size)
+		# The letter how dont have any nuymber should be between <0,eq_size>
+		# ================
+		# dirInEq is the direction from the point and into the box
+		x = point[0]
+		y = point[1]
+		z = point[2]
+
+		# finding what point the mid point is on and calculating it in global points
+		if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
+			dirInEq = [1,0,0]
+		elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
+			dirInEq = [-1,0,0]
+		elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
+			dirInEq = [0,1,0]
+		elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
+			dirInEq = [0,-1,0]
+		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
+			dirInEq = [0,0,1]
+		elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
+			dirInEq = [0,0,-1]
+		else:
+			dirInEq = [0,0,0]
+
+		return dirInEq
 				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
     global templateForPipeSys, equipmentTemplate, yourLoaction, endFolder
@@ -201,6 +246,27 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
         joinedPipesCode += pipeResult[i]
 
     txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
+    
+    '''
+    (child) the_profile: {
+    class, ug_arc;
+    radius, <pipe_radius>;
+    start_angle, 0;
+    end_angle, 360;
+    center, point(<start_point>);
+    X-Axis, Vector(<X_axis>);
+    Y_Axis, Vector(<Y_axis>);
+    };
+    '''
+    # making the pipe profile
+    pipe_radius = pipeDia * 25.4/2
+    txt = txt.replace("<pipe_radius>",str(pipe_radius))
+
+    pointA = str(startPoint).strip("[")
+    pointA = pointA.strip("]")
+    txt = txt.replace("<start_point>",pointA)
+    X_axis = dirIntoEnvironment(startPoint,env_size)
+    Y_axis = dirIntoEnvironment(startPoint,env_size)
 
     print("done dfa file:", txt)
 
@@ -213,16 +279,20 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     
 # testing environment
 num_eq = 3
-eq_size_list = [[70,70,70],[150,150,150],[1000,1000,1000]]
-eq_pos = [[50,50,50],[150,150,150], [1000,1000,1000]]
-env_size = [3000,3000,3000]
-eq_in_out = [[0,35,35], [70,35,35],[0,75,75],[150,75,75],[0,500,500],[1000,500,500]]
+eq_size_list = [[200,100,300],[150,200,300],[300,300,300]]
+eq_pos = [[500,500,500],[2000,1000,1000], [3000,2000,2500]]
+env_size = [4000,4000,4000]
+eq_in_out = [[0,35,35], [70,100,35],[0,75,75],[150,75,75],[0,250,250],[250,250,300]]
 startPoint = [0,1500,1500]
 endPoint = [4000, 2000,2000]
 pipeDia =  2
 #path = #sett inn path og poinst list type
 customerName = "torstein"
 customerCompany = "TorAS"
-path = [[[0,0,0],[100,100,100],[100,200,200]],[[200,200,200],[300,300,300],[300,400,400]],[[400,400,400],[500,500,500],[600,500,500]],[[600,600,600],[700,600,600],[700,700,700]]]
+#path = [[[0,0,0],[100,100,100],[100,200,200]],[[200,200,200],[300,300,300],[300,400,400]],[[400,400,400],[500,500,500],[600,500,500]],[[600,600,600],[700,600,600],[700,700,700]]]
+path = [[[0.0, 1480.0, 1480.0], [40.0, 1440.0, 1440.0], [80.0, 1400.0, 1400.0], [120.0, 1360.0, 1360.0], [120.0, 1320.0, 1320.0], [160.0, 1280.0, 1280.0], [160.0, 1240.0, 1240.0], [200.0, 1200.0, 1200.0], [200.0, 1160.0, 1160.0], [240.0, 1120.0, 1120.0], [240.0, 1080.0, 1080.0], [240.0, 1040.0, 1040.0], [280.0, 1000.0, 
+1000.0], [280.0, 960.0, 960.0], [320.0, 920.0, 920.0], [320.0, 880.0, 880.0], [360.0, 840.0, 840.0], [360.0, 800.0, 800.0], [400.0, 760.0, 760.0], [400.0, 720.0, 720.0], [400.0, 680.0, 720.0], [440.0, 640.0, 680.0], [440.0, 600.0, 680.0], [480.0, 560.0, 640.0], [480.0, 520.0, 640.0]], [[600.0, 600.0, 640.0], [640.0, 600.0, 640.0], [680.0, 600.0, 640.0], [720.0, 600.0, 640.0], [760.0, 600.0, 640.0], [800.0, 600.0, 640.0], [840.0, 600.0, 640.0], [880.0, 600.0, 640.0], 
+[920.0, 600.0, 640.0], [960.0, 640.0, 680.0], [1000.0, 640.0, 680.0], [1040.0, 680.0, 720.0], [1080.0, 680.0, 720.0], [1120.0, 720.0, 760.0], [1160.0, 720.0, 760.0], [1200.0, 720.0, 760.0], [1240.0, 760.0, 800.0], [1280.0, 760.0, 800.0], [1320.0, 800.0, 840.0], [1360.0, 800.0, 840.0], [1400.0, 840.0, 880.0], [1440.0, 840.0, 880.0], [1480.0, 840.0, 880.0], [1520.0, 880.0, 920.0], [1560.0, 880.0, 920.0], [1600.0, 920.0, 960.0], [1640.0, 920.0, 960.0], [1680.0, 960.0, 1000.0], [1720.0, 960.0, 1000.0], [1760.0, 960.0, 1000.0], [1800.0, 1000.0, 1040.0], [1840.0, 1000.0, 1040.0], [1880.0, 1040.0, 1080.0], [1920.0, 1040.0, 1080.0], [1960.0, 1040.0, 1080.0], [2000.0, 1080.0, 1120.0]], [[2120.0, 1080.0, 1120.0], [2160.0, 1120.0, 1160.0], [2200.0, 1160.0, 1200.0], [2240.0, 1200.0, 1240.0], [2280.0, 1240.0, 1280.0], [2320.0, 1280.0, 1320.0], [2360.0, 1320.0, 1360.0], [2400.0, 1360.0, 1400.0], [2440.0, 1400.0, 1440.0], [2480.0, 1440.0, 1480.0], [2520.0, 1480.0, 1520.0], [2560.0, 1520.0, 1560.0], [2600.0, 1560.0, 1600.0], [2640.0, 1600.0, 1640.0], [2640.0, 1640.0, 1680.0], [2640.0, 1680.0, 1720.0], [2680.0, 1720.0, 1760.0], [2680.0, 1720.0, 1800.0], [2680.0, 1720.0, 1840.0], [2720.0, 1760.0, 1880.0], [2720.0, 1760.0, 1920.0], [2760.0, 1800.0, 1960.0], [2760.0, 1800.0, 2000.0], [2760.0, 1840.0, 2040.0], [2760.0, 1840.0, 2080.0], [2800.0, 1880.0, 2120.0], [2800.0, 1880.0, 2160.0], [2840.0, 1920.0, 2200.0], [2840.0, 1920.0, 2240.0], [2880.0, 1960.0, 2280.0], [2880.0, 1960.0, 2320.0], [2880.0, 2000.0, 2360.0], [2880.0, 2000.0, 2400.0], [2920.0, 2040.0, 2440.0], [2920.0, 2040.0, 2480.0], [2960.0, 2080.0, 2520.0], [2960.0, 2080.0, 2560.0], [3000.0, 2120.0, 2600.0], [3000.0, 2120.0, 2640.0]], [[3120.0, 2120.0, 2800.0], [3160.0, 2120.0, 2760.0], [3200.0, 2120.0, 2720.0], [3240.0, 2120.0, 2680.0], [3280.0, 2120.0, 2640.0], [3320.0, 2120.0, 2600.0], [3360.0, 2120.0, 2560.0], [3400.0, 2120.0, 2520.0], [3440.0, 2120.0, 2480.0], [3480.0, 2120.0, 2440.0], [3520.0, 2120.0, 2400.0], [3560.0, 2120.0, 2360.0], [3600.0, 2120.0, 2320.0], 
+[3640.0, 2120.0, 2280.0], [3680.0, 2120.0, 2240.0], [3720.0, 2120.0, 2200.0], [3760.0, 2080.0, 2160.0], [3800.0, 2080.0, 2120.0], [3840.0, 2040.0, 2080.0], [3880.0, 2040.0, 2040.0], [3920.0, 2000.0, 2000.0], [3960.0, 2000.0, 2000.0]]]
 
 makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)
