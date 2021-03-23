@@ -4,7 +4,20 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     (number parameter) environmentY: 4000;
     (number parameter) environmentZ: 4000; 
 
-    
+#+
+--------------PIPE-PROFILE---------------
+#-
+
+(child) the_profile: {
+    class, ug_arc;
+    radius, 25.4;
+    start_angle, 0;
+    end_angle, 360;
+    center, Point(0,1500,1500);
+    #X-Axis, Vector(0, 0, 1);
+    Y_Axis, Vector(0, 0, 1);
+};
+
 #+
 ---------------ENVIRONMENT-----------------
 #-

@@ -15,9 +15,9 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
     radius, <pipe_radius>;
     start_angle, 0;
     end_angle, 360;
-    center, point(<start_point>);
+    center, Point(<start_point>);
     X-Axis, Vector(<X_axis>);
-    Y_Axis, Vector(<Y_axis>);
+    Y_Axis, Vector(0,0,1);
 };
     
 #+
@@ -265,8 +265,10 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     pointA = str(startPoint).strip("[")
     pointA = pointA.strip("]")
     txt = txt.replace("<start_point>",pointA)
-    X_axis = dirIntoEnvironment(startPoint,env_size)
-    Y_axis = dirIntoEnvironment(startPoint,env_size)
+    X_axis = str(dirIntoEnvironment(startPoint,env_size))
+    X_axis = X_axis.strip("[")
+    X_axis = X_axis.strip("]")
+    txt = txt.replace("<X_axis>",X_axis)
 
     print("done dfa file:", txt)
 
