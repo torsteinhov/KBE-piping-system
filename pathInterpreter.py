@@ -94,7 +94,7 @@ class pipeSystem:
         # making a list of all the points (in global frame) to make pipe between
         points2reach = [self.startPoint] #first adding the startpoint to the list
         n = 0
-        for i in range(0, len(self.eq_size_list), 1): #then adding the in and out points on all the equipments
+        for i in range(len(self.eq_size_list)): #then adding the in and out points on all the equipments
             in_side = self.eq_in_out[n] #in to eq
             out_side = self.eq_in_out[n+1] #out from eq
             midpoint = self.eqInOutGlobalPoint(in_side, self.eq_size_list[i],self.eq_pos[i])
