@@ -99,6 +99,8 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 <EQUIPMENT_COMES_HERE>
 
 <PIPES_COMES_HERE>
+
+<PIPE_PATHS_COMES_HERE>
 """
 equipmentTemplate = """
 (Child) block_<Eq_index>: {
@@ -127,10 +129,17 @@ pipeTemplate ="""
 }; 
 """
 
+pipePathTemplate = """
+(child) <pipe_path_number>: {
+  Class, ug_curve_join;
+  profile, {<Pipe_Path>};
+};
+"""
+
 
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 
@@ -276,6 +285,23 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     X_axis = X_axis.strip("]")
     txt = txt.replace("<X_axis>",X_axis)
 
+    # making a sammenhengende strek av alle linjene
+    pipePathTemplate = """
+    (child) <pipe_path_number>: {
+    Class, ug_curve_join;
+    profile, {<Pipe_Path>};
+    };
+    """
+    pipePaths = ""
+    for i in range(len(pipe_list)):
+        pipeLine = pipePathTemplate
+        pipeLine = pipeLine.replace("<pipe_path_number>", "pipePath"+str(i))
+        pipeLine = pipeLine.replace("<Pipe_Path>", pipe_list[i])
+        pipePaths += pipeLine
+    
+    txt = txt.replace("<PIPE_PATHS_COMES_HERE>", pipePaths)
+
+
     print("done dfa file:", txt)
 
     f = open(yourLocation + endFolder + "PipeSys_"+filename+".dfa", "w")
@@ -295,7 +321,7 @@ startPoint = [0,1500,1500]
 endPoint = [4000, 2000,2000]
 pipeDia =  2
 #path = #sett inn path og poinst list type
-customerName = "torstein"
+customerName = "Aase"
 customerCompany = "TorAS"
 #path = [[[0,0,0],[100,100,100],[100,200,200]],[[200,200,200],[300,300,300],[300,400,400]],[[400,400,400],[500,500,500],[600,500,500]],[[600,600,600],[700,600,600],[700,700,700]]]
 path = [[[0.0, 1480.0, 1480.0], [40.0, 1440.0, 1440.0], [80.0, 1400.0, 1400.0], [120.0, 1360.0, 1360.0], [120.0, 1320.0, 1320.0], [160.0, 1280.0, 1280.0], [160.0, 1240.0, 1240.0], [200.0, 1200.0, 1200.0], [200.0, 1160.0, 1160.0], [240.0, 1120.0, 1120.0], [240.0, 1080.0, 1080.0], [240.0, 1040.0, 1040.0], [280.0, 1000.0, 
