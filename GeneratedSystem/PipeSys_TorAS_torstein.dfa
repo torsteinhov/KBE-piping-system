@@ -17,26 +17,6 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     #X-Axis, Vector(1, 0, 0);
     Y_Axis, Vector(0,0,1);
 };
-
-(child) pipe_profile: {
-    class, ug_curve_join;
-    profile, {the_profile:};
-};
-
-(child) pipe_path: {
-    class, ug_curve_join;
-    profile, {<pipe_list>};
-};
-
-(child) pipe_1: {
-    class, ug_swept;
-    guide, {{forward, pipe_path:}};
-    section, {{forward, pipe_profile:}};
-    scaling, {scale_constant, 1};
-    alignment_init, parameter;
-    orientation, {orientation_fixed};
-    tolerances, {0, 0, 0};
-};
     
 #+
 ---------------ENVIRONMENT-----------------

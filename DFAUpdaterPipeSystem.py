@@ -241,11 +241,11 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
             pipeResult[counter] = pipeResult[counter].replace("<pipe_line>", "pipe_number_"+str(counter))
             
-            pipe_string += "pipe_number_"+str(counter)+":,"
+            #pipe_string += "pipe_number_"+str(counter)+":,"
 
             counter += 1
-        pipe_string = pipe_string[:-1]
-        pipe_list.append(pipe_string)
+        #pipe_string = pipe_string[:-1]
+        #pipe_list.append(pipe_string)
         
     joinedPipesCode=""
     for i in range(len(pipeResult)):
