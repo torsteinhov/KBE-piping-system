@@ -304,7 +304,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     txt = txt.replace("<PIPE_PROFILE_COMES_HERE>", pipe_profile)
 
     pipe_class = ""
-    for i in range(num_eq):
+    for i in range(len(path)):
         pipeClass = pipeClassTemplate
         pipeClass = pipeClass.replace("<pipe_num>",str(i))
         pipeClass = pipeClass.replace("<pipePath_num>",str(i))

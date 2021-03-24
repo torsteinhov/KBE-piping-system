@@ -156,7 +156,7 @@ start_angle, 0;
 end_angle, 360;
 center, Point(600.0, 600.0, 640.0);
 #X-Axis, Vector(<X_axis>);
-Y_Axis, Vector(1, 0, 1);
+Y_Axis, Vector(0, 0, 1);
 };
 
 (child) pipe_profile2: {
@@ -204,6 +204,16 @@ center, Point(3120.0, 2120.0, 2800.0);
 { class, ug_swept;
   guide, {{forward, pipePath2:}};
   section, {{forward, pipe_profile2:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe3: 
+{ class, ug_swept;
+  guide, {{forward, pipePath3:}};
+  section, {{forward, pipe_profile3:}};
   scaling, {scale_constant, 1};
   alignment_init, parameter;
   orientation, {orientation_fixed};
