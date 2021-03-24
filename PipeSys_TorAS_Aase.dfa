@@ -1,5 +1,5 @@
 #! NX/KF 4.0
-DefClass: PipeSys_TorAS_torstein (ug_base_part);
+DefClass: PipeSys_TorAS_Aase (ug_base_part);
     (number parameter) environmentX: 4000;
     (number parameter) environmentY: 4000;
     (number parameter) environmentZ: 4000; 
@@ -8,7 +8,7 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
 --------------PIPE-PROFILE---------------
 #-
 
-(child) the_profile: {
+(child) pipe_profile0: {
     class, ug_arc;
     radius, 25.4;
     start_angle, 0;
@@ -18,8 +18,98 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     Y_Axis, Vector(0,0,1);
 };
 
+(child) pipe_profile1: {
+    class, ug_arc;
+    radius, 25.4;
+    start_angle, 0;
+    end_angle, 360;
+    center, Point(600, 600, 640);
+    #X-Axis, Vector(1, 0, 0);
+    Y_Axis, Vector(1,0,1);
+};
 
+(child) pipe_profile2: {
+    class, ug_arc;
+    radius, 25.4;
+    start_angle, 0;
+    end_angle, 360;
+    center, Point(2120, 1080, 1120);
+    #X-Axis, Vector(1, 0, 0);
+    #Y_Axis, Vector(1,0,0);
+};
+
+(child) pipe_profile3: {
+    class, ug_arc;
+    radius, 25.4;
+    start_angle, 0;
+    end_angle, 360;
+    center, Point(3120, 2120, 2800);
+    #X-Axis, Vector(1, 0, 0);
+    #Y_Axis, Vector(1,0,0);
+};
+
+
+(child) pipePath0: {
+Class, ug_curve_join;
+profile, {pipe_number_0:,pipe_number_1:,pipe_number_2:,pipe_number_3:,pipe_number_4:,pipe_number_5:,pipe_number_6:,pipe_number_7:,pipe_number_8:,pipe_number_9:,pipe_number_10:,pipe_number_11:,pipe_number_12:,pipe_number_13:,pipe_number_14:,pipe_number_15:,pipe_number_16:,pipe_number_17:,pipe_number_18:,pipe_number_19:,pipe_number_20:,pipe_number_21:,pipe_number_22:,pipe_number_23:};
+};
+
+(child) pipePath1: {
+Class, ug_curve_join;
+profile, {pipe_number_24:,pipe_number_25:,pipe_number_26:,pipe_number_27:,pipe_number_28:,pipe_number_29:,pipe_number_30:,pipe_number_31:,pipe_number_32:,pipe_number_33:,pipe_number_34:,pipe_number_35:,pipe_number_36:,pipe_number_37:,pipe_number_38:,pipe_number_39:,pipe_number_40:,pipe_number_41:,pipe_number_42:,pipe_number_43:,pipe_number_44:,pipe_number_45:,pipe_number_46:,pipe_number_47:,pipe_number_48:,pipe_number_49:,pipe_number_50:,pipe_number_51:,pipe_number_52:,pipe_number_53:,pipe_number_54:,pipe_number_55:,pipe_number_56:,pipe_number_57:,pipe_number_58:};
+};
+
+(child) pipePath2: {
+Class, ug_curve_join;
+profile, {pipe_number_59:,pipe_number_60:,pipe_number_61:,pipe_number_62:,pipe_number_63:,pipe_number_64:,pipe_number_65:,pipe_number_66:,pipe_number_67:,pipe_number_68:,pipe_number_69:,pipe_number_70:,pipe_number_71:,pipe_number_72:,pipe_number_73:,pipe_number_74:,pipe_number_75:,pipe_number_76:,pipe_number_77:,pipe_number_78:,pipe_number_79:,pipe_number_80:,pipe_number_81:,pipe_number_82:,pipe_number_83:,pipe_number_84:,pipe_number_85:,pipe_number_86:,pipe_number_87:,pipe_number_88:,pipe_number_89:,pipe_number_90:,pipe_number_91:,pipe_number_92:,pipe_number_93:,pipe_number_94:,pipe_number_95:,pipe_number_96:};
+};
+
+(child) pipePath3: {
+Class, ug_curve_join;
+profile, {pipe_number_97:,pipe_number_98:,pipe_number_99:,pipe_number_100:,pipe_number_101:,pipe_number_102:,pipe_number_103:,pipe_number_104:,pipe_number_105:,pipe_number_106:,pipe_number_107:,pipe_number_108:,pipe_number_109:,pipe_number_110:,pipe_number_111:,pipe_number_112:,pipe_number_113:,pipe_number_114:,pipe_number_115:,pipe_number_116:,pipe_number_117:};
+};
     
+
+(child) pipe_0: {
+  class, ug_swept;
+  guide, {{forward, pipePath0:}};
+  section, {{forward, pipe_profile0:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe_1: {
+  class, ug_swept;
+  guide, {{forward, pipePath1:}};
+  section, {{forward, pipe_profile1:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe_2: {
+  class, ug_swept;
+  guide, {{forward, pipePath2:}};
+  section, {{forward, pipe_profile2:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe_3: {
+  class, ug_swept;
+  guide, {{forward, pipePath3:}};
+  section, {{forward, pipe_profile3:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
 #+
 ---------------ENVIRONMENT-----------------
 #-
@@ -857,4 +947,3 @@ DefClass: PipeSys_TorAS_torstein (ug_base_part);
     Start_Point, Point(3920.0, 2000.0, 2000.0); 
     End_Point, Point(3960.0, 2000.0, 2000.0); 
 }; 
-

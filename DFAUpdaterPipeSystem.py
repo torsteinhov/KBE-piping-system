@@ -10,16 +10,7 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 --------------PIPE-PROFILE---------------
 #-
 
-(child) the_profile: {
-    class, ug_arc;
-    radius, <pipe_radius>;
-    start_angle, 0;
-    end_angle, 360;
-    center, Point(<start_point>);
-    X-Axis, Vector(<X_axis>);
-    Y_Axis, Vector(0,0,1);
-};
-    
+
 #+
 ---------------ENVIRONMENT-----------------
 #-
@@ -98,9 +89,14 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 
 <EQUIPMENT_COMES_HERE>
 
+<PIPE_PROFILE_COMES_HERE>
+
+<PIPE_CLASS_COMES_HERE>
+
 <PIPES_COMES_HERE>
 
 <PIPE_PATHS_COMES_HERE>
+
 """
 equipmentTemplate = """
 (Child) block_<Eq_index>: {
@@ -136,10 +132,40 @@ pipePathTemplate = """
 };
 """
 
+pipeProfileTemplate = """
+(child) pipe_profile<profile_num>: {
+class, ug_arc;
+radius, <pipe_radius>;
+start_angle, 0;
+end_angle, 360;
+center, Point(<start_point>);
+#X-Axis, Vector(<X_axis>);
+Y_Axis, Vector(<Y_axis>);
+};
+"""
+
+pipePathTemplate = """
+(child) <pipe_path_number>: {
+Class, ug_curve_join;
+profile, {<Pipe_Path>};
+};
+"""
+
+pipeClassTemplate = """(child) pipe<pipe_num>: 
+{ class, ug_swept;
+  guide, {{forward, pipePath<pipePath_num>:}};
+  section, {{forward, pipe_profile<pipeProfile_num>:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+"""
 
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 
@@ -216,13 +242,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     txt = txt.replace("<EQUIPMENT_COMES_HERE>", joinedEquipmentsCode)
     
     '''CODE FOR PIPE BELOW'''
-    """
-    (Child) environment_line1: {
-        Class, ug_line; 
-        Start_Point, Point(<Point_A>); 
-        End_Point, Point(<Point_B>); 
-    }; 
-    """
     # path = [[path1],[path2],[path3],[path4]]
     pipeResult = []
 
@@ -250,11 +269,11 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
             pipeResult[counter] = pipeResult[counter].replace("<pipe_line>", "pipe_number_"+str(counter))
             
-            #pipe_string += "pipe_number_"+str(counter)+":,"
+            pipe_string += "pipe_number_"+str(counter)+":,"
 
             counter += 1
-        #pipe_string = pipe_string[:-1]
-        #pipe_list.append(pipe_string)
+        pipe_string = pipe_string[:-1]
+        pipe_list.append(pipe_string)
         
     joinedPipesCode=""
     for i in range(len(pipeResult)):
@@ -262,36 +281,39 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
 
     txt = txt.replace("<PIPES_COMES_HERE>", joinedPipesCode)
     
-    '''
-    (child) the_profile: {
-    class, ug_arc;
-    radius, <pipe_radius>;
-    start_angle, 0;
-    end_angle, 360;
-    center, point(<start_point>);
-    X-Axis, Vector(<X_axis>);
-    Y_Axis, Vector(<Y_axis>);
-    };
-    '''
     # making the pipe profile
-    pipe_radius = pipeDia * 25.4/2
-    txt = txt.replace("<pipe_radius>",str(pipe_radius))
+    pipe_profile = ""
+    counter = 0
+    for i in path:
+        pipe_radius = pipeDia * 25.4/2
+        pipeProfile = pipeProfileTemplate
+        pipeProfile = pipeProfile.replace("<pipe_radius>",str(pipe_radius))
+        pipeProfile = pipeProfile.replace("<profile_num>",str(counter))
 
-    pointA = str(path[0][0]).strip("[")
-    pointA = pointA.strip("]")
-    txt = txt.replace("<start_point>",pointA)
-    X_axis = str(dirIntoEnvironment(startPoint,env_size))
-    X_axis = X_axis.strip("[")
-    X_axis = X_axis.strip("]")
-    txt = txt.replace("<X_axis>",X_axis)
+        pointStart = str(i[0]).strip("[")
+        pointStart = pointStart.strip("]")
+        pipeProfile = pipeProfile.replace("<start_point>",pointStart)
+        Y_axis = str(dirIntoEnvironment(startPoint,env_size))
+        Y_axis = Y_axis.strip("[")
+        Y_axis = Y_axis.strip("]")
+        pipeProfile = pipeProfile.replace("<Y_axis>",Y_axis)
+
+        pipe_profile += pipeProfile
+        counter += 1
+
+    txt = txt.replace("<PIPE_PROFILE_COMES_HERE>", pipe_profile)
+
+    pipe_class = ""
+    for i in range(num_eq):
+        pipeClass = pipeClassTemplate
+        pipeClass = pipeClass.replace("<pipe_num>",str(i))
+        pipeClass = pipeClass.replace("<pipePath_num>",str(i))
+        pipeClass = pipeClass.replace("<pipeProfile_num>",str(i))
+        pipe_class += pipeClass
+
+    txt = txt.replace("<PIPE_CLASS_COMES_HERE>", pipe_class)
 
     # making a sammenhengende strek av alle linjene
-    pipePathTemplate = """
-    (child) <pipe_path_number>: {
-    Class, ug_curve_join;
-    profile, {<Pipe_Path>};
-    };
-    """
     pipePaths = ""
     for i in range(len(pipe_list)):
         pipeLine = pipePathTemplate
