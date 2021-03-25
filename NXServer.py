@@ -16,7 +16,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -323,8 +323,13 @@ class MyHandler(BaseHTTPRequestHandler):
             compName= custommerInfo[3]
 
             # call make path (systemDesigner)
+            #print("startpoint: ",startPoint)
+            #print("endpoint: ", endPoint)
             systemPathObject = pathInterpreter.pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
+            #print("systemPathObject: ", systemPathObject)
             systemPath = systemPathObject.makePath()
+            print("VI ER FERDIG MED MAKEPATH!")
+            
 
             # give new path to dfa template:
                 # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
