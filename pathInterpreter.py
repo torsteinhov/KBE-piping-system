@@ -93,7 +93,7 @@ class pipeSystem:
     def makePath(self):
 
         # making a list of all the points (in global frame) to make pipe between
-        points2reach = [int(self.startPoint)] #first adding the startpoint to the list
+        points2reach = [self.startPoint] #first adding the startpoint to the list
 
         #eq_size_list=[[eq1_w,eq1_l,eq1_h],[eq2_w,eq2_l,eq2_h]]
         #eq_in_out=[[eq1_in_X,eq1_in_Y,eq1_in_Z],[eq1_out_X,eq1_out_Y,eq1_out_Z],[eq2_in_X,eq2_in_Y,eq2_in_Z],[eq2_out_X,eq2_out_Y,eq2_out_Z]]
@@ -107,7 +107,7 @@ class pipeSystem:
             points2reach.append(midPointOut)
             n+=2
 
-        points2reach.append(int(self.endPoint)) #finally adding the endpoint to the list of all points 2 reach globally
+        points2reach.append(self.endPoint) #finally adding the endpoint to the list of all points 2 reach globally
 
         #print("points2reach: ", points2reach)
         if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
@@ -134,7 +134,7 @@ class pipeSystem:
 
         for i in range(len(points2reach[-1])):
             print("before if: points2reach[-1]: ", points2reach)
-            value = max(int(env_size[0]),int(env_size[1]),int(env_size[2]))
+            value = max(self.env_size[0],self.env_size[1],self.env_size[2])
             print("value: ",value)
             if points2reach[-1][i] == value:
                 points2reach[-1][i] = value - 1
@@ -172,6 +172,7 @@ class pipeSystem:
         
 
 #def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
+"""
 num_eq = 3
 eq_size_list = [[110,110,110],[110,110,110],[110,110,110]]
 eq_pos = [[1000,1000,1000],[2000,1500,3000], [3000,2000,1000]]
@@ -180,7 +181,7 @@ eq_in_out = [[0,10,10], [100,10,10],[0,10,10],[100,10,10],[0,10,10],[100,10,10]]
 startPoint = [0,2000,2000]
 endPoint = [4000, 2000,2000]
 pipeDia =  50.8
-
+"""
 #processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 #print(processSystem.coordinate2node([100,100,100]))
 #print(processSystem.node2point([50,50,50]))

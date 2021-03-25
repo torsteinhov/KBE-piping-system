@@ -16,7 +16,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -252,9 +252,11 @@ class MyHandler(BaseHTTPRequestHandler):
             # then the 6 next params are for eq1, the 6 params after that for eq2, and so on
 
             # mulig disse må castes til int
-            env_size = [custom_parameters[0], custom_parameters[1], custom_parameters[2]]
+            env_size = [int(custom_parameters[0]), int(custom_parameters[1]), int(custom_parameters[2])]
             startPoint = list(custom_parameters[3].split(","))
+            startPoint = [int(x) for x in startPoint] # casting to int
             endPoint = list(custom_parameters[4].split(","))
+            endPoint = [int(x) for x in endPoint]
             pipDia = int(custom_parameters[5])
 
             for i in range(6,len(custom_parameters),6):
