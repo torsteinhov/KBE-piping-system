@@ -6,12 +6,10 @@ import requests
 import json
 import math
 import random
+
 from checkData import checkCustomerInput
-
-
-#from pathInterpreter import checkCustomerInput
-
-
+from DFAUpdaterPipeSystem import makeDFA
+import pathInterpreter
 
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234
@@ -46,7 +44,7 @@ eq3_pos= "x,y,z" #x%2Cy%2Cz
 eq3_in= "x,y,z" #x%2Cy%2Cz
 eq3_out= "x,y,z" #x%2Cy%2Cz
 
-messageToCustomer =""
+messageToCustomer ="" # error message to the customer about typos
 
 #Info about the customer:
 name= "Your Name"
@@ -118,7 +116,7 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             #print(theImg)
             s.wfile.write(theImg)
-            
+            """
         elif path.find("heavy_piping_system.png") != -1:
 			#Make right headers
             #s.send_response(200)
@@ -130,7 +128,7 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             print(theImg)
             s.wfile.write(theImg)
-            """
+            
 
         elif path.find("exampleSystem.png") != -1:
 			#Make right headers
@@ -196,10 +194,14 @@ class MyHandler(BaseHTTPRequestHandler):
 
     def do_POST(s):
         #allowing us to edit the custom parameters
-        global custom_parameters, messageToCustomer, custommerInfo
+        global custom_parameters, messageToCustomer, custommerInfo, yourLocation
+        global env_size, startPoint, endPoint, pipDia, eq_size_list, eq_pos, eq_in_out, num_eq, num_node_ax
+        
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
+
+        
 
 		# Check what is the path
         path = s.path
@@ -233,17 +235,18 @@ class MyHandler(BaseHTTPRequestHandler):
 				num_node_ax = int # denne kan vi definere selv øverst i skriptet eller noe
 				pipDia = float 
 				"""
+            
             env_size =[]
             startPoint = []
             endPoint = []
             pipDia = 0
-            
+
             eq_size_list = []
             eq_pos = []
             eq_in_out = []
-            
+
             num_eq = 3 # hardcoded
-            num_node_ax = 0 # hardcoded
+            num_node_ax = 100 # hardcoded
 
             # from reading the param line we know that the 6 first parameters are for the environment, 
             # then the 6 next params are for eq1, the 6 params after that for eq2, and so on
@@ -267,6 +270,7 @@ class MyHandler(BaseHTTPRequestHandler):
                 eq_out_eqN = list(custom_parameters[i+5].split(",")) # out position of the pip on equipment number N (relative to equipment)
                 eq_in_out.append(eq_out_eqN)
 
+             #for debugging purposes
             print("env_size: ", env_size)
             print("startPoint: ", startPoint)
             print("endPoint: ", endPoint)
@@ -274,6 +278,7 @@ class MyHandler(BaseHTTPRequestHandler):
             print("eq_size_list: ", eq_size_list)
             print("eq_pos: ", eq_pos)
             print("eq_in_out: ", eq_in_out)
+            
 
             
 			# check if input is valid
@@ -312,11 +317,21 @@ class MyHandler(BaseHTTPRequestHandler):
             # string parsing av customer info ( name, number..)
             custommerInfo = stringSplit(custommerInfo, param_line)
             print("Customer info (name, email, company): ", custommerInfo)
+            name= custommerInfo[0]
+            pNumber= custommerInfo[1]
+            eMail= custommerInfo[2]
+            compName= custommerInfo[3]
 
             # call make path (systemDesigner)
+            systemPathObject = pathInterpreter.pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
+            systemPath = systemPathObject.makePath()
+
             # give new path to dfa template:
                 # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
             # save a file with new 
+            filename = makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, name, compName, systemPath, yourLocation)
+
+            print("The order from ", name, ", ", compName, " is now stored in the folder 'GeneratedSystems' as ", filename, ".")
             s.do_GET()
 
 
@@ -332,8 +347,7 @@ def stringSplit(paramContainer, param_line):
         param_line = param_line.replace("%2C", ',')
     if param_line.find("%40"):
         param_line = param_line.replace("%40", "@")
-    #if param_line.find("+"):
-    #    param_line = param_line.replace("+", " ")
+    
     #getting the parameter values
     key_val_pair = param_line.split('&')							#splitting the string at "&"
     print("key_val_pair: ", key_val_pair)

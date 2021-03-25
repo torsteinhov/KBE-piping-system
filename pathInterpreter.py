@@ -17,13 +17,16 @@ class pipeSystem:
         self.endPoint = endPoint # end point of the pipe
         self.num_node_ax = num_node_ax # number of nodes to divide the environment into along one axis
         self.pipeDia = pipeDia
+        print("----------------------")
+        print("pathIntrepretator, env_size: ", self.env_size)
+        print("----------------------")
 
-        self.distanceBetweenNodes = max(env_size[0],env_size[1],env_size[2])/num_node_ax
+        self.distanceBetweenNodes = max(int(env_size[0]),int(env_size[1]),int(env_size[2]))/num_node_ax
 
 
     # take in a point and give out the corresponding node
     def coordinate2node(self, point):
-        pointInNode = (point[0]//self.distanceBetweenNodes, point[1]//self.distanceBetweenNodes, point[2]//self.distanceBetweenNodes)
+        pointInNode = (int(point[0])//self.distanceBetweenNodes, int(point[1])//self.distanceBetweenNodes, int(point[2])//self.distanceBetweenNodes)
         return pointInNode
 
     # takes inn a local point on the surface of a equipment, the size of the equipment and the position(global) of the equipment
@@ -37,28 +40,28 @@ class pipeSystem:
 		# The letter how dont have any nuymber should be between <0,eq_size>
 		# ================
         # # dirInEq is the direction from the side and into the box
-        x = point[0]
-        y = point[1]
-        z = point[2]
+        x = int(point[0])
+        y = int(point[1])
+        z = int(point[2])
 
 		# finding what side the mid point is on and calculating it in global points
-        if(x == 0 and y<eq_size[1] and y>0 and z<eq_size[2] and z>0 ):
-            midPoint = [eq_pos[0]+0, eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]/2]
+        if(x == 0 and y<int(eq_size[1]) and y>0 and z<int(eq_size[2]) and z>0 ):
+            midPoint = [int(eq_pos[0])+0, int(eq_pos[1])+int(eq_size[1])/2, int(eq_pos[2])+int(eq_size[2])/2]
             
-        elif (x == eq_size[0] and y<eq_size[1] and y>0 and z<eq_size[2] and z>0):
-            midPoint = [eq_pos[0]+eq_size[0], eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]/2]
+        elif (x == int(eq_size[0]) and y<int(eq_size[1]) and y>0 and z<int(eq_size[2]) and z>0):
+            midPoint = [int(eq_pos[0])+int(eq_size[0]), int(eq_pos[1])+int(eq_size[1])/2, int(eq_pos[2])+int(eq_size[2])/2]
 			
-        elif (x <eq_size[0] and x>0 and y==0 and z<eq_size[2] and z>0):
-            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+0, eq_pos[2]+eq_size[2]/2]
+        elif (x <int(eq_size[0]) and x>0 and y==0 and z<int(eq_size[2]) and z>0):
+            midPoint = [int(eq_pos[0])+int(eq_size[0])/2, int(eq_pos[1])+0, int(eq_pos[2])+int(eq_size[2])/2]
 			
-        elif (x <eq_size[0] and x>0 and y==eq_size[1] and z<eq_size[2] and z>0):
-            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1], eq_pos[2]+eq_size[2]/2]
+        elif (x <int(eq_size[0]) and x>0 and y==int(eq_size[1]) and z<int(eq_size[2]) and z>0):
+            midPoint = [int(eq_pos[0])+int(eq_size[0])/2, int(eq_pos[1])+int(eq_size[1]), int(eq_pos[2])+int(eq_size[2])/2]
 			
-        elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z ==0):
-            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1]/2, eq_pos[2]+0]
+        elif (x <int(eq_size[0]) and x>0 and y<int(eq_size[1]) and y>0 and z ==0):
+            midPoint = [int(eq_pos[0])+int(eq_size[0])/2, int(eq_pos[1])+int(eq_size[1])/2, int(eq_pos[2])+0]
 			
-        elif (x <eq_size[0] and x>0 and y<eq_size[1] and y>0 and z == eq_size[2]):
-            midPoint = [eq_pos[0]+eq_size[0]/2, eq_pos[1]+eq_size[1]/2, eq_pos[2]+eq_size[2]]
+        elif (x <int(eq_size[0]) and x>0 and y<int(eq_size[1]) and y>0 and z == int(eq_size[2])):
+            midPoint = [int(eq_pos[0])+int(eq_size[0])/2, int(eq_pos[1])+int(eq_size[1])/2, int(eq_pos[2])+int(eq_size[2])]
 			
         else:
             print("Not valid mid point on quipment!!!")
@@ -159,13 +162,13 @@ startPoint = [0,1500,1500]
 endPoint = [4000, 2000,2000]
 pipeDia =  50.8
 
-processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
+#processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 #print(processSystem.coordinate2node([100,100,100]))
 #print(processSystem.node2point([50,50,50]))
 #print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
 #print(processSystem.eqInOutGlobalPoint([250,250,250],[500,500,500],[1000,1000,1000]))
 
-print(processSystem.makePath())
+#print(processSystem.makePath())
 #processSystem.run_model()
 
 # Test av eqInOutGlobalPoint:
@@ -174,7 +177,7 @@ eq_size_list = [[50,70,60]]
 eq_in_out = [[25,35,60], [50,40,30] ]
 eq_pos = [[100,20,0]]
 
-testInOutGlobalPoint = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
+#testInOutGlobalPoint = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
 
 # point, eq_size, eq_pos
 #print("Test av eqInOutGlobalPoint", testInOutGlobalPoint.eqInOutGlobalPoint([50,40,30] ,[50,70,60], [100,20,0]))

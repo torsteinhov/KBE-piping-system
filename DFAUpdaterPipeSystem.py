@@ -163,9 +163,9 @@ pipeClassTemplate = """(child) pipe<pipe_num>:
 
 """
 
-Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-yourLocation = Torstein #must be changed after whom is using it
+#Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
+#Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
+#yourLocation = Torstein #must be changed after whom is using it
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 
@@ -201,7 +201,7 @@ def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size o
 
 		return dirInEq
 				
-def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list):
+def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list, yourLocation:str):
     global templateForPipeSys, equipmentTemplate, yourLoaction, endFolder
     # kopierer block for antall equipment
     
@@ -330,6 +330,8 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, start
     f.write(txt)
     f.close()
 
+    return "PipeSys_"+filename+".dfa"
+
     
         
     
@@ -351,4 +353,4 @@ path = [[[0.0, 1480.0, 1480.0], [40.0, 1440.0, 1440.0], [80.0, 1400.0, 1400.0], 
 [920.0, 600.0, 640.0], [960.0, 640.0, 680.0], [1000.0, 640.0, 680.0], [1040.0, 680.0, 720.0], [1080.0, 680.0, 720.0], [1120.0, 720.0, 760.0], [1160.0, 720.0, 760.0], [1200.0, 720.0, 760.0], [1240.0, 760.0, 800.0], [1280.0, 760.0, 800.0], [1320.0, 800.0, 840.0], [1360.0, 800.0, 840.0], [1400.0, 840.0, 880.0], [1440.0, 840.0, 880.0], [1480.0, 840.0, 880.0], [1520.0, 880.0, 920.0], [1560.0, 880.0, 920.0], [1600.0, 920.0, 960.0], [1640.0, 920.0, 960.0], [1680.0, 960.0, 1000.0], [1720.0, 960.0, 1000.0], [1760.0, 960.0, 1000.0], [1800.0, 1000.0, 1040.0], [1840.0, 1000.0, 1040.0], [1880.0, 1040.0, 1080.0], [1920.0, 1040.0, 1080.0], [1960.0, 1040.0, 1080.0], [2000.0, 1080.0, 1120.0]], [[2120.0, 1080.0, 1120.0], [2160.0, 1120.0, 1160.0], [2200.0, 1160.0, 1200.0], [2240.0, 1200.0, 1240.0], [2280.0, 1240.0, 1280.0], [2320.0, 1280.0, 1320.0], [2360.0, 1320.0, 1360.0], [2400.0, 1360.0, 1400.0], [2440.0, 1400.0, 1440.0], [2480.0, 1440.0, 1480.0], [2520.0, 1480.0, 1520.0], [2560.0, 1520.0, 1560.0], [2600.0, 1560.0, 1600.0], [2640.0, 1600.0, 1640.0], [2640.0, 1640.0, 1680.0], [2640.0, 1680.0, 1720.0], [2680.0, 1720.0, 1760.0], [2680.0, 1720.0, 1800.0], [2680.0, 1720.0, 1840.0], [2720.0, 1760.0, 1880.0], [2720.0, 1760.0, 1920.0], [2760.0, 1800.0, 1960.0], [2760.0, 1800.0, 2000.0], [2760.0, 1840.0, 2040.0], [2760.0, 1840.0, 2080.0], [2800.0, 1880.0, 2120.0], [2800.0, 1880.0, 2160.0], [2840.0, 1920.0, 2200.0], [2840.0, 1920.0, 2240.0], [2880.0, 1960.0, 2280.0], [2880.0, 1960.0, 2320.0], [2880.0, 2000.0, 2360.0], [2880.0, 2000.0, 2400.0], [2920.0, 2040.0, 2440.0], [2920.0, 2040.0, 2480.0], [2960.0, 2080.0, 2520.0], [2960.0, 2080.0, 2560.0], [3000.0, 2120.0, 2600.0], [3000.0, 2120.0, 2640.0]], [[3120.0, 2120.0, 2800.0], [3160.0, 2120.0, 2760.0], [3200.0, 2120.0, 2720.0], [3240.0, 2120.0, 2680.0], [3280.0, 2120.0, 2640.0], [3320.0, 2120.0, 2600.0], [3360.0, 2120.0, 2560.0], [3400.0, 2120.0, 2520.0], [3440.0, 2120.0, 2480.0], [3480.0, 2120.0, 2440.0], [3520.0, 2120.0, 2400.0], [3560.0, 2120.0, 2360.0], [3600.0, 2120.0, 2320.0], 
 [3640.0, 2120.0, 2280.0], [3680.0, 2120.0, 2240.0], [3720.0, 2120.0, 2200.0], [3760.0, 2080.0, 2160.0], [3800.0, 2080.0, 2120.0], [3840.0, 2040.0, 2080.0], [3880.0, 2040.0, 2040.0], [3920.0, 2000.0, 2000.0], [3960.0, 2000.0, 2000.0]]]
 
-makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)
+#makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipeDia, customerName, customerCompany, path)
