@@ -113,6 +113,11 @@ class pipeSystem:
         if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of points to reach is not even! Check this out!")
 
+        print("----------------------")
+        print("pathIntrepretator, env_size: ", self.env_size)
+        print("----------------------")
+
+
         # then we need to convert the points (global) to nodes
         nodes2reach = [] # a list of all nodes we want to reach
         # this is how it will look: nodes2reach = [A_node,eq1_node_in, eq1_node_out, eq2_node_in, eq2_node_out, eq3_node_in, eq3_node_out, B_node]
@@ -120,7 +125,7 @@ class pipeSystem:
             # a fix for the problem where the algorithm gets into an infinite loop, when moving along the edge of the environment
             if i == points2reach[-1]:
                 for j in range(len(points2reach)):
-                    if i[j] == max(env_size[0],env_size[1],env_size[2]):
+                    if i[j] == max(int(env_size[0]),int(env_size[1]),int(env_size[2])):
                         i[j] -= 1
                         break
             
