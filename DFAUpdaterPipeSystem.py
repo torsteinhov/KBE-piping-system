@@ -176,7 +176,7 @@ pipeClassTemplate = """(child) pipe<pipe_num>:
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 
-#gives the direction into the cubloid
+#gives the direction into the cuboid
 def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size of the eq and returns the midpoint on the point in world frame
 		# point = [x,y,z] rrelative to the equipment -- this is the point
 		# =================

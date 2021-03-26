@@ -147,9 +147,9 @@ def aStar(amount,start,end):
 
 
 if __name__ == '__main__':
-    
+    '''
     start = (25,31,31)
     end = (99,50,50)
 
-    aStar(100, start, end)
-    
+    print(aStar(100, start, end))
+    '''
