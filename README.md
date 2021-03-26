@@ -85,6 +85,16 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 + Run NXServer.py **interact with webpage**.
 + DFA file ready to open in NX.
 
+<h2>Improvements from last project</h2>
+
++ Since last project we have become better on deciding geometry and parameters early, to prevent misunderstandings and complications.
+
++ We have also divided our program into multiple files, which makes it easier to debug and troubleshoot since the NXServer delegates the tasks.
+
++ Made a more intuitive User interface for the customer to interract with. Taken elements from the lecture with Marianne Pettersen and the Don Norman Principles of Design.
+
++ We planned out the architecture early, and therefore had a more clear perspective on the informationflow in the project.
+
 <h2>Further development</h2>
 
 + The capturing and reuse of knowledge in this KBE system is something that still has great potential. There should be some way of guiding the pipe to not change direction that often. Since the complexity of the resulting pipe will probably not work in an real life situation.
