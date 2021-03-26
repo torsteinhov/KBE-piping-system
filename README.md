@@ -16,13 +16,4 @@ The information flow starts when the customer submits data through the User Inte
 :----------------------------:|:----------------------------:
 ![](https://user-images.githubusercontent.com/77832956/111148182-9dd71900-858b-11eb-8d45-45eeb49e906a.png) |  ![](https://user-images.githubusercontent.com/77832956/111148221-aa5b7180-858b-11eb-9230-e338ec759257.png)
 
-The A* Algorithm works in an 3D environment. It is using numpy arrays to display a workable environment, and the algorithm therefore has to consider 26 different potential paths for its next move. Accordingly, the weight of the different paths is calculated using Pythagoras theorem. Move along one axis => path cost = 1, two axis => path cost sqrt(2), three axis => path cost sqrt(3). The time complexity of the algorithm is very dependent on the success of the heuristic, and never better then O(|V|+|E|). The heuristic for this algorithm is the euclidean distance to the end node. This is a great solution for this problem since it allows for the algorithm to prune away many of the nodes an uninformed search would expand.
- ```python
-            if new_position in [(0,-1,0),(-1,0,0),(0,1,0),(1,0,0),(0,0,1),(0,0,-1)]:
-                new_node.g += 1
-            elif new_position in [(1,-1,0),(-1,-1,0),(-1,1,0),(1,1,0),(1,0,1),(0,-1,1),(-1,0,1),(0,1,1),(0,1,-1),(1,0,-1),(0,-1,-1),(-1,0,-1)]:
-                new_node.g += Math.sqrt(2)
-            elif new_position in [(1,-1,-1),(1,-1,1),(-1,-1,1),(-1,1,1),(-1,-1,-1),(-1,1,-1),(1,1,-1),(1,1,1)]:
-                new_node.g += Math.sqrt(3)```
-
-
+The A* Algorithm works in an 3D environment. It is using numpy arrays to display a workable environment, and the algorithm therefore has to consider 26 different potential paths for its next move. Accordingly, the weight of the different paths is calculated using Pythagoras theorem. Move along one axis => path cost = 1, two axis => path cost = sqrt(2), three axis => path cost = sqrt(3). The time complexity of the algorithm is very dependent on the success of the heuristic, and never better then O(|V|+|E|). The heuristic for this algorithm is the euclidean distance to the end node. This is a great solution for this problem since it allows for the algorithm to prune away many of the nodes an uninformed search would expand.
