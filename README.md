@@ -4,7 +4,7 @@ In this project, we were challenged with making an automated piping design syste
 
 <h2>Architecture</h2>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/77832956/111455105-ad826900-8715-11eb-8a3d-863ccd0f49de.jpg">
+<img src="https://user-images.githubusercontent.com/77832956/112598690-3fbdf780-8e0f-11eb-8aab-5587ec60fea2.png">
 </p>
 
 The information flow starts when the customer submits data through the User Interface [HTML], which is styled by the CSS stylesheet. From here the NXServer.py parses the data from the HTTP Requests and sends the data to the systemDesigner.py. Based on this data, it calls on the pathFinder.py to find shortest path in 3D from start to end node. Then it translates this node path to the coordinates in the actual CAD environment. This calculation could have been done in the pathFinder but we wanted the actual algorithm to stay as general as possible for reusability and scalability. When the path is translated to coordinates in the environment, this path is used to overwrite an DFA file which will be based on the ug_swept feature to produce the piping system. From here it is ready for demonstration in the Siemens NX software, which from there will be available for further modelling and modifying.
