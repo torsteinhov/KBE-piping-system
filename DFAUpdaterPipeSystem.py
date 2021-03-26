@@ -317,7 +317,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
             pointVariable = path[i][0]
             Y_axis = str(dirIntoEnvironment(pointVariable,env_size))
         else:
-            pointVariable = eq_in_out[counter_out_side]
+            pointVariable = path[i][0]
             Y_axis = str(dirIntoEnvironment(pointVariable,eq_size_list[i-1]))
 
         pointVariable = str(pointVariable).strip("[")
