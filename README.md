@@ -92,3 +92,11 @@ This project challenged us with combining knowledge in artificial intelligence a
 + There should be a much more sophisticated use of classes in the program. As the project stands now it is to often indexation of environment, equipment and etc. This is something we realised late in the project but is recognized as something we want to improve on.
 
 + More sophisticated piping modules. Now it is just an extruded line that creates a cylinder object. This should be a much more detailed and correct piping element. Luckily this is an easy modification since the architecture for adding this specific module to the DFA is already in place.
+
++ The "preview" button has a file associated with it, drawGivenInfo.py which is not activated right now but lays ready for implementation. As the program is right now you have to press the "preview" button for the information to be passed on before ordering, this is also an adjustment that can be made.
+
++ Create a manufChecker that submits which pipe sizes are available.
+
++ Have all the data from the user uploaded to a database.
+
++ Right now there are som quick fixes regarding the pathInterpreter, as forexample integer divison which may make the pipe to be some millimeters off the input/output on the equipment. This should be fixed.
