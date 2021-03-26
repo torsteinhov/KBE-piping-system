@@ -9,6 +9,11 @@ In this project, we were challenged with making an automated piping design syste
 
 The information flow starts when the customer submits data through the User Interface [HTML], which is styled by the CSS stylesheet. From here the NXServer.py parses the data from the HTTP Requests and sends the data to the pathInterpreter.py. Based on this data, it calls on the pathFinder.py to find shortest path in 3D from start to end node. Then it translates this node path to the coordinates in the actual CAD environment, also regarding the in- and outlets of the equipment for which side it shall connect. This calculation could have been done in the pathFinder but we wanted the actual algorithm to stay as general as possible for reusability and scalability. When the path is translated to coordinates in the environment, this path is sent to DFAUpdaterPipeSystem.py, which overwrites a DFA file based on the ug_swept feature, to produce the piping system. By using templates for each module needed to create a pipe, for loops are used to overwrite all the necessary data and add to the DFA. From here it is ready for demonstration in the Siemens NX software, which from there will be available for further modelling and modifying.
 
+<h2>Architecture</h2>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77832956/112602024-74cc4900-8e13-11eb-8fac-b3aaf2e0a1cb.png">
+</p>
+
 
 <h2>A* Algorithm for the pathFinder.py</h2>
 
