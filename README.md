@@ -79,12 +79,14 @@ The A* Algorithm works in an 3D environment. It is using numpy arrays to display
 
 <h2>Further development</h2>
 
-We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
-design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
+This project challenged us with combining knowledge in artificial intelligence algorithms, web design, geometry and software development. From last time we recognized how important the geometry and architecture was from the start of the project to prevent misunderstandings, which leads to time and resource consumption. Even though we had some changes during the project, scalability and reusability was always a core value which made modifications much more feasible. We still have some modifications for further development:
 
-+ The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.).
++ The capturing and reuse of knowledge in this KBE system is something that still has great potential. There should be some way of guiding the pipe to not change direction that often. Since the complexity of the resulting pipe will probably not work in an real life situation.
 
-+ Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
-and scaled for bigger usage.
++ The algorithm is already capable of handling obstacles, therefore there should be functionality in the userinterface to submit obstacles(other equipment or pipes that is not to be connected with the corresponding pipe), and the nodes the obstacles occupy should be weighted to infinity for the algorithm, therefore it will never cross the section.
 
-+ Adding material choice for the different components in the DFA file, all the infrastructure for material choice in the database is already established.
++ Userinterface should have a more detailed typing error checker, so that the program is 100% dummy proof.
+
++ There should be a much more sophisticated use of classes in the program. As the project stands now it is to often indexation of environment, equipment and etc. This is something we realised late in the project but is recognized as something we want to improve on.
+
++ More sophisticated piping modules. Now it is just an extruded line that creates a cylinder object. This should be a much more detailed and correct piping element. Luckily this is an easy modification since the architecture for adding this specific module to the DFA is already in place.
