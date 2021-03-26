@@ -102,7 +102,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"Aker_Solutions.png", "rb")
             theImg = bReader.read()
-            #print(theImg)
             s.wfile.write(theImg)
             
         elif path.find("search_50px.png") != -1:
@@ -114,7 +113,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"search_50px.png", "rb")
             theImg = bReader.read()
-            #print(theImg)
             s.wfile.write(theImg)
             
         elif path.find("heavy_piping_system.png") != -1:
@@ -126,7 +124,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"heavy_piping_system.png", "rb")
             theImg = bReader.read()
-            print(theImg)
             s.wfile.write(theImg)
             
     
@@ -140,7 +137,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"exampleSystem.png", "rb")
             theImg = bReader.read()
-            print(theImg)
             s.wfile.write(theImg)
             
         
@@ -207,7 +203,6 @@ class MyHandler(BaseHTTPRequestHandler):
 
 		# Check what is the path
         path = s.path
-        print("Path: ", path)
         if path.find("/yourParameters") != -1:
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
@@ -221,8 +216,6 @@ class MyHandler(BaseHTTPRequestHandler):
             print_order = ""
 
             custom_parameters = stringSplit(custom_parameters, param_line)
-
-            print("custom_parameters: ", custom_parameters)
 
             # getting the data arranged i a sensable way
             """
@@ -273,28 +266,17 @@ class MyHandler(BaseHTTPRequestHandler):
 
                 eq_out_eqN = list(custom_parameters[i+5].split(",")) # out position of the pip on equipment number N (relative to equipment)
                 eq_in_out.append(eq_out_eqN)
-
-             #for debugging purposes
-            print("env_size: ", env_size)
-            print("startPoint: ", startPoint)
-            print("endPoint: ", endPoint)
-            print("pipDia: ", pipDia)
-            print("eq_size_list: ", eq_size_list)
-            print("eq_pos: ", eq_pos)
-            print("eq_in_out: ", eq_in_out)
             
 
             
 			# check if input is valid
             errorMsg = checkCustomerInput(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
-            print("Check if the input is valid: ", errorMsg)
 
             messageToCustomer = "Something wrong has happened.<br>"
             inputError = False
             for i in errorMsg: # going through the error messages
                 if "ok" not in i:
                     inputError = True
-                    print("in error messages checking: ", i)
                     messageToCustomer += i + " "
                     #be brukeren skrive inn på nytt og gi tilbakemelding på hva som er feil. 
                     # send brukeren til yourParameters"
@@ -320,19 +302,13 @@ class MyHandler(BaseHTTPRequestHandler):
             
             # string parsing av customer info ( name, number..)
             custommerInfo = stringSplit(custommerInfo, param_line)
-            print("Customer info (name, email, company): ", custommerInfo)
             name= custommerInfo[0]
             pNumber= custommerInfo[1]
             eMail= custommerInfo[2]
             compName= custommerInfo[3]
 
-            # call make path (systemDesigner)
-            #print("startpoint: ",startPoint)
-            #print("endpoint: ", endPoint)
             systemPathObject = pathInterpreter.pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, num_node_ax, pipDia)
-            #print("systemPathObject: ", systemPathObject)
             systemPath = systemPathObject.makePath()
-            print("VI ER FERDIG MED MAKEPATH!")
             
 
             # give new path to dfa template:
@@ -348,7 +324,6 @@ class MyHandler(BaseHTTPRequestHandler):
             content_len = int(s.headers.get('Content-Length'))
             post_body = s.rfile.read(content_len)
             param_line = post_body.decode()
-            print("Body: ", param_line)
             s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
 def stringSplit(paramContainer, param_line):
@@ -359,28 +334,13 @@ def stringSplit(paramContainer, param_line):
     
     #getting the parameter values
     key_val_pair = param_line.split('&')							#splitting the string at "&"
-    print("key_val_pair: ", key_val_pair)
     for i in range(len(paramContainer)): 						#itterating through the custom_parameter list
         paramContainer[i] = key_val_pair[i].split('=')[1]		#spliting at "=" to only get the value
         if "+" in paramContainer[i]:
             paramContainer[i]= paramContainer[i].replace("+", " ")
 
     return paramContainer
-
-#IMPLEMENTATION WILL COME, FOR NOW LOGIC IS MADE IN systemDesigner.py
-class makeSystem: 
-
-    def __init__(self):
-
-    #Cylinder(x, y, z, diameter, height, direction, color, material)
-    #Cone(x, y, z, baseDiameter, topDiameter, height, direction, color, material)
-        '''
-        def run_model(self):
-            return -1
-        '''
-        
 	
-
  
 if __name__ == '__main__':
 

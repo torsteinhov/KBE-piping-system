@@ -17,9 +17,6 @@ class pipeSystem:
         self.endPoint = endPoint # end point of the pipe
         self.num_node_ax = num_node_ax # number of nodes to divide the environment into along one axis
         self.pipeDia = pipeDia
-        print("----------------------")
-        print("pathIntrepretator, env_size: ", self.env_size)
-        print("----------------------")
 
         self.distanceBetweenNodes = max(int(env_size[0]),int(env_size[1]),int(env_size[2]))/num_node_ax
 
@@ -64,7 +61,7 @@ class pipeSystem:
             midPoint = [int(eq_pos[0])+int(eq_size[0])/2, int(eq_pos[1])+int(eq_size[1])/2, int(eq_pos[2])+int(eq_size[2])]
 			
         else:
-            print("Not valid mid point on quipment!!!")
+            print("Not valid mid point on equipment!")
             print("equipment size: ", eq_size)
             print("Invalid side: ", point)
             print("Equipment position: ", eq_pos)
@@ -109,54 +106,31 @@ class pipeSystem:
 
         points2reach.append(self.endPoint) #finally adding the endpoint to the list of all points 2 reach globally
 
-        #print("points2reach: ", points2reach)
         if len(points2reach)%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of points to reach is not even! Check this out!")
-
-        print("----------------------")
-        print("pathIntrepretator, env_size: ", self.env_size)
-        print("----------------------")
 
 
         # then we need to convert the points (global) to nodes
         nodes2reach = [] # a list of all nodes we want to reach
         # this is how it will look: nodes2reach = [A_node,eq1_node_in, eq1_node_out, eq2_node_in, eq2_node_out, eq3_node_in, eq3_node_out, B_node]
-        '''
-        for i in points2reach:
-            # a fix for the problem where the algorithm gets into an infinite loop, when moving along the edge of the environment
-            if i == points2reach[-1]:
-                for j in range(len(points2reach[-1])):
-                    if i[j] == max(int(env_size[0]),int(env_size[1]),int(env_size[2])):
-                        i[j] -= 1
-                        print("i[j]: ", i[j])
-                        break
-        '''
 
         for i in range(len(points2reach[-1])):
-            print("before if: points2reach[-1]: ", points2reach)
             value = max(self.env_size[0],self.env_size[1],self.env_size[2])
-            print("value: ",value)
             if points2reach[-1][i] == value:
                 points2reach[-1][i] = value - 1
-                print("after if: points2reach[-1]: ", points2reach)
             
         for j in points2reach:
             nodeOfPoint = self.coordinate2node(j)
             nodes2reach.append(nodeOfPoint)
-        print("nodes2reach: ", nodes2reach)
         
         if int(len(nodes2reach))%2 !=0 : #if the number of elements in nodes2reach not is even, there is an error
             print("Number of nodes is not even! Check this out!")
-
-        #print("nodes2reach: ", nodes2reach)
-        #print("len(nodes2reach): ", len(nodes2reach)/2)
 
         # collecting all the paths between the nodes to reach in a list
         node_paths_all = []
         # iterates over every second step in nodes to reach, because we want the path between A and eq1In, eq1Out and eq2In. We do NOT want the path between eq1In and eq1Out
         for i in range(0,len(nodes2reach), 2):
             path_nodes = aStar(int(self.num_node_ax), nodes2reach[i], nodes2reach[i+1])
-            print("path_node: ", path_nodes)
             node_paths_all.append(path_nodes)
 
 
@@ -168,33 +142,3 @@ class pipeSystem:
             point_paths_all.append(path_points)
 
         return point_paths_all
-
-        
-
-#def __init__(self, num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint, endPoint, num_node_ax: int, pipeDia: float):
-"""
-num_eq = 3
-eq_size_list = [[110,110,110],[110,110,110],[110,110,110]]
-eq_pos = [[1000,1000,1000],[2000,1500,3000], [3000,2000,1000]]
-env_size = [4000,4000,4000]
-eq_in_out = [[0,10,10], [100,10,10],[0,10,10],[100,10,10],[0,10,10],[100,10,10]]
-startPoint = [0,2000,2000]
-endPoint = [4000, 2000,2000]
-pipeDia =  50.8
-"""
-#processSystem = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
-#print(processSystem.coordinate2node([100,100,100]))
-#print(processSystem.node2point([50,50,50]))
-#print(processSystem.nodePath2pointPath([[1,1,1],[2,2,2],[3,3,3],[3,4,4]]))
-#print(processSystem.eqInOutGlobalPoint([250,250,250],[500,500,500],[1000,1000,1000]))
-
-#print(processSystem.makePath())
-#processSystem.run_model()
-
-
-#testInOutGlobalPoint = pipeSystem(num_eq, eq_size_list, eq_pos, eq_in_out, env_size, startPoint, endPoint, 100, pipeDia)
-
-# point, eq_size, eq_pos
-#print("Test av eqInOutGlobalPoint", testInOutGlobalPoint.eqInOutGlobalPoint([50,40,30] ,[50,70,60], [100,20,0]))
-
-#print("Test av eqInOutGlobalPoint", testInOutGlobalPoint.eqInOutGlobalPoint([10,10,10] ,[10,70,60], [1000,2000,1000]))

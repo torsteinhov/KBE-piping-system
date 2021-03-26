@@ -158,7 +158,7 @@ radius, <pipe_radius>;
 start_angle, 0;
 end_angle, 360;
 center, Point(<start_point>);
-#X-Axis, Vector(<X_axis>);
+#X_Axis, Vector(<X_axis>);
 Y_Axis, Vector(<Y_axis>);
 };
 """
@@ -224,7 +224,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
     global templateForPipeSys, equipmentTemplate, endFolder
     
     txt = templateForPipeSys # copy the template
-    print("before:", txt)
 
     custommerInfoParams = ['<CUSTOMER_NAME>', '<NUMBER>', '<EMAIL>', '<COMPANY_NAME>']
     for i in range(len(custommerInfo)):
@@ -240,7 +239,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
     '''CODE FOR ENVIRONMENT BELOW'''
     for i in range(len(envParams)):
         txt = txt.replace(str(envParams[i]), str(env_size[i]))
-    print("Inserted evironment params \n:", txt)
     
 
     '''CODE FOR EQUIPMENT BELOW'''
@@ -284,7 +282,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
             pointStringA = str(localPath[point])
             pointStringA = pointStringA.strip("[")
             pointStringA = pointStringA.strip("]")
-            print("pointStringA: ", pointStringA)
             pipeResult[counter] = pipeResult[counter].replace("<Point_A>",pointStringA)
 
             pointStringB = str(localPath[point+1])
@@ -318,7 +315,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
 
         if i == 0:
             pointVariable = path[i][0]
-            print("pointVarable: ", pointVariable)
             Y_axis = str(dirIntoEnvironment(pointVariable,env_size))
         else:
             pointVariable = eq_in_out[counter_out_side]
@@ -326,6 +322,7 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
 
         pointVariable = str(pointVariable).strip("[")
         pointVariable = pointVariable.strip("]")
+        pointVariable = pointVariable.replace("'","")
         pipeProfile = pipeProfile.replace("<start_point>",pointVariable)
         Y_axis = Y_axis.strip("[")
         Y_axis = Y_axis.strip("]")
@@ -356,9 +353,6 @@ def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_
         pipePaths += pipeLine
     
     txt = txt.replace("<PIPE_PATHS_COMES_HERE>", pipePaths)
-
-
-    print("done dfa file:", txt)
 
     f = open(yourLocation + endFolder + "PipeSys_"+filename+".dfa", "w")
     f.write(txt)

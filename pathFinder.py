@@ -68,7 +68,6 @@ def aStar(amount,start,end):
                 path.append(current.position)
                 current = current.parent
             #since it iterates back when reaching final node, we get the path from end -> start, we therefore want to flip it
-            #print("Path: ", path[::-1])
             return path[::-1]
 
         children = []
