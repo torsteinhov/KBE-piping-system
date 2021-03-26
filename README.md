@@ -37,7 +37,7 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 <br>
 <h3>NXServer.py</h3>
 
-**Main coordinating unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html. Calls on pathInterpreter.py with the data and recieves a path in coordinates. Based on these result, calls on DFAUpdaterPipeSystem.py to write the final DFA. **
+**Main coordinating unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html. Calls on pathInterpreter.py with the data and recieves a path in coordinates. Based on these result, calls on DFAUpdaterPipeSystem.py to write the final DFA**
 
 | Method | Functionality |
 | --- | --- |
@@ -48,7 +48,7 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 
 <h3>pathInterpreter.py</h3>
 
-**Translates path from pathFinder to coordinates in CAD environment and adjust to input/outlet positions on equipment. Calls on pathFinder to get the different paths between start-eq1-eq2-eq3-end, in node format and translates to coordinates in real environment. **
+**Translates path from pathFinder to coordinates in CAD environment and adjust to input/outlet positions on equipment. Calls on pathFinder to get the different paths between start-eq1-eq2-eq3-end, in node format and translates to coordinates in real environment**
 
 | Method | Functionality |
 | --- | --- |
@@ -60,7 +60,7 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 
 <h3>pathFinder.py</h3>
 
-**Finds the shortest path between two nodes in 3D, using an A* algorithm. Consists of a Node class and the actual algorithm that parses through the open list and explores all possible paths with a heuristic of the euclidean distance to the end goal as a guide. **
+**Finds the shortest path between two nodes in 3D, using an A* algorithm. Consists of a Node class and the actual algorithm that parses through the open list and explores all possible paths with a heuristic of the euclidean distance to the end goal as a guide**
 
 | Method | Functionality |
 | --- | --- |
@@ -68,7 +68,7 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 
 <h3>DFAUpdaterPipeSystem.py</h3>
 
-**Based on data given from NXServer regarding the path, environment and equipment. Strings of template Knowledge Fusion childs are declared and for loops iterates through the data, overwrites the template child and appends to the final DFA. The result is a piping system that has the shortest path between start-, equipment- and end position. **
+**Based on data given from NXServer regarding the path, environment and equipment. Strings of template Knowledge Fusion childs are declared and for loops iterates through the data, overwrites the template child and appends to the final DFA. The result is a piping system that has the shortest path between start-, equipment- and end position**
 
 | Method | Functionality |
 | --- | --- |
