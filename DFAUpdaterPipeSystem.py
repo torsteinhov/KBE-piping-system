@@ -202,7 +202,7 @@ def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size o
 		return dirInEq
 				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list, yourLocation:str):
-    global templateForPipeSys, equipmentTemplate, yourLoaction, endFolder
+    global templateForPipeSys, equipmentTemplate, endFolder
     # kopierer block for antall equipment
     
     filename = customerCompany +"_" +customerName

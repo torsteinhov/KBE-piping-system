@@ -246,7 +246,7 @@ class MyHandler(BaseHTTPRequestHandler):
             eq_in_out = []
 
             num_eq = 3 # hardcoded
-            num_node_ax = 100 # hardcoded
+            num_node_ax = 40 # hardcoded
 
             # from reading the param line we know that the 6 first parameters are for the environment, 
             # then the 6 next params are for eq1, the 6 params after that for eq2, and so on
