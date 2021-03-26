@@ -10,6 +10,13 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 --------------PIPE-PROFILE---------------
 #-
 
+#+
+Information about the customer:
+    Name: <CUSTOMER_NAME>
+    Company: <COMPANY_NAME>
+    Number: <NUMBER>
+    E-mail: <EMAIL>
+#-
 
 #+
 ---------------ENVIRONMENT-----------------
@@ -201,15 +208,21 @@ def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size o
 
 		return dirInEq
 				
-def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, customerName: str, customerCompany: str, path: list, yourLocation:str):
+def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, custommerInfo: list, path: list, yourLocation:str):
     global templateForPipeSys, equipmentTemplate, endFolder
-    # kopierer block for antall equipment
     
-    filename = customerCompany +"_" +customerName
-    
-    txt = templateForPipeSys
+    txt = templateForPipeSys # copy the template
     print("before:", txt)
+
+    custommerInfoParams = ['<CUSTOMER_NAME>', '<NUMBER>', '<EMAIL>', '<COMPANY_NAME>']
+    for i in range(len(custommerInfo)):
+        txt = txt.replace(custommerInfoParams[i], custommerInfo[i])
+
+    customerCompany = custommerInfo[3]
+    customerName = custommerInfo[0]
+    filename = customerCompany.replace(" ", "") +"_" +customerName.replace(" ", "")
     txt = txt.replace("<customerName_company>", filename)
+    
     envParams = ["<envX>", "<envY>", "<envZ>"]
     
     '''CODE FOR ENVIRONMENT BELOW'''
