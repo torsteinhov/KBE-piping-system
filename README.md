@@ -27,3 +27,60 @@ The information flow starts when the customer submits data through the User Inte
 ![](https://user-images.githubusercontent.com/77832956/111148182-9dd71900-858b-11eb-8d45-45eeb49e906a.png) |  ![](https://user-images.githubusercontent.com/77832956/111148221-aa5b7180-858b-11eb-9230-e338ec759257.png)
 
 The A* Algorithm works in an 3D environment. It is using numpy arrays to display a workable environment, and the algorithm therefore has to consider 26 different potential paths for its next move. Accordingly, the weight of the different paths is calculated using Pythagoras theorem. Move along one axis => path cost = 1, two axis => path cost = sqrt(2), three axis => path cost = sqrt(3). The time complexity of the algorithm is very dependent on the success of the heuristic, and never better then O(|V|+|E|). The heuristic for this algorithm is the euclidean distance to the end node. This is a great solution for this problem since it allows for the algorithm to prune away many of the nodes an uninformed search would expand.
+
+<h3>NXServer.py</h3>
+
+**Main coordinating unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html. Calls on pathInterpreter.py with the data and recieves a path in coordinates. Based on these result, calls on DFAUpdaterPipeSystem.py to write the final DFA.**
+
+| Method | Functionality |
+| --- | --- |
+| do_HEAD | sends the headers it would send for the equivalent GET request |
+| do_GET | Gets a request from the path given |
+| do_POST | Posts a request to the path given |
+| stringSplit | Parses the input params from the customer and gives workable information for us to process |
+
+<h3>pathInterpreter.py</h3>
+
+**Translates path from pathFinder to coordinates in CAD environment and adjust to input/outlet positions on equipment. Calls on pathFinder to get the different paths between start-eq1-eq2-eq3-end, in node format and translates to coordinates in real environment.**
+
+| Method | Functionality |
+| --- | --- |
+| coordinate2node | **help function**: Takes in a point in the environment and gives out corresponding node |
+| node2point | **help function**: Takes in a node and gives out corresponding point in the environment |
+| nodePath2pointPath | **help function**: Takes in a path of nodes and returns a path in environment coordinates |
+| eqInOutGlobalPoint | Takes in information regarding the equipment, size, position and inlet/outlet. Returns the midpoint of the correct side to connect inlet/outlet. |
+| makePath | Uses all the help functions to actually process the data from pathFinder. Returns a path with coordinates related to the environment and the equipment. |
+
+<h3>pathFinder.py</h3>
+
+**Finds the shortest path between two nodes in 3D, using an A* algorithm. Consists of a Node class and the actual algorithm that parses through the open list and explores all possible paths with a heuristic of the euclidean distance to the end goal as a guide.**
+
+| Method | Functionality |
+| --- | --- |
+| aStar | Returns a list of 3D tuples which makes up the path from start node to end node |
+
+<h3>DFAUpdaterPipeSystem.py</h3>
+
+**Based on data given from NXServer regarding the path, environment and equipment. Strings of template Knowledge Fusion childs are declared and for loops iterates through the data, overwrites the template child and appends to the final DFA. The result is a piping system that has the shortest path between start-, equipment- and end position.**
+
+| Method | Functionality |
+| --- | --- |
+| dirIntoEnvironment | Gives the direction into the cuboid. This is for the pipe_profile child in the DFA code, which needs information regarding the X and Y axis to draw the circular profile of the pipe to be extruded. We have struggled a bit with the implementation of getting correct orientation for the profiles. |
+| makeDFA | Takes in all the processed data, overwrites template strings and appends to the DFA. |
+
+<h2>How to run:</h2>
+
++ Run NXServer.py **interact with webpage**.
++ DFA file ready to open in NX.
+
+<h2>Further development</h2>
+
+We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
+design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
+
++ The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.).
+
++ Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
+and scaled for bigger usage.
+
++ Adding material choice for the different components in the DFA file, all the infrastructure for material choice in the database is already established.
