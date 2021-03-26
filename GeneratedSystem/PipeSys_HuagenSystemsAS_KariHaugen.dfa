@@ -1,0 +1,459 @@
+#! NX/KF 4.0
+DefClass: PipeSys_HuagenSystemsAS_KariHaugen (ug_base_part);
+    (number parameter) environmentX: 2000;
+    (number parameter) environmentY: 4000;
+    (number parameter) environmentZ: 8000; 
+
+#+
+--------------PIPE-PROFILE---------------
+#-
+
+#+
+Information about the customer:
+    Name: Kari Haugen
+    Company: Huagen Systems AS
+    Number: 33332432
+    E-mail: kari@haugen.no
+#-
+
+#+
+---------------ENVIRONMENT-----------------
+#-
+
+(Child) environment_line1: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(environmentX:,0,0); 
+}; 
+
+(Child) environment_line2: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(0,environmentY:,0); 
+}; 
+
+(Child) environment_line3: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,0); 
+ End_Point, Point(0,0,environmentZ:); 
+}; 
+
+(Child) environment_line4: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,0); 
+ End_Point, Point(environmentX:,environmentY:,0); 
+}; 
+
+(Child) environment_line5: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,0); 
+ End_Point, Point(environmentX:,0,environmentZ:); 
+}; 
+
+(Child) environment_line6: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,environmentY:,0); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line7: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,0); 
+ End_Point, Point(0,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line8: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,0); 
+ End_Point, Point(environmentX:,environmentY:,0); 
+}; 
+
+(Child) environment_line9: {
+ Class, ug_line; 
+ Start_Point, Point(0,environmentY:,environmentZ:); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line10: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,environmentZ:); 
+ End_Point, Point(0,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line11: {
+ Class, ug_line; 
+ Start_Point, Point(environmentX:,0,environmentZ:); 
+ End_Point, Point(environmentX:,environmentY:,environmentZ:); 
+}; 
+
+(Child) environment_line12: {
+ Class, ug_line; 
+ Start_Point, Point(0,0,environmentZ:); 
+ End_Point, Point(environmentX:,0,environmentZ:); 
+}; 
+
+
+(Child) block_1: {
+    class, ug_block;
+    length, 500;
+    width, 500;
+    height, 500;
+    origin, Point(500,1000,7000);
+};
+
+# Body colored depending on the volume of the block
+(Child) body_colored_1: { 
+    class, ug_body; 
+    feature, {block_1:};  
+    layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
+
+
+(Child) block_2: {
+    class, ug_block;
+    length, 500;
+    width, 700;
+    height, 300;
+    origin, Point(1000,2000,5000);
+};
+
+# Body colored depending on the volume of the block
+(Child) body_colored_2: { 
+    class, ug_body; 
+    feature, {block_2:};  
+    layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
+
+
+(Child) block_3: {
+    class, ug_block;
+    length, 400;
+    width, 500;
+    height, 300;
+    origin, Point(1500,3000,2000);
+};
+
+# Body colored depending on the volume of the block
+(Child) body_colored_3: { 
+    class, ug_body; 
+    feature, {block_3:};  
+    layer, 1; 
+    color, ug_askClosestColor(BLUE); 
+};
+
+
+
+
+(child) pipe_profile0: {
+class, ug_arc;
+radius, 25.4;
+start_angle, 0;
+end_angle, 360;
+center, Point(0.0, 1000.0, 7000.0);
+#X-Axis, Vector(<X_axis>);
+Y_Axis, Vector(0, 0, 1);
+};
+
+(child) pipe_profile1: {
+class, ug_arc;
+radius, 25.4;
+start_angle, 0;
+end_angle, 360;
+center, Point(600.0, 1400.0, 7200.0);
+#X-Axis, Vector(<X_axis>);
+Y_Axis, Vector(0, 0, 1);
+};
+
+(child) pipe_profile2: {
+class, ug_arc;
+radius, 25.4;
+start_angle, 0;
+end_angle, 360;
+center, Point(1200.0, 2200.0, 5000.0);
+#X-Axis, Vector(<X_axis>);
+#Y_Axis, Vector(1, 0, 0);
+};
+
+(child) pipe_profile3: {
+class, ug_arc;
+radius, 25.4;
+start_angle, 0;
+end_angle, 360;
+center, Point(1400.0, 3200.0, 2000.0);
+#X-Axis, Vector(<X_axis>);
+#Y_Axis, Vector(1, 0, 0);
+};
+
+
+(child) pipe0: 
+{ class, ug_swept;
+  guide, {{forward, pipePath0:}};
+  section, {{forward, pipe_profile0:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe1: 
+{ class, ug_swept;
+  guide, {{forward, pipePath1:}};
+  section, {{forward, pipe_profile1:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe2: 
+{ class, ug_swept;
+  guide, {{forward, pipePath2:}};
+  section, {{forward, pipe_profile2:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+(child) pipe3: 
+{ class, ug_swept;
+  guide, {{forward, pipePath3:}};
+  section, {{forward, pipe_profile3:}};
+  scaling, {scale_constant, 1};
+  alignment_init, parameter;
+  orientation, {orientation_fixed};
+  tolerances, {0, 0, 0};
+};
+
+
+
+
+(Child) pipe_number_0: {
+    Class, ug_line; 
+    Start_Point, Point(0.0, 1000.0, 7000.0); 
+    End_Point, Point(200.0, 1000.0, 7200.0); 
+}; 
+
+(Child) pipe_number_1: {
+    Class, ug_line; 
+    Start_Point, Point(200.0, 1000.0, 7200.0); 
+    End_Point, Point(400.0, 1000.0, 7200.0); 
+}; 
+
+(Child) pipe_number_2: {
+    Class, ug_line; 
+    Start_Point, Point(400.0, 1000.0, 7200.0); 
+    End_Point, Point(600.0, 1200.0, 7400.0); 
+}; 
+
+(Child) pipe_number_3: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1400.0, 7200.0); 
+    End_Point, Point(600.0, 1400.0, 7000.0); 
+}; 
+
+(Child) pipe_number_4: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1400.0, 7000.0); 
+    End_Point, Point(600.0, 1400.0, 6800.0); 
+}; 
+
+(Child) pipe_number_5: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1400.0, 6800.0); 
+    End_Point, Point(600.0, 1400.0, 6600.0); 
+}; 
+
+(Child) pipe_number_6: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1400.0, 6600.0); 
+    End_Point, Point(600.0, 1600.0, 6400.0); 
+}; 
+
+(Child) pipe_number_7: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1600.0, 6400.0); 
+    End_Point, Point(600.0, 1600.0, 6200.0); 
+}; 
+
+(Child) pipe_number_8: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1600.0, 6200.0); 
+    End_Point, Point(600.0, 1800.0, 6000.0); 
+}; 
+
+(Child) pipe_number_9: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1800.0, 6000.0); 
+    End_Point, Point(600.0, 1800.0, 5800.0); 
+}; 
+
+(Child) pipe_number_10: {
+    Class, ug_line; 
+    Start_Point, Point(600.0, 1800.0, 5800.0); 
+    End_Point, Point(800.0, 2000.0, 5600.0); 
+}; 
+
+(Child) pipe_number_11: {
+    Class, ug_line; 
+    Start_Point, Point(800.0, 2000.0, 5600.0); 
+    End_Point, Point(800.0, 2000.0, 5400.0); 
+}; 
+
+(Child) pipe_number_12: {
+    Class, ug_line; 
+    Start_Point, Point(800.0, 2000.0, 5400.0); 
+    End_Point, Point(1000.0, 2200.0, 5200.0); 
+}; 
+
+(Child) pipe_number_13: {
+    Class, ug_line; 
+    Start_Point, Point(1000.0, 2200.0, 5200.0); 
+    End_Point, Point(1000.0, 2200.0, 5000.0); 
+}; 
+
+(Child) pipe_number_14: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 5000.0); 
+    End_Point, Point(1200.0, 2200.0, 4800.0); 
+}; 
+
+(Child) pipe_number_15: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 4800.0); 
+    End_Point, Point(1200.0, 2200.0, 4600.0); 
+}; 
+
+(Child) pipe_number_16: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 4600.0); 
+    End_Point, Point(1200.0, 2200.0, 4400.0); 
+}; 
+
+(Child) pipe_number_17: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 4400.0); 
+    End_Point, Point(1200.0, 2200.0, 4200.0); 
+}; 
+
+(Child) pipe_number_18: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 4200.0); 
+    End_Point, Point(1200.0, 2200.0, 4000.0); 
+}; 
+
+(Child) pipe_number_19: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2200.0, 4000.0); 
+    End_Point, Point(1200.0, 2400.0, 3800.0); 
+}; 
+
+(Child) pipe_number_20: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2400.0, 3800.0); 
+    End_Point, Point(1200.0, 2400.0, 3600.0); 
+}; 
+
+(Child) pipe_number_21: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2400.0, 3600.0); 
+    End_Point, Point(1200.0, 2600.0, 3400.0); 
+}; 
+
+(Child) pipe_number_22: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2600.0, 3400.0); 
+    End_Point, Point(1200.0, 2600.0, 3200.0); 
+}; 
+
+(Child) pipe_number_23: {
+    Class, ug_line; 
+    Start_Point, Point(1200.0, 2600.0, 3200.0); 
+    End_Point, Point(1400.0, 2800.0, 3000.0); 
+}; 
+
+(Child) pipe_number_24: {
+    Class, ug_line; 
+    Start_Point, Point(1400.0, 2800.0, 3000.0); 
+    End_Point, Point(1400.0, 2800.0, 2800.0); 
+}; 
+
+(Child) pipe_number_25: {
+    Class, ug_line; 
+    Start_Point, Point(1400.0, 2800.0, 2800.0); 
+    End_Point, Point(1600.0, 3000.0, 2600.0); 
+}; 
+
+(Child) pipe_number_26: {
+    Class, ug_line; 
+    Start_Point, Point(1600.0, 3000.0, 2600.0); 
+    End_Point, Point(1600.0, 3000.0, 2400.0); 
+}; 
+
+(Child) pipe_number_27: {
+    Class, ug_line; 
+    Start_Point, Point(1600.0, 3000.0, 2400.0); 
+    End_Point, Point(1800.0, 3200.0, 2200.0); 
+}; 
+
+(Child) pipe_number_28: {
+    Class, ug_line; 
+    Start_Point, Point(1800.0, 3200.0, 2200.0); 
+    End_Point, Point(1800.0, 3200.0, 2000.0); 
+}; 
+
+(Child) pipe_number_29: {
+    Class, ug_line; 
+    Start_Point, Point(1400.0, 3200.0, 2000.0); 
+    End_Point, Point(1600.0, 3200.0, 1800.0); 
+}; 
+
+(Child) pipe_number_30: {
+    Class, ug_line; 
+    Start_Point, Point(1600.0, 3200.0, 1800.0); 
+    End_Point, Point(1800.0, 3200.0, 1600.0); 
+}; 
+
+(Child) pipe_number_31: {
+    Class, ug_line; 
+    Start_Point, Point(1800.0, 3200.0, 1600.0); 
+    End_Point, Point(1800.0, 3200.0, 1400.0); 
+}; 
+
+(Child) pipe_number_32: {
+    Class, ug_line; 
+    Start_Point, Point(1800.0, 3200.0, 1400.0); 
+    End_Point, Point(2000.0, 3000.0, 1200.0); 
+}; 
+
+(Child) pipe_number_33: {
+    Class, ug_line; 
+    Start_Point, Point(2000.0, 3000.0, 1200.0); 
+    End_Point, Point(2000.0, 3000.0, 1000.0); 
+}; 
+
+
+
+(child) pipePath0: {
+Class, ug_curve_join;
+profile, {pipe_number_0:,pipe_number_1:,pipe_number_2:};
+};
+
+(child) pipePath1: {
+Class, ug_curve_join;
+profile, {pipe_number_3:,pipe_number_4:,pipe_number_5:,pipe_number_6:,pipe_number_7:,pipe_number_8:,pipe_number_9:,pipe_number_10:,pipe_number_11:,pipe_number_12:,pipe_number_13:};
+};
+
+(child) pipePath2: {
+Class, ug_curve_join;
+profile, {pipe_number_14:,pipe_number_15:,pipe_number_16:,pipe_number_17:,pipe_number_18:,pipe_number_19:,pipe_number_20:,pipe_number_21:,pipe_number_22:,pipe_number_23:,pipe_number_24:,pipe_number_25:,pipe_number_26:,pipe_number_27:,pipe_number_28:};
+};
+
+(child) pipePath3: {
+Class, ug_curve_join;
+profile, {pipe_number_29:,pipe_number_30:,pipe_number_31:,pipe_number_32:,pipe_number_33:};
+};
+
+
