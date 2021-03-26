@@ -16,7 +16,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -47,10 +47,10 @@ eq3_out= "x,y,z" #x%2Cy%2Cz
 messageToCustomer ="" # error message to the customer about typos
 
 #Info about the customer:
-name= "Your Name"
-pNumber= "Your number"
-eMail= "Your e-mail"
-compName= "Your company"
+name= "Ola Nordmann"
+pNumber= "12345678"
+eMail= "ola.nordmann@mail.com"
+compName= "Nordmann AS"
 
 custom_parameters = [envSizeX, envSizeY, envSizeZ, startA, endB, pipe_dia, eq1_sideX, eq1_sideY, eq1_sideZ, eq1_pos, eq1_in, eq1_out, eq2_sideX, eq2_sideY, eq2_sideZ, eq2_pos, eq2_in, eq2_out, eq3_sideX, eq3_sideY, eq3_sideZ, eq3_pos, eq3_in, eq3_out] 
 custommerInfo = [name, pNumber, eMail, compName]

@@ -52,11 +52,11 @@
       <div class="col-xs-12 col-sm-6 col-md-9 neg-marg left">
         <div class="box box-what blue">
             <h3 class="h2">
-                Automatic pipe system generator.
+                Piping system generator
             </h3> 
-            <p>some cool information</p>
-            <p>Her kommer det masse bra greier. <br>bare vent å se.</p> 
-            <p>bare vi får nok infor til at disse to boksene matcher.</p>     
+            <p>Automatic CAD generated piping system.</p>
+            <p>Saves time and resources.</p> 
+            <p>Based on A* shortest path algorithm and Knowledge Fusion programming language.</p>     
         </div>
       </div>
 
@@ -82,17 +82,17 @@
       <div class="row  display-option__full col col-12 col-md-12 col-sm-12">    
         <h2 class="h2 m-b-20">Your Story</h2>
           <div>
-            Upload your parameters for your system and we will maufacture a CAD-design soultion for your piping system. Equipment and environment wil be displayed as cuboids with sides in different sizes. Do not use spaces when writing the points.
+            Upload your parameters for the system and a CAD solution for your piping system will be produced. Equipment and environment wil be displayed as cuboids with desired parameters. Do not use spaces between coordinates. Input/Output position is local coordinates within the equipment cuboid.
             <div>
               <br>
               <table>
-                 <h3>Define environment and pipe </h3>
+                 <h3>Environment and Pipe: </h3>
                   <tr>
                     <th><label for="envSizeX">Env. width [mm]:</label></th>
                     <th><label for="envSizeY">Env. length [mm]:</label></th>
                     <th><label for="envSizeZ">Env. height [mm]:</label></th>
-                    <th><label for="startPointA">Starting point, A:</label></th>
-                    <th><label for="endPointB">End point, B:</label></th>
+                    <th><label for="startPointA">Starting point:</label></th>
+                    <th><label for="endPointB">End point:</label></th>
                     <th><label for="pipSize">Pipe size [inches]:</label></th>
                   </tr>
                   <tr>
@@ -113,19 +113,19 @@
             </div>
             <br>
             <div>
-              <h3>Define equipment</h3>
+              <h3>Equipment:</h3>
               <table>
                 <tr>
                   <th>Equipment number:</th>
-                  <th>Cuboid width [mm]</th>
-                  <th>Cuboid length [mm]</th>
-                  <th>Cuboid height [mm]</th>
-                  <th>Location in enviroment</th>
-                  <th>Input pose relative to eq:</th>
-                  <th>Output pose relative to eq:</th>
+                  <th>Cuboid width [mm]:</th>
+                  <th>Cuboid length [mm]:</th>
+                  <th>Cuboid height [mm]:</th>
+                  <th>Position in environment:</th>
+                  <th>Input relative to equipment:</th>
+                  <th>Output relative to equipment:</th>
                 </tr>
                 <tr>
-                  <td><label for="eq1">eq1:</label><br></td>
+                  <td><label for="eq1">Equipment 1:</label><br></td>
                   <td><input type="text" id="eq1_sideX" name="eq1_sideX" value="#eq1_sideX#"></td>
                   <td><input type="text" id="eq1_sideY" name="eq1_sideY" value="#eq1_sideY#"></td>
                   <td><input type="text" id="eq1_sideZ" name="eq1_sideZ" value="#eq1_sideZ#"></td>
@@ -134,7 +134,7 @@
                   <td><input type="text" id="eq1_out" name="eq1_out" value="#eq1_out#"></td>
                 </tr>
                 <tr>
-                  <td><label for="eq2">eq2:</label><br></td>
+                  <td><label for="eq2">Equipment 2:</label><br></td>
                   <td><input type="text" id="eq2_sideX" name="eq2_sideX" value="#eq2_sideX#"></td>
                   <td><input type="text" id="eq2_sideY" name="eq2_sideY" value="#eq2_sideY#"></td>
                   <td><input type="text" id="eq2_sideZ" name="eq2_sideZ" value="#eq2_sideZ#"></td>
@@ -143,7 +143,7 @@
                   <td><input type="text" id="eq2_out" name="eq2_out" value="#eq2_out#"></td>
                 </tr>
                 <tr>
-                  <td><label for="eq3">eq3:</label><br></td>
+                  <td><label for="eq3">Equipment 3:</label><br></td>
                   <td><input type="text" id="eq3_sideX" name="eq3_sideX" value="#eq3_sideX#"></td>
                   <td><input type="text" id="eq3_sideY" name="eq3_sideY" value="#eq3_sideY#"></td>
                   <td><input type="text" id="eq3_sideZ" name="eq3_sideZ" value="#eq3_sideZ#"></td>
@@ -165,7 +165,7 @@
       <div class="row"></div>
       <div class="row pad-b">
         <div class="col-xs-12 col-sm-6 col-md-9 neg-marg left"><div class="box box-what">
-          <p>Click preview to see your environment and equipments arrangement.</p>
+          <p>Press "Preview" to illustrate the system with given parameters for Environment and Equipment.</p>
           <div class="col-md-12">
             <input type="submit" value="Preview" class="button button-tertiary">
           </div>
@@ -185,7 +185,7 @@
   <div class="container">
     <div class="row pad-b">
       <h2>Order now</h2>
-      <p>If you click the "Order" button, we wil generate the pipe system for you and contact you when it is done.</p>
+      <p>Press the "Order" to send your order. We will generate pipes for your system and deliver your DFA file.</p>
     <form action="/sendOrder" method="POST">
       <label for="name">Name:</label><br>
       <input type="text" id="name" name="name" value="#name#"><br>
