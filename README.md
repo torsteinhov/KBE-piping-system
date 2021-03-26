@@ -1,6 +1,6 @@
 # KBE-piping-system
 
-In this project, we were challenged with making an automated piping design system. Based on parameters given in to the UI provided, an A* algorithm computes the shortest-path in 3D from start node, between equipment and to an end node. KBE was in focus for capture and systematically reuse of engineering knowledge, with the final goal of reducing time and costs of repetitive product development tasks. During the development of the program and algorithm, scalability was an aspect we wanted to strive for, and the solution we ended up with, may be adjusted to be used on other shortest-path tasks.
+In this project, we were challenged with making an automated piping design system. Based on parameters given in to the UI provided, an A* algorithm computes the shortest-path in 3D from start node, between equipment and to an end node. KBE was in focus for capture and systematically reuse of engineering knowledge, with the final goal of reducing time and costs of repetitive product development tasks. During the development of the program and algorithm, scalability was an aspect we wanted to strive for, and the solution we ended up with, may be adjusted to be used on other shortest-path tasks. This project challenged us with combining knowledge in artificial intelligence algorithms, web design, geometry and software development. From last time we recognized how important the geometry and architecture was from the start of the project to prevent misunderstandings, which leads to time and resource consumption.
 
    Example 1  |  Example 2  |  Example 3    
 :----------------------------:|:----------------------------:|:----------------------------:
@@ -80,8 +80,6 @@ The A* Algorithm works in an 3D environment. It is using numpy arrays to display
 + DFA file ready to open in NX.
 
 <h2>Further development</h2>
-
-This project challenged us with combining knowledge in artificial intelligence algorithms, web design, geometry and software development. From last time we recognized how important the geometry and architecture was from the start of the project to prevent misunderstandings, which leads to time and resource consumption. Even though we had some changes during the project, scalability and reusability was always a core value which made modifications much more feasible. We still have some modifications for further development:
 
 + The capturing and reuse of knowledge in this KBE system is something that still has great potential. There should be some way of guiding the pipe to not change direction that often. Since the complexity of the resulting pipe will probably not work in an real life situation.
 
