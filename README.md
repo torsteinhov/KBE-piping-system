@@ -60,7 +60,7 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 
 <h3>pathFinder.py</h3>
 
-**Finds the shortest path between two nodes in 3D, using an A* algorithm. Consists of a Node class and the actual algorithm that parses through the open list and explores all possible paths with a heuristic of the euclidean distance to the end goal as a guide**
+**Finds the shortest path between two nodes in 3D, using an A star algorithm. Consists of a Node class and the actual algorithm that parses through the open list and explores all possible paths with a heuristic of the euclidean distance to the end goal as a guide**
 
 | Method | Functionality |
 | --- | --- |
