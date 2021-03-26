@@ -32,6 +32,8 @@ The information flow starts when the customer submits data through the User Inte
 
 The A* Algorithm works in an 3D environment. It is using numpy arrays to display a workable environment, and the algorithm therefore has to consider 26 different potential paths for its next move. Accordingly, the weight of the different paths is calculated using Pythagoras theorem. Move along one axis => path cost = 1, two axis => path cost = sqrt(2), three axis => path cost = sqrt(3). The time complexity of the algorithm is very dependent on the success of the heuristic, and never better then O(|V|+|E|). The heuristic for this algorithm is the euclidean distance to the end node. This is a great solution for this problem since it allows for the algorithm to prune away many of the nodes an uninformed search would expand.
 
+<h2>Program files with corresponding methods</h2>
+<br>
 <h3>NXServer.py</h3>
 
 **Main coordinating unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html. Calls on pathInterpreter.py with the data and recieves a path in coordinates. Based on these result, calls on DFAUpdaterPipeSystem.py to write the final DFA.**
