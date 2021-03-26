@@ -95,6 +95,8 @@ The A* Algorithm is using numpy arrays to display a workable environment, and th
 
 + We planned out the architecture early, and therefore had a more clear perspective on the informationflow in the project.
 
++ None of the elements are hard coded. Everything is scalable and therefore more KBE-friendly, compared to last assignment.
+
 <h2>Further development</h2>
 
 + The capturing and reuse of knowledge in this KBE system is something that still has great potential. There should be some way of guiding the pipe to not change direction that often. Since the complexity of the resulting pipe will probably not work in an real life situation.
