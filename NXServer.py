@@ -338,7 +338,7 @@ class MyHandler(BaseHTTPRequestHandler):
             # give new path to dfa template:
                 # input params: new path list, env_size, eq_size_list, eq_pos, pipDia, company_name, custommer name.
             # save a file with new 
-            filename = makeDFA(num_eq, eq_size_list, eq_pos, env_size, startPoint, endPoint, pipDia, custommerInfo, systemPath, yourLocation)
+            filename = makeDFA(num_eq, eq_size_list, eq_pos,eq_in_out, env_size, startPoint, endPoint, pipDia, custommerInfo, systemPath, yourLocation)
 
             print("The order from ", name, ", ", compName, " is now stored in the folder 'GeneratedSystems' as ", filename, ".")
             s.do_GET()
