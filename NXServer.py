@@ -16,7 +16,7 @@ PORT_NUMBER = 1234
 
 Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #defining parameters to be changed by the custommer
 envSizeX="x"
@@ -116,7 +116,7 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             #print(theImg)
             s.wfile.write(theImg)
-            """
+            
         elif path.find("heavy_piping_system.png") != -1:
 			#Make right headers
             #s.send_response(200)
@@ -142,7 +142,7 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             print(theImg)
             s.wfile.write(theImg)
-            """
+            
         
         elif path.find("/orderDesign") != -1:
             s.send_response(200)
