@@ -116,7 +116,7 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             #print(theImg)
             s.wfile.write(theImg)
-            """
+        
         elif path.find("heavy_piping_system.png") != -1:
 			#Make right headers
             #s.send_response(200)
@@ -128,20 +128,20 @@ class MyHandler(BaseHTTPRequestHandler):
             theImg = bReader.read()
             print(theImg)
             s.wfile.write(theImg)
-            
+    
 
         elif path.find("exampleSystem.png") != -1:
 			#Make right headers
-            s.send_response(200)
-            s.send_header("Content-type", "image/png")
-            s.end_headers()
+            #s.send_response(200)
+            #s.send_header("Content-type", "image/png")
+            #s.end_headers()
 			#Read the file
 			#Write file.
             bReader = open(yourLocation + "HTML\\webImg\\"+"exampleSystem.png", "rb")
             theImg = bReader.read()
             print(theImg)
             s.wfile.write(theImg)
-            """
+        
         elif path.find("/orderDesign") != -1:
             s.send_response(200)
             s.send_header("Content-type", "text/html")
