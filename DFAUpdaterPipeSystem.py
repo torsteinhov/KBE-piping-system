@@ -10,6 +10,15 @@ DefClass: PipeSys_<customerName_company> (ug_base_part);
 --------------PIPE-PROFILE---------------
 #-
 
+<PIPE_PROFILE_COMES_HERE>
+
+
+#+
+--------------PIPE-CLASS-----------------
+#-
+
+<PIPE_CLASS_COMES_HERE>
+
 #+
 Information about the customer:
     Name: <CUSTOMER_NAME>
@@ -94,11 +103,14 @@ Information about the customer:
  End_Point, Point(environmentX:,0,environmentZ:); 
 }; 
 
+#+
+-------------EQUIPMENT----------
+#-
 <EQUIPMENT_COMES_HERE>
 
-<PIPE_PROFILE_COMES_HERE>
-
-<PIPE_CLASS_COMES_HERE>
+#+
+-------------PIPE---------------
+#-
 
 <PIPES_COMES_HERE>
 
