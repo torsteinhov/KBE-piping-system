@@ -219,7 +219,8 @@ def dirIntoEnvironment(point, eq_size): #takes in a point of a eq and the size o
 			dirInEq = [0,0,0]
 
 		return dirInEq
-				
+
+#Takes in data from customer and the final processed path, and overwrites template and appends to a final DFA file				
 def makeDFA(num_eq: int, eq_size_list: list, eq_pos: list, eq_in_out: list, env_size: list, startPoint: list, endPoint: list, pipDia: int, custommerInfo: list, path: list, yourLocation:str):
     global templateForPipeSys, equipmentTemplate, endFolder
     
