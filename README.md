@@ -4,7 +4,7 @@ In this project, we were challenged with making an automated piping design syste
 
    Example 1  |  Example 2 (tested with fewer nodes)   |  Example 3    
 :----------------------------:|:----------------------------:|:----------------------------:
-![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/HundredNodes/hundredNodes.jpg)  |  ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/FortyNodes/FortyNodes.jpg)   |   ![](https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png)
+![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/HundredNodes/hundredNodes.jpg)  |  ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/FortyNodes/FortyNodes.jpg)   |   ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/Harald_100nodes/Skjermbilde%202021-03-26%20102316.jpg)
 
 
 <h2>Architecture</h2>
