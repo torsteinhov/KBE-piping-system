@@ -2,10 +2,14 @@
 
 In this project, we were challenged with making an automated piping design system. Based on parameters given in to the UI provided, an A* algorithm computes the shortest-path in 3D from start node, between equipment and to an end node. KBE was in focus for capture and systematically reuse of engineering knowledge, with the final goal of reducing time and costs of repetitive product development tasks. During the development of the program and algorithm, scalability was an aspect we wanted to strive for, and the solution we ended up with, may be adjusted to be used on other shortest-path tasks.
 
-   Example 1  |  Example 2 (tested with fewer nodes)   |  Example 3    
+   Example 1  |  Example 2  |  Example 3    
 :----------------------------:|:----------------------------:|:----------------------------:
-![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/HundredNodes/hundredNodes.jpg)  |  ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/FortyNodes/FortyNodes.jpg)   |   ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/Harald_100nodes/Skjermbilde%202021-03-26%20102316.jpg)
+![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%201/ex1.jpg)  |  ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%204/ex4.jpg)   |   ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%203/ex3.jpg)
 
+<h2>User interface</h2>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77832956/112614911-1fe3ff00-8e22-11eb-8792-86f2b0b1a3ba.png">
+</p>
 
 <h2>Architecture</h2>
 <p align="center">
@@ -28,6 +32,8 @@ The information flow starts when the customer submits data through the User Inte
 
 The A* Algorithm works in an 3D environment. It is using numpy arrays to display a workable environment, and the algorithm therefore has to consider 26 different potential paths for its next move. Accordingly, the weight of the different paths is calculated using Pythagoras theorem. Move along one axis => path cost = 1, two axis => path cost = sqrt(2), three axis => path cost = sqrt(3). The time complexity of the algorithm is very dependent on the success of the heuristic, and never better then O(|V|+|E|). The heuristic for this algorithm is the euclidean distance to the end node. This is a great solution for this problem since it allows for the algorithm to prune away many of the nodes an uninformed search would expand.
 
+<h2>Program files with corresponding methods</h2>
+<br>
 <h3>NXServer.py</h3>
 
 **Main coordinating unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html. Calls on pathInterpreter.py with the data and recieves a path in coordinates. Based on these result, calls on DFAUpdaterPipeSystem.py to write the final DFA.**
@@ -75,12 +81,14 @@ The A* Algorithm works in an 3D environment. It is using numpy arrays to display
 
 <h2>Further development</h2>
 
-We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
-design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
+This project challenged us with combining knowledge in artificial intelligence algorithms, web design, geometry and software development. From last time we recognized how important the geometry and architecture was from the start of the project to prevent misunderstandings, which leads to time and resource consumption. Even though we had some changes during the project, scalability and reusability was always a core value which made modifications much more feasible. We still have some modifications for further development:
 
-+ The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.).
++ The capturing and reuse of knowledge in this KBE system is something that still has great potential. There should be some way of guiding the pipe to not change direction that often. Since the complexity of the resulting pipe will probably not work in an real life situation.
 
-+ Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
-and scaled for bigger usage.
++ The algorithm is already capable of handling obstacles, therefore there should be functionality in the userinterface to submit obstacles(other equipment or pipes that is not to be connected with the corresponding pipe), and the nodes the obstacles occupy should be weighted to infinity for the algorithm, therefore it will never cross the section.
 
-+ Adding material choice for the different components in the DFA file, all the infrastructure for material choice in the database is already established.
++ Userinterface should have a more detailed typing error checker, so that the program is 100% dummy proof.
+
++ There should be a much more sophisticated use of classes in the program. As the project stands now it is to often indexation of environment, equipment and etc. This is something we realised late in the project but is recognized as something we want to improve on.
+
++ More sophisticated piping modules. Now it is just an extruded line that creates a cylinder object. This should be a much more detailed and correct piping element. Luckily this is an easy modification since the architecture for adding this specific module to the DFA is already in place.
