@@ -2,6 +2,11 @@
 
 In this project, we were challenged with making an automated piping design system. Based on parameters given in to the UI provided, an A* algorithm computes the shortest-path in 3D from start node, between equipment and to an end node. KBE was in focus for capture and systematically reuse of engineering knowledge, with the final goal of reducing time and costs of repetitive product development tasks. During the development of the program and algorithm, scalability was an aspect we wanted to strive for, and the solution we ended up with, may be adjusted to be used on other shortest-path tasks.
 
+   Example 1  |  Example 2   |  Example 3    
+:----------------------------:|:----------------------------:|:----------------------------:
+![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/HundredNodes/hundredNodes.jpg)  |  ![](https://user-images.githubusercontent.com/77832956/109148159-2705e780-7766-11eb-8c0c-71c2c576eb49.png)   |   ![](https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png)
+
+
 <h2>Architecture</h2>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/77832956/112598690-3fbdf780-8e0f-11eb-8aab-5587ec60fea2.png">
