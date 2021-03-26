@@ -6,6 +6,10 @@ In this project, we were challenged with making an automated piping design syste
 :----------------------------:|:----------------------------:|:----------------------------:
 ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%201/ex1.jpg)  |  ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%204/ex4.jpg)   |   ![](https://github.com/torsteinhov/KBE-piping-system/blob/main/imagesOfGeneratedSystems/example%203/ex3.jpg)
 
+<h2>User interface</h2>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77832956/112614911-1fe3ff00-8e22-11eb-8792-86f2b0b1a3ba.png">
+</p>
 
 <h2>Architecture</h2>
 <p align="center">
