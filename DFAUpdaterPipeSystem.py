@@ -182,9 +182,6 @@ pipeClassTemplate = """(child) pipe<pipe_num>:
 
 """
 
-#Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\KBE-piping-system\\" #location
-#Torstein = "C:\\Kode\\GitHub\\KBE-piping-system\\" #location
-#yourLocation = Torstein #must be changed after whom is using it
 
 endFolder = "GeneratedSystem\\" #folder to store the final dfa files
 
